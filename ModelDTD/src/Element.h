@@ -15,6 +15,7 @@ class Element {
 
 public:
 	Element();
+	Element(string nom, string description);
 	virtual ~Element();
 
 	struct attribut
@@ -33,8 +34,6 @@ public:
 private:
 	string nom;
 	string description;
-
-
 	map<string,attribut> att;
 
 };

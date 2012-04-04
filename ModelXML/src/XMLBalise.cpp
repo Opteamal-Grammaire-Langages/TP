@@ -93,3 +93,10 @@ string XMLBalise::getChildrenTypes(){
 string XMLBalise::getType(){
 	return name;
 }
+
+list<XMLElement *> XMLBalise::getElements(){
+	return this->elements;
+}
+string XMLBalise::getName(){
+	return name;
+}

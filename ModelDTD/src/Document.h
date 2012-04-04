@@ -9,8 +9,8 @@
 #define DOCUMENT_H_
 #include "Element.h"
 #include <list>
-using namespace std;
 
+using namespace std;
 
 class Document {
 public:
@@ -18,10 +18,12 @@ public:
 
 	Document();
 	virtual ~Document();
-	list<Element> getListeElements();
+	list<Element*> getListeElements();
+	string getDescriptionElement(string elem);
+	void addElement(Element * elem);
 
 private:
-	list<Element> listeElements;
+	list<Element*> listeElements;
 };
 
 #endif /* DOCUMENT_H_ */

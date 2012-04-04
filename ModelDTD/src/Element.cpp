@@ -15,3 +15,8 @@ Element::Element() {
 Element::~Element() {
 	// TODO Auto-generated destructor stub
 }
+
+Element::Element(string nom, string description){
+	this->nom = nom;
+	this->description = description;
+}

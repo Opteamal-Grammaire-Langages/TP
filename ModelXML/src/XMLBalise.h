@@ -23,9 +23,12 @@ public:
 	void addElement(XMLElement * elem);
 	void addAttribute(string name, string value);
 
+	list<XMLElement *> getElements();
+
 	string toString();
 	string getChildrenTypes();
 	string getType();
+	string getName();
 
 protected:
 	list<XMLElement *> elements;
