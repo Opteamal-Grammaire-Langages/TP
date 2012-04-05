@@ -5,6 +5,7 @@ CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
 EXE=analyseur #Nom du binaire à construire
+SUBDIR=./src
 OBJ=analyseur.o
 LIBS=
 
@@ -25,31 +26,35 @@ test:
 	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
 	@echo "All tests successfuls"
 
-$(EXE): $(OBJ) bison.a $(LIBS)
+$(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJ) bison.a $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
 	@echo done
 
-%.o : %.cpp *.h
+$(SUBDIR)/%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
-	$(CC) $(CCFLAGS) -c $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
 
-bison.a: *.l *.y  
-	@echo flexing...
-	@flex -Pxml xml.l
-	@flex -Pdtd dtd.l
-	@echo bisoning...
-	@bison --debug --verbose --name-prefix=xml --defines=xml.tab.h xml.y
-	@bison --debug --verbose --name-prefix=dtd --defines=dtd.tab.h dtd.y
-#@$(CC) -Wall -g -DYYDEBUG=1 -c analyseur lex.xml.c xml.tab.c lex.dtd.c dtd.tab.c analyseur.c
-	@echo compiling...
-	@$(CC) -w -c -DYYDEBUG=1 -c *.c
-	@echo archiving...
-	@ar rcs bison.a *.o
-	@echo done
+$(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y  
+	@(\
+	cd $(SUBDIR)/;\
+	echo flexing...;\
+	flex -Pxml xml.l;\
+	flex -Pdtd dtd.l;\
+	echo bisoning...;\
+	bison --debug --verbose --name-prefix=xml --defines=xml.tab.h xml.y;\
+	bison --debug --verbose --name-prefix=dtd --defines=dtd.tab.h dtd.y;\
+	echo compiling...;\
+	$(CC) -w -c -DYYDEBUG=1 -c *.c;\
+	echo archiving...;\
+	ar rcs bison.a *.o;\
+	echo done;\
+	cd ..;\
+	)
 
 clean:
 	@echo -n cleaning repository... 
-	-rm -rf *.tab.c lex.*.c *.tab.h *.a *.o *.output $(EXE) $(OBJ)
+	-rm -rf $(SUBDIR)/*.tab.c $(SUBDIR)/lex.*.c $(SUBDIR)/*.tab.h $(SUBDIR)/*.a\
+	 	$(SUBDIR)/*.o $(SUBDIR)/*.output $(EXE) $(SUBDIR)/$(OBJ)
 	@echo cleaned.
