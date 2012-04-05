@@ -8,7 +8,6 @@
 #include "Element.h"
 
 Element::Element() {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -19,4 +18,12 @@ Element::~Element() {
 Element::Element(string nom, string description){
 	this->nom = nom;
 	this->description = description;
+}
+
+string Element::toString(){
+	string ret = "";
+	ret += this->nom;
+	ret += " ";
+	ret += this->description;
+	return ret;
 }

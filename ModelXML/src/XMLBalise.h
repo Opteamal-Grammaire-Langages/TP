@@ -17,11 +17,13 @@ using namespace std;
 
 class XMLBalise: public XMLElement {
 public:
-	XMLBalise(string name, bool autoClosed = false);
+	XMLBalise(string name, string ns="", bool autoClosed = false);
 	virtual ~XMLBalise();
 
 	void addElement(XMLElement * elem);
-	void addAttribute(string name, string value);
+	void addAttribute(string name, string value="");
+	void setValueAttribute(string name, string value);
+	void setAutoClosed(bool autoClosed);
 
 	list<XMLElement *> getElements();
 
@@ -34,6 +36,7 @@ protected:
 	list<XMLElement *> elements;
 	map<string,string> attributs;
 	string name;
+	string ns;
 	bool autoClosed;
 };
 
