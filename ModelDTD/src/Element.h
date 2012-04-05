@@ -7,7 +7,6 @@
 
 #ifndef ELEMENT_H_
 #define ELEMENT_H_
-#include <map>
 #include <string>
 using namespace std;
 
@@ -18,23 +17,13 @@ public:
 	Element(string nom, string description);
 	virtual ~Element();
 
-	struct attribut
-	{
-		string nomAtt;
-		string typeAtt;
-		string optionAtt;
-	};
-
-	map<string,attribut> getAtt() const {return att;}
-
 	string getDescription() const {return description;}
-
 	string getNom() const {return nom;}
+	string toString();
 
 private:
 	string nom;
 	string description;
-	map<string,attribut> att;
 
 };
 

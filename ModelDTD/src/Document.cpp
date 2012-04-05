@@ -23,8 +23,17 @@ list<Element*> Document::getListeElements()
 	return listeElements;
 }
 
+map<string, list<Document::attribut*> > Document::getMapAttributs()
+{
+	return mapAttributs;
+}
+
 void Document::addElement(Element * elem){
 	listeElements.push_front(elem);
+}
+
+void Document::addAttributsElement(pair<string, list<attribut*> > paire) {
+	mapAttributs.insert(paire);
 }
 
 string Document::getDescriptionElement(string elem){
@@ -36,6 +45,17 @@ string Document::getDescriptionElement(string elem){
 		}
 	}
 	return 0;
+}
+
+string Document::toString(){
+	string ret = "";
+	list<Element*>::iterator it;
+
+	for(it = listeElements.begin(); it != listeElements.end(); it++){
+		ret += (*it)->toString();
+		ret += "\n";
+	}
+	return ret;
 }
 
 
