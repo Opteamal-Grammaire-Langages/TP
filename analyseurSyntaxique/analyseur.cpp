@@ -13,7 +13,7 @@ int analyseDtd(char * input)
 
   err = dtdparse();
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
-        else  printf("Parse ended with success\n", err);
+        else  printf("Parse ended with success\n");
   return 0;
 }
 
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	}
   err = xmlparse();
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
-	else  printf("Parse ended with success\n", err);
+	else  printf("Parse ended with success\n");
   return 0;
 }
 
