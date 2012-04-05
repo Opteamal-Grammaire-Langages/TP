@@ -42,16 +42,21 @@ xml_element
  : start empty_or_content 
  ;
 start
- : START attr_opt	
- | NSSTART	
+ : START attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); }
+ | NSSTART attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); }
  ;
 attr_opt 
  : attr_opt attr 
  | /*vide*/
  ;	
 attr
- : IDENT EQ STRING { printf("%s=%s\n",$1,$3); }
- | IDENT { printf("%s\n",$1) }
+ : name_attr EQ STRING { printf("=%s\n",$3); }
+ | name_attr 
+ ;
+
+name_attr
+ : IDENT	{ printf("%s\n",$1); }
+ | NSIDENT	{ printf("%s\n",$1); }
  ;
 
 empty_or_content
@@ -59,8 +64,15 @@ empty_or_content
  | close_content_and_end CLOSE 
  ;
 close_content_and_end
- : CLOSE	content_opt END 
+ : CLOSE	content_opt end_or_ns_end 
+ | CLOSE	content_opt end_or_ns_end
  ;
+
+end_or_ns_end
+ : END	
+ | NSEND	{ printf("FIN : %s et %s\n",$1->first.c_str(),$1->second.c_str()); }
+ ;
+
 content_opt 
  : content_opt DATA		
  | content_opt comment        
