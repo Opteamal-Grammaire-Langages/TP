@@ -44,7 +44,7 @@ string Document::getDescriptionElement(string elem){
 			return (*it)->getDescription();
 		}
 	}
-	return 0;
+	return "";
 }
 
 string Document::toString(){
@@ -57,6 +57,7 @@ string Document::toString(){
 	}
 	return ret;
 }
+
 
 
 
