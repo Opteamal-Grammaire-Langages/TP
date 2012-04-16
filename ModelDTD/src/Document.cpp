@@ -11,7 +11,7 @@
 
 Document::Document() {
 	// TODO Auto-generated constructor stub
-
+	//listeElements = new List<Element*>();
 }
 
 Document::~Document() {

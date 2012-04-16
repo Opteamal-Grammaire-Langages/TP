@@ -8,6 +8,7 @@
 #ifndef XMLBALISE_H_
 #define XMLBALISE_H_
 
+#include <iostream>
 #include <list>
 #include <string>
 #include <map>
