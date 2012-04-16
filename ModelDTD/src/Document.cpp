@@ -11,7 +11,7 @@
 
 Document::Document() {
 	// TODO Auto-generated constructor stub
-
+	//listeElements = new List<Element*>();
 }
 
 Document::~Document() {
@@ -35,7 +35,7 @@ string Document::getDescriptionElement(string elem){
 			return (*it)->getDescription();
 		}
 	}
-	return 0;
+	return "";
 }
 
 

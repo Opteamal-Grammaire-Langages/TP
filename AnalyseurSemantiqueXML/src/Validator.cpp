@@ -11,8 +11,11 @@
 using namespace boost;
 
 Validator::Validator(Document * docDTD) {
-	// TODO Auto-generated constructor stub
-	this->docDTD = docDTD;
+	if (docDTD == NULL) {
+		this->docDTD = new Document();
+	} else {
+		this->docDTD = docDTD;
+	}
 }
 
 Validator::~Validator() {
@@ -21,28 +24,48 @@ Validator::~Validator() {
 
 bool Validator::validateXML(XMLBalise * xml){
 
-	bool regOK = true;
+	bool regOK = false;
 	list<XMLElement *>::iterator it;
 	list<XMLElement *> listeElements(xml->getElements());
 
-	regOK = validate(xml->getChildrenTypes(), docDTD->getDescriptionElement(xml->getName()));
+	cout << "Nom Balise : " << xml->getName() << endl;
+
+	if (!(docDTD->getDescriptionElement(xml->getName()).empty())) {
+		regOK = validate(xml->getChildrenTypes(), docDTD->getDescriptionElement(xml->getName()));
+	} else {
+		if (xml->getChildrenTypes().empty()) {
+			return true;
+		} else {
+			cout << "DTD vide" << endl;
+			return false;
+		}
+	}
 
 	for(it = listeElements.begin(); it != listeElements.end() && regOK ; it++){
-		if((*it)->getType() != "#PCDATA"){//Element non terminal
+		if((*it)->getType() != "CDATA"){//Element non terminal
 			regOK = validateXML((XMLBalise *)(*it));
 		}
 	}
 
 	return regOK;
-
 }
 
 bool Validator::validate(const string xmlTypes, string descriptionTypeBalise){
-	regex e = convertToRegex(descriptionTypeBalise);
-	return regex_match(xmlTypes,e);
+	string xmlTypesM = xmlTypes.substr(0, xmlTypes.length()-1);
 
+	const string regexRecupere= convertToRegex(descriptionTypeBalise);
+	cout << "ChildrenTypes : [" << xmlTypesM << "]    - DTD : [" << regexRecupere << "]" << endl;
+
+	regex e (regexRecupere);
+	return regex_match(xmlTypesM,e);
 }
 
-string convertToRegex(string description){
-	return description.replace(description.begin(),description.end(), ',', ' ');
+string Validator::convertToRegex(string description){
+	int pos = 0;
+	pos = description.find(',');
+	while (pos != (int) string::npos) {
+		description.replace(pos, 1, " ");
+		pos = description.find(',');
+	}
+	return description;
 }

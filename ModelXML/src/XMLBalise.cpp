@@ -32,7 +32,7 @@ void XMLBalise::addElement(XMLElement * elem){
 }
 
 void XMLBalise::addAttribute(string attribute, string value){
-	//attributs.insert(attribute, value);
+	attributs[attribute] = value;
 }
 
 string XMLBalise::toString(){

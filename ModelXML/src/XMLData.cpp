@@ -24,5 +24,5 @@ string XMLData::toString() {
 }
 
 string XMLData::getType(){
-	return "#PCDATA";
+	return "CDATA";
 }
