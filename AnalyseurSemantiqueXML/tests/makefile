@@ -18,9 +18,6 @@ $(EXE): $(OBJ) $(LIBS)
 	@echo building $<
 
 first : $(DIR)
-	#A changer
-	#$(foreach direc, $(EXTERNALDIR), EXTERNALOBJ = "$(direc)/build/*.o"); done
-	@echo $(EXTERNALOBJ)
 	$(EDL) -o $(EXE) $(EDLFLAGS) $(BUILDDIR)/*.o $(EXTERNALOBJ) $(LIBS)
 	@echo done
 
@@ -34,7 +31,7 @@ clean:
 	-rm -rf $(BUILDDIR)/*.o $(EXE)
 	@echo cleaned.
 	
-.PHONY : clean
+.PHONY : clean validate
 
 validate:
 	@echo "Start testing Analyseur Semantique XML"

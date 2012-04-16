@@ -29,7 +29,7 @@ cleanTests:
 validate:
 	@(cd $(TESTDIR) && $(MAKE) $@); done
 	
-tests:
+test:
 	@(cd $(TESTDIR) && $(MAKE)); done
 	
 .PHONY:  clean cleanTests validate
