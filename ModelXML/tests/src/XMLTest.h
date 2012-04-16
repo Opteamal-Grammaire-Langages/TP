@@ -8,9 +8,9 @@
 #ifndef XMLTEST_H_
 #define XMLTEST_H_
 
-#include "../src/XMLElement.h"
-#include "../src/XMLBalise.h"
-#include "../src/XMLData.h"
+#include "../../src/XMLElement.h"
+#include "../../src/XMLBalise.h"
+#include "../../src/XMLData.h"
 
 class XMLTest {
 

@@ -1,7 +1,10 @@
 DIR=analyseurSyntaxique
 
-first : $(DIR) 
-	@for subdir in $(DIR); do (cd ./$$subdir; make) ; done
+MAKEFILES := ModelXML AnalyseurSemantiqueXML analyseurSyntaxique ModelDTD
+
+first : $(DIR)
+	@for dir in $(MAKEFILES);do (cd ./$$dir && $(MAKE)) ; done
+	#@for subdir in $(DIR); do (cd ./$$subdir && $(MAKE)) ; done
 
 clean : $(DIR) 
-	@for subdir in $(DIR); do (cd ./$$subdir; make clean) ; done
+	@for dir in $(MAKEFILES);do (cd ./$$dir && $(MAKE) $@) ; done
