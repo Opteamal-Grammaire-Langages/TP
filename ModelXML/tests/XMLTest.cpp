@@ -8,13 +8,15 @@
 #include "XMLTest.h"
 
 string XMLTest::testStructure1() {
-	XMLBalise elA("A",false);
+	XMLBalise elA("A");
+	elA.setAutoClosed(false);
 
 	return elA.toString();
 }
 
 string XMLTest::testStructure2() {
-	XMLBalise * elA = new XMLBalise("A", false);
+	XMLBalise * elA = new XMLBalise("A");
+	elA->setAutoClosed(false);
 	elA->addAttribute("a", "1");
 	XMLBalise * elB = new XMLBalise("B");
 	XMLData * elBData = new  XMLData("bla");
@@ -22,7 +24,9 @@ string XMLTest::testStructure2() {
 
 	XMLData * elAData = new XMLData("blum");
 	XMLBalise * elC = new XMLBalise("C");
-	XMLBalise * elD = new XMLBalise ("D", true);
+	XMLBalise * elD = new XMLBalise ("D");
+	elD->setAutoClosed(true);
+	
 	elA->addElement(elB);
 	elA->addElement(elAData);
 	elA->addElement(elC);
@@ -32,7 +36,8 @@ string XMLTest::testStructure2() {
 }
 
 string XMLTest::testStructure3() {
-	XMLBalise * elA = new XMLBalise("A", false);
+	XMLBalise * elA = new XMLBalise("A");
+	elA->setAutoClosed(false);
 	elA->addAttribute("a", "1");
 	XMLBalise * elB = new XMLBalise("B");
 	XMLData * elBData = new  XMLData("bla");
@@ -41,6 +46,7 @@ string XMLTest::testStructure3() {
 	XMLData * elAData = new XMLData("blum");
 	XMLBalise * elC = new XMLBalise("C");
 	XMLBalise * elD = new XMLBalise ("D", true);
+	elD->setAutoClosed(true);
 	elA->addElement(elB);
 	elA->addElement(elAData);
 	elA->addElement(elC);
