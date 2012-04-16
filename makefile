@@ -8,3 +8,12 @@ first : $(DIR)
 
 clean : $(DIR) 
 	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) $@) ; done
+	
+tests:
+	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) $@) ; done
+	
+cleanTests:
+	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) $@) ; done
+	
+validate:
+	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) validate) ; done
