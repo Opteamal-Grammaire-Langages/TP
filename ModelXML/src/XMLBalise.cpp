@@ -14,9 +14,10 @@
 #define SLASH "/"
 
 
-XMLBalise::XMLBalise(string name, bool autoClosed) {
+XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
+	this->ns = ns;
 }
 
 XMLBalise::~XMLBalise() {
@@ -99,4 +100,12 @@ list<XMLElement *> XMLBalise::getElements(){
 }
 string XMLBalise::getName(){
 	return name;
+}
+
+void XMLBalise::setAutoClosed(bool autoClosed){
+	this->autoClosed = autoClosed;
+}
+
+string XMLBalise::getNameSpace(){
+	return ns;
 }

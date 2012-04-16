@@ -1,10 +1,3 @@
-/*
- * XMLBalise.h
- *
- *  Created on: 3 avr. 2012
- *      Author: mfagno
- */
-
 #ifndef XMLBALISE_H_
 #define XMLBALISE_H_
 
@@ -32,6 +25,7 @@ public:
 	string getChildrenTypes();
 	string getType();
 	string getName();
+	string getNameSpace();
 
 protected:
 	list<XMLElement *> elements;
