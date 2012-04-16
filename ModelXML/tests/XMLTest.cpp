@@ -45,7 +45,7 @@ string XMLTest::testStructure3() {
 
 	XMLData * elAData = new XMLData("blum");
 	XMLBalise * elC = new XMLBalise("C");
-	XMLBalise * elD = new XMLBalise ("D", true);
+	XMLBalise * elD = new XMLBalise ("D");
 	elD->setAutoClosed(true);
 	elA->addElement(elB);
 	elA->addElement(elAData);
