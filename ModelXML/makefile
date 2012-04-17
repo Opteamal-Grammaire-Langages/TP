@@ -8,19 +8,20 @@ EDLFLAGS=-Wall
 ECHO=@echo
 SUBDIR=./src
 BUILDDIR=./build
+LIBDIR=./lib
 TESTDIR=./tests
 OBJ:=XMLBalise.o XMLData.o XMLElement.o
 OUT=./lib/libmodelXML.a
 OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
 $(OUT): directories $(OBJPATH) 
-	@echo -n archiving $(OUT) 
+	@echo -n archiving $(OUT)... 
 	@ar rcs $(OUT) $(OBJPATH)
 	@echo done.
 	
 directories : $(BUILDDIR) $(LIB)
 	@-mkdir -p $(BUILDDIR)
-	@-mkdir -p $(LIB)
+	@-mkdir -p $(LIBDIR)
 	
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<

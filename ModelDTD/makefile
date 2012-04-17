@@ -7,14 +7,21 @@ CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
 SUBDIR= ./src
-BUILDDIR= build
+BUILDDIR=./build
+LIBDIR=./lib
 TESTDIR= ./tests
 OBJ:= Document.o Element.o
 OUT= ./lib/libmodelDTD.a
-OBJPATH= $(foreach file, $(OBJ), build/$(file))
+OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
-$(OUT): $(OBJPATH)
-	ar rcs $(OUT) $(OBJPATH)
+$(OUT): directories $(OBJPATH) 
+	@echo -n archiving $(OUT)...  
+	@ar rcs $(OUT) $(OBJPATH)
+	@echo done.
+	
+directories :
+	@-mkdir -p $(BUILDDIR)
+	@-mkdir -p $(LIBDIR)
 	
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
@@ -36,5 +43,4 @@ test:
 	@(cd $(TESTDIR) && $(MAKE)); done
 	
 .PHONY:  clean cleanTests validate
-
 
