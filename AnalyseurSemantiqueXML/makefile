@@ -7,15 +7,22 @@ CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
 SUBDIR= ./src
-BUILDDIR= build
+BUILDDIR=./build
+LIBDIR=./lib
 TESTDIR= ./tests
 OBJ:= Validator.o
 OUT= ./lib/libvalidator.a
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
 
-$(OUT): $(OBJPATH)
-	ar rcs $(OUT) $(OBJPATH)
+$(OUT): directories $(OBJPATH)
+	@echo -n archiving $(OUT)...  
+	@ar rcs $(OUT) $(OBJPATH)
+	@echo done.
 	
+directories :
+	@-mkdir -p $(BUILDDIR)
+	@-mkdir -p $(LIBDIR)
+
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
 	$(CC) $(CCFLAGS) -c -o $@ $<
