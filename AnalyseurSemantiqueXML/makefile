@@ -1,4 +1,4 @@
-#Génère uniquement les *.o
+#Génère la librarie static ValidatorXML
 
 #Variables utilisées :
 CC=g++ #Compilateur
@@ -7,20 +7,23 @@ CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
 SUBDIR= ./src
-BUILDDIR= ./build
+BUILDDIR= build
 TESTDIR= ./tests
-OBJ= Validator.o
+OBJ:= Validator.o
+OUT= ./lib/libvalidator.a
+OBJPATH= $(foreach file, $(OBJ), build/$(file))
 
-first: $(OBJ)
- 
-%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
+$(OUT): $(OBJPATH)
+	ar rcs $(OUT) $(OBJPATH)
+	
+$(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
-	$(CC) $(CCFLAGS) -c -o $(BUILDDIR)/$@ $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
 
 clean:
 	@echo -n cleaning repository... 
-	-rm -rf $(BUILDDIR)/*.o
+	@-rm -rf $(BUILDDIR)/*.o $(OUT)
 	@echo cleaned.
 	
 cleanTests:
@@ -33,3 +36,5 @@ test:
 	@(cd $(TESTDIR) && $(MAKE)); done
 	
 .PHONY:  clean cleanTests validate
+
+

@@ -7,23 +7,21 @@ ECHO=@echo
 EXE= AnalyseurSemantiqueTests #Nom du binaire à construire
 SUBDIR= ./src
 OBJ= Validate.o testValidator.o
-BUILDDIR= ./build
-EXTERNALDIR := .. ../../ModelXML ../../ModelDTD
-LIBS= -lboost_regex
-EXTERNALOBJ= $(foreach direc, $(EXTERNALDIR), $(direc)/build/*.o)
+OBJPATH= $(foreach file, $(OBJ), build/$(file))
+BUILDDIR= build
+LIBPATHS = -L../lib -L../../ModelXML/lib -L../../ModelDTD/lib
+LIBS= -lmodelXML -lmodelDTD -lvalidator -lboost_regex
 
-all: $(EXE) first $(OBJ)
+all: $(EXE) test
 
-$(EXE): $(OBJ) $(LIBS)
+$(EXE): $(OBJPATH)
 	@echo building $<
-
-first : $(DIR)
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(BUILDDIR)/*.o $(EXTERNALOBJ) $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBPATHS) $(LIBS)
 	@echo done
-
-%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h #$(EXTERNALDIR)/src/*.h
+	
+$(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
-	$(CC) $(CCFLAGS) -c -o $(BUILDDIR)/$@ $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
 
 clean:
@@ -31,10 +29,11 @@ clean:
 	-rm -rf $(BUILDDIR)/*.o $(EXE)
 	@echo cleaned.
 	
-.PHONY : clean validate
+.PHONY : test clean
 
 validate:
 	@echo "Start testing Analyseur Semantique XML"
 	./$(EXE)
 	@echo "End testing Analyseur Semantique XML"
+
 
