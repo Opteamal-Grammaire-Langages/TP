@@ -11,14 +11,12 @@ int xmllex(void);
 %union {
    char * s;
    ElementName * en;  /* le nom d'un element avec son namespace */
-   XMLElement* xe;
 }
 
 %token EQ SLASH CLOSE CLOSESPECIAL DOCTYPE
 %token <s> ENCODING STRING DATA COMMENT IDENT NSIDENT
 %token <en> NSSTART START STARTSPECIAL END NSEND
 %type <s> name_attr
-//%type <xe> element
 
 %%
 
@@ -46,16 +44,16 @@ xml_element
  : start empty_or_content 
  ;
 start
- : START attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); $$=$2; $$=new XMLBalise($1->second.c_str(), "", true); }
- | NSSTART attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); $$=$2; $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), true); }
+ : START attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); }
+ | NSSTART attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); }
  ;
 attr_opt 
- : attr_opt name_attr EQ STRING { printf("%s=%s\n",$1,$3);  }  //{ /*rien pour l'instant*/ }
+ : attr_opt name_attr EQ STRING { printf("%s=%s\n",$2,$4);  }  //{ /*rien pour l'instant*/ }
  | /*vide*/
  ;	
 
 name_attr
- : IDENT	{ printf("%s\n",$1); $$-> }
+ : IDENT	{ printf("%s\n",$1); }
  | NSIDENT	{ printf("%s\n",$1); }
  ;
 

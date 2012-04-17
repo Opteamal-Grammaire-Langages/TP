@@ -11,9 +11,10 @@ typedef pair<string,string> ElementName;
 int analyseDtd(char * input);
 
 // Includes des fichiers pour la construction de la structure XML
-#include "../../ModelXML/src/XMLElement.h"
-#include "../../ModelXML/src/XMLBalise.h"
-#include "../../ModelXML/src/XMLData.h"
+//#include "../../ModelXML/src/XMLElement.h"
+//#include "../../ModelXML/src/XMLBalise.h"
+//#include "../../ModelXML/src/XMLData.h"
+//On ne devrait pas en avoir besoin ici, seulement dans la partie arbreXML
 
 #ifdef DEBUG
 #define debug(x) (x)
