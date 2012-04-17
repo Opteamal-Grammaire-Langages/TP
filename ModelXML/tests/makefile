@@ -16,7 +16,7 @@ all: $(EXE) test
 
 $(EXE): $(OBJPATH)
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(BUILDDIR)/*.o $(LIBPATHS) $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBPATHS) $(LIBS)
 	@echo done
 	
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
