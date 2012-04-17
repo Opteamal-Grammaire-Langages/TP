@@ -26,11 +26,17 @@ int main() {
 		cout<<"Test 1 succeed"<<endl;
 	}
 	
-	//test2(); TODO
+	if(test2() == false){
+		succes = false;
+		cout<<"Test 2 failed"<<endl;
+	}else{
+		cout<<"Test 2 succeed"<<endl;
+	}
 	
 	return !succes;
 }
 
+//Test les elements
 int test1(){
 	Element elem1("titre","CDATA");
 	Element elem2("document","titre, corps");
@@ -42,14 +48,16 @@ int test1(){
 	doc.addElement(&elem3);
 	doc.addElement(&elem4);
 
-	string resultatAttendu = "paragraphe  CDATA\n\
-corps paragraphe*\n\
-document titre, corps\n\
-titre CDATA\n"; 
+	string resultatAttendu =
+"<!ELEMENT paragraphe  CDATA>\n\
+<!ELEMENT corps paragraphe*>\n\
+<!ELEMENT document titre, corps>\n\
+<!ELEMENT titre CDATA>\n"; 
 	//cout << "DTD: \n"<<doc->toString() << endl;
 	return (resultatAttendu == doc.toString());
 }
 
+//Test les attributs
 int test2(){
 	Element elem1("titre","CDATA");
 	Element elem2("document","titre, corps");
@@ -65,14 +73,32 @@ int test2(){
 	list<Attribut*> atts1;
 	atts1.push_back(&a);
 	
+	Attribut a2("id","CDATA","#REQUIRED");
+	Attribut a3("name","CDATA","#REQUIRED");
+	list<Attribut*> atts2;
+	atts2.push_back(&a2);
+	atts2.push_back(&a3);
+	
 	pair<string, list<Attribut*> > p1("titre",atts1);
+	pair<string, list<Attribut*> > p2("document",atts2);
 	doc.addAttributsElement(p1);
+	doc.addAttributsElement(p2);
 
-	//TODO
-	string resultatAttendu = "paragraphe  CDATA\n\
-corps paragraphe*\n\
-document titre, corps\n\
-titre CDATA\n"; 
-	cout << "DTD: \n"<<doc.toString() << endl;
+	string resultatAttendu =
+"<!ELEMENT paragraphe  CDATA>\n\
+<!ELEMENT corps paragraphe*>\n\
+<!ELEMENT document titre, corps>\n\
+<!ELEMENT titre CDATA>\n\
+<!ATTLIST document\n\
+	id CDATA #REQUIRED\n\
+	name CDATA #REQUIRED\n\
+>\n\
+<!ATTLIST titre\n\
+	id CDATA #REQUIRED\n\
+>\n";
+
+
+
+	//cout << "DTD: \n"<<doc.toString() << endl;
 	return (resultatAttendu == doc.toString());
 }

@@ -52,9 +52,27 @@ string Document::toString(){
 	list<Element*>::iterator it;
 
 	for(it = listeElements.begin(); it != listeElements.end(); it++){
+		ret += "<!ELEMENT ";
 		ret += (*it)->toString();
-		ret += "\n";
+		ret += ">\n";
 	}
+	
+	for(map<string, list<Attribut*> >::iterator it=mapAttributs.begin() ; it!=mapAttributs.end() ; ++it)
+	{
+		ret += "<!ATTLIST ";
+	  ret += it->first; // accede à la clé
+	  ret += "\n";
+	  list<Attribut*> listeAttributs = it->second; // accede à la valeur
+	  
+	  for(list<Attribut*>::iterator ita = listeAttributs.begin(); ita != listeAttributs.end(); ita++){
+	  	ret += "\t";
+			ret += (*ita)->toString();
+			ret += "\n";
+		}
+		ret += ">\n";
+	}
+	
+
 	return ret;
 }
 
