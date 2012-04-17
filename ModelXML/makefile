@@ -7,12 +7,17 @@ CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
 SUBDIR= ./src
-BUILDDIR= ./build
+BUILDDIR= build
 TESTDIR= ./tests
-OBJ= XMLBalise.o XMLData.o XMLElement.o
+OBJ:= XMLBalise.o XMLData.o XMLElement.o
+OUT= ./lib/libmodelXML.a
+OBJPATH= $(foreach file, $(OBJ), build/$(file))
 
-first: $(OBJ)
- 
+$(OUT): $(OBJPATH)
+	ar rcs $(OUT) $(OBJPATH)
+
+$(BUILDDIR)/%.o: %.o
+	
 %.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
 	$(CC) $(CCFLAGS) -c -o $(BUILDDIR)/$@ $<
@@ -20,7 +25,7 @@ first: $(OBJ)
 
 clean:
 	@echo -n cleaning repository... 
-	-rm -rf $(BUILDDIR)/*.o
+	-rm -rf $(BUILDDIR)/*.o $(OUT)
 	@echo cleaned.
 	
 cleanTests:
@@ -33,3 +38,5 @@ test:
 	@(cd $(TESTDIR) && $(MAKE)); done
 	
 .PHONY:  clean cleanTests validate
+
+

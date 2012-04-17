@@ -7,18 +7,21 @@ ECHO=@echo
 EXE= XMLTests #Nom du binaire à construire
 SUBDIR= ./src
 OBJ= AnalyseurSyntaxique.o XMLTest.o
-BUILDDIR= ./build
-EXTERNALDIR = ..
-LIBS=
+OBJPATH= $(foreach file, $(OBJ), build/$(file))
+BUILDDIR= build
+LIBPATHS = -L../lib
+LIBS= -lmodelXML
 
 all: $(EXE) test
 
-$(EXE): $(OBJ) $(LIBS)
+$(EXE): $(OBJPATH)
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(BUILDDIR)/*.o $(EXTERNALDIR)/build/*.o $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(BUILDDIR)/*.o $(LIBPATHS) $(LIBS)
 	@echo done
-
-%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h #$(EXTERNALDIR)/src/*.h
+	
+$(BUILDDIR)/%.o: %.o
+	
+%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
 	$(CC) $(CCFLAGS) -c -o $(BUILDDIR)/$@ $<
 	@echo done
