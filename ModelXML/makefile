@@ -1,4 +1,4 @@
-#Génère uniquement les *.o
+#Génère la librarie static modelXML
 
 #Variables utilisées :
 CC=g++ #Compilateur
@@ -15,17 +15,15 @@ OBJPATH= $(foreach file, $(OBJ), build/$(file))
 
 $(OUT): $(OBJPATH)
 	ar rcs $(OUT) $(OBJPATH)
-
-$(BUILDDIR)/%.o: %.o
 	
-%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
+$(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
-	$(CC) $(CCFLAGS) -c -o $(BUILDDIR)/$@ $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
 
 clean:
 	@echo -n cleaning repository... 
-	-rm -rf $(BUILDDIR)/*.o $(OUT)
+	@-rm -rf $(BUILDDIR)/*.o $(OUT)
 	@echo cleaned.
 	
 cleanTests:

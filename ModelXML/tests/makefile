@@ -19,11 +19,9 @@ $(EXE): $(OBJPATH)
 	$(EDL) -o $(EXE) $(EDLFLAGS) $(BUILDDIR)/*.o $(LIBPATHS) $(LIBS)
 	@echo done
 	
-$(BUILDDIR)/%.o: %.o
-	
-%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
+$(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
-	$(CC) $(CCFLAGS) -c -o $(BUILDDIR)/$@ $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
 
 clean:
