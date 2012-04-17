@@ -23,7 +23,7 @@ list<Element*> Document::getListeElements()
 	return listeElements;
 }
 
-map<string, list<Document::attribut*> > Document::getMapAttributs()
+map<string, list<Attribut*> > Document::getMapAttributs()
 {
 	return mapAttributs;
 }
@@ -32,7 +32,7 @@ void Document::addElement(Element * elem){
 	listeElements.push_front(elem);
 }
 
-void Document::addAttributsElement(pair<string, list<attribut*> > paire) {
+void Document::addAttributsElement(pair<string, list<Attribut*> > paire) {
 	mapAttributs.insert(paire);
 }
 

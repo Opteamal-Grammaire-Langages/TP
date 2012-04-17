@@ -8,6 +8,7 @@
 #ifndef DOCUMENT_H_
 #define DOCUMENT_H_
 #include "Element.h"
+#include "Attribut.h"
 #include <list>
 #include <map>
 
@@ -15,25 +16,19 @@ using namespace std;
 
 class Document {
 public:
-	typedef struct
-	{
-		string nomAtt;
-		string typeAtt;
-		string optionAtt;
-	}attribut;
 
 	Document();
 	virtual ~Document();
 	list<Element*> getListeElements();
-	map<string, list<Document::attribut*> > getMapAttributs();
+	map<string, list<Attribut*> > getMapAttributs();
 	string getDescriptionElement(string elem);
 	void addElement(Element * elem);
-	void addAttributsElement(pair<string, list<attribut*> >);
+	void addAttributsElement(pair<string, list<Attribut*> >);
 	string toString();
 
 private:
 	list<Element*> listeElements;
-	map<string, list<Document::attribut*> > mapAttributs;
+	map<string, list<Attribut*> > mapAttributs;
 };
 
 #endif /* DOCUMENT_H_ */
