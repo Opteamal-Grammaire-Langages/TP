@@ -6,15 +6,21 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-SUBDIR= ./src
-BUILDDIR= build
-TESTDIR= ./tests
-OBJ:= XMLBalise.o XMLData.o XMLElement.o
-OUT= ./lib/libmodelXML.a
-OBJPATH= $(foreach file, $(OBJ), build/$(file))
+SUBDIR=./src
+BUILDDIR=./build
+TESTDIR=./tests
+OBJ:=XMLBalise.o XMLData.o XMLElement.o
+OUT=./lib/libmodelXML.a
+OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
-$(OUT): $(OBJPATH)
-	ar rcs $(OUT) $(OBJPATH)
+$(OUT): directories $(OBJPATH) 
+	@echo -n archiving $(OUT) 
+	@ar rcs $(OUT) $(OBJPATH)
+	@echo done.
+	
+directories : $(BUILDDIR) $(LIB)
+	@-mkdir -p $(BUILDDIR)
+	@-mkdir -p $(LIB)
 	
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
