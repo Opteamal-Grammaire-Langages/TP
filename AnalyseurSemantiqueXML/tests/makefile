@@ -14,11 +14,14 @@ LIBS= -lmodelXML -lmodelDTD -lvalidator -lboost_regex
 
 all: $(EXE) test
 
-$(EXE): $(OBJPATH)
+$(EXE): $(BUILDDIR) $(OBJPATH)
 	@echo building $<
 	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBPATHS) $(LIBS)
 	@echo done
 	
+$(BUILDDIR):
+	@-mkdir -p $(BUILDDIR)
+
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
 	$(CC) $(CCFLAGS) -c -o $@ $<

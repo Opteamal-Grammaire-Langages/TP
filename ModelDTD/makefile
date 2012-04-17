@@ -14,13 +14,15 @@ OBJ:= Document.o Element.o
 OUT= ./lib/libmodelDTD.a
 OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
-$(OUT): directories $(OBJPATH) 
+$(OUT): $(BUILDDIR) $(LIBDIR) $(OBJPATH) 
 	@echo -n archiving $(OUT)...  
 	@ar rcs $(OUT) $(OBJPATH)
 	@echo done.
-	
-directories :
+
+$(BUILDDIR):
 	@-mkdir -p $(BUILDDIR)
+	
+$(LIBDIR):
 	@-mkdir -p $(LIBDIR)
 	
 $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h

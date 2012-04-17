@@ -14,7 +14,7 @@ LIBS= -lmodelXML
 
 all: $(EXE) test
 
-$(EXE): $(OBJPATH)
+$(EXE): $(BUILDDIR) $(OBJPATH)
 	@echo building $<
 	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBPATHS) $(LIBS)
 	@echo done
@@ -23,6 +23,9 @@ $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
 	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
+
+$(BUILDDIR):
+	@-mkdir -p $(BUILDDIR)
 
 clean:
 	@echo -n cleaning repository... 
