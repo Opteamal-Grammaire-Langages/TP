@@ -20,6 +20,7 @@ public:
 
 	string getData();
 	string toString();
+	string toString(int lvl);
 	string getType();
 
 private:

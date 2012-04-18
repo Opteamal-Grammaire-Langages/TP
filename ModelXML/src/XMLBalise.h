@@ -24,6 +24,7 @@ public:
 	list<XMLElement *> getElements();
 
 	string toString();
+	string toString(int lvl);
 	string getChildrenTypes();
 	string getType();
 	string getName();

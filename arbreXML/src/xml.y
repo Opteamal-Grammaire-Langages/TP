@@ -31,7 +31,7 @@ int xmllex(void);
 %%
 
 document
- : declarations_opt xml_element misc_seq_opt { printf("Document: \n%s\n",$2->toString().c_str());} 
+ : declarations_opt xml_element misc_seq_opt { printf("Document: \n%s\n",$2->toString(0).c_str());} 
  ;
 misc_seq_opt
  : misc_seq_opt comment
@@ -65,7 +65,7 @@ attr_list
  ;
 
 attr
- : name_attr EQ STRING { printf("%s=%s\n",$1,$3); $$=new pair<string,string>($1,$1); } 
+ : name_attr EQ STRING { printf("%s=%s\n",$1,$3); $$=new pair<string,string>($1,$3); } 
  ;	
 
 name_attr
