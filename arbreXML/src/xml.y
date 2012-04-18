@@ -53,8 +53,8 @@ xml_element
  ;
 
 start
- : START attr_list	{ printf("Nouveau noeud :\n%s\n",$1->second.c_str()); $$=new XMLBalise($1->second.c_str(), "", false); }
- | NSSTART attr_list	{ printf("Nouveau noeud :\n%s:%s\n",$1->first.c_str(), $1->second.c_str()); $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), false); }
+ : START attr_list	{ printf("Nouveau noeud :\n%s\n",$1->second.c_str()); $$=new XMLBalise($1->second.c_str(), "", false); $$->setAttList($2); }
+ | NSSTART attr_list	{ printf("Nouveau noeud :\n%s:%s\n",$1->first.c_str(), $1->second.c_str()); $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), false); $$->setAttList($2); }
  ;
 
 attr_list

@@ -16,6 +16,7 @@ public:
 
 	void addElement(XMLElement * elem);
 	void addAttribute(string name, string value="");
+  void setAttList(map<string,string> * list);
 	void setValueAttribute(string name, string value);
 	void setAutoClosed(bool autoClosed);
 
