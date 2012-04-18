@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE rapport SYSTEM "rap3.dtd">
-<rapport>
- <titre>R�aliser un compilateur</titre>
+<rapport a="b" lol="42">
+ <titre sucklvl="Over 9000">R�aliser un compilateur</titre>
  <auteur>
   <nom>Nino</nom>
   <prenom>Silverio</prenom>
@@ -23,7 +23,4 @@
 	de programmation de haut niveau.</p>
    </section>
  </chapitre>
-</rapport>
-<rapport>
-	<titre>Rapport de test</titre>
 </rapport>

@@ -5,7 +5,7 @@ int analyseDtd(char * input)
 {
   int err;
 
-  dtddebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
+  //dtddebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 	dtdin=fopen(input,"r");
 	if(dtdin==NULL){
 		return -1;
@@ -20,7 +20,7 @@ int analyseDtd(char * input)
 int main(int argc, char **argv)
 {
   int err;
-  xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
+  //xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
 	if (argc<1){
 		return -1;
 	}

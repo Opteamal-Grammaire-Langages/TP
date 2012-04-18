@@ -11,14 +11,20 @@ int xmllex(void);
 %union {
    char * s;
    ElementName * en;  /* le nom d'un element avec son namespace */
+   AttributList * atList;
+   Attribut* at; 
    XMLElement* xe;
+   XMLBalise* xb;
+   XMLData* xd;
 }
 
 %token EQ SLASH CLOSE CLOSESPECIAL DOCTYPE
 %token <s> ENCODING STRING DATA COMMENT IDENT NSIDENT
 %token <en> NSSTART START STARTSPECIAL END NSEND
 %type <s> name_attr
-//%type <xe> element
+%type <xb> start
+%type <at> attr
+%type <atList> attr_list
 
 %%
 
@@ -43,20 +49,24 @@ declaration
  ;
 
 xml_element
- : start empty_or_content 
+ : start empty_or_content { printf("Fermeture du noeud \n%s\n",$1->toString().c_str()); }
  ;
 start
- : START attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); $$=$2; $$=new XMLBalise($1->second.c_str(), "", true); }
- | NSSTART attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); $$=$2; $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), true); }
+ : START attr_list	{ printf("Nouveau noeud :\n%s\n",$1->second.c_str()); $$=new XMLBalise($1->second.c_str(), "", false); }
+ | NSSTART attr_list	{ printf("Nouvelle noeud :\n%s, Namespace : %s\n",$1->second.c_str()),$1->first.c_str(); $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), false); }
  ;
-attr_opt 
- : attr_opt name_attr EQ STRING { printf("%s=%s\n",$1,$3);  }  //{ /*rien pour l'instant*/ }
- | /*vide*/
+attr_list
+ : attr_list attr { $$->insert(*$2); delete $2;}
+ | { printf("Liste d'attributs \n");$$=new AttributList; }
+ ;
+
+attr
+ : name_attr EQ STRING { printf("%s=%s\n",$1,$3); $$=new pair<string,string>($1,$3); } 
  ;	
 
 name_attr
- : IDENT	{ printf("%s\n",$1); $$-> }
- | NSIDENT	{ printf("%s\n",$1); }
+ : IDENT	{ printf("IDENT : %s\n",$1); $$=$1; }
+ | NSIDENT	{ printf("NSIDENT : %s\n",$1); $$=$1; }
  ;
 
 empty_or_content

@@ -5,6 +5,8 @@ using namespace std;
 #include <list>
 #include <utility>
 #include <string>
+#include <map>
+typedef map<string,string> AttributList;
 typedef pair<string,string> Attribut;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;

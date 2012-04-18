@@ -7,16 +7,7 @@ ECHO=@echo
 EXE=analyseur #Nom du binaire à construire
 SUBDIR=./src
 OBJ=analyseur.o
-LIBS=
-
-#analyseDTD: *.l *.y makefile
-#	flex dtd.l
-#	bison --debug --verbose --defines=yy.tab.h dtd.y
-#	g++ -g -DYYDEBUG=1 -o analyseDTD  lex.yy.c dtd.tab.c 
-#analyseXML: *.l *.y makefile
-#	flex  xml.l
-#	bison --debug --verbose --defines=yy.tab.h xml.y
-#	g++ -g -DYYDEBUG=1 -o analyseXML  lex.yy.c  xml.tab.c 
+LIBS=../ModelXML/lib/libmodelXML.a
 
 .PHONY : test clean
 all: $(EXE) test
