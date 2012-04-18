@@ -13,6 +13,7 @@ int xmllex(void);
    ElementName * en;  /* le nom d'un element avec son namespace */
    AttributList * atList;
    Attribut* at; 
+   ElementList * xeList;
    XMLElement* xe;
    XMLBalise* xb;
    XMLData* xd;
@@ -22,14 +23,15 @@ int xmllex(void);
 %token <s> ENCODING STRING DATA COMMENT IDENT NSIDENT
 %token <en> NSSTART START STARTSPECIAL END NSEND
 %type <s> name_attr
-%type <xb> start
+%type <xb> start xml_element
 %type <at> attr
 %type <atList> attr_list
+%type <xeList> empty_or_content close_content_and_end content_opt
 
 %%
 
 document
- : declarations_opt xml_element misc_seq_opt 
+ : declarations_opt xml_element misc_seq_opt { printf("Document: \n%s\n",$2->toString().c_str());} 
  ;
 misc_seq_opt
  : misc_seq_opt comment
@@ -49,7 +51,7 @@ declaration
  ;
 
 xml_element
- : start empty_or_content { printf("Fermeture du noeud \n%s\n",$1->toString().c_str()); }
+ : start empty_or_content { $2==0 ? $1->setAutoClosed(true) : $1->setElementList($2);  $$=$1; }
  ;
 
 start
@@ -72,11 +74,11 @@ name_attr
  ;
 
 empty_or_content
- : SLASH CLOSE	{ printf("Balise autofermante!\n") }
- | close_content_and_end CLOSE 
+ : SLASH CLOSE	{ printf("Balise autofermante!\n"); $$=0;}
+ | close_content_and_end CLOSE { $$=$1; }
  ;
 close_content_and_end
- : CLOSE content_opt end_or_ns_end 
+ : CLOSE content_opt end_or_ns_end { $$=$2; }
  ;
 
 end_or_ns_end
@@ -85,10 +87,10 @@ end_or_ns_end
  ;
 
 content_opt 
- : content_opt DATA		
- | content_opt comment        
- | content_opt xml_element      
- | /*empty*/         
+ : { $$=new ElementList }/*empty*/         
+ | content_opt DATA	{ $$->push_back(new XMLData($2)); }	
+ | content_opt COMMENT { printf("Ignoring comment : %s\n",$2); }
+ | content_opt xml_element { $$->push_back($2); }     
  ;
 %%
 

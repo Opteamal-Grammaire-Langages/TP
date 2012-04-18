@@ -31,7 +31,10 @@ XMLBalise::~XMLBalise() {
 void XMLBalise::addElement(XMLElement * elem){
 	elements.push_back(elem);
 }
-
+void XMLBalise::setElementList(list<XMLElement*> * list){
+  elements=*list;
+  delete list;
+}
 void XMLBalise::setAttList(map<string,string> * list){
   attributs=*list;
   delete list;
