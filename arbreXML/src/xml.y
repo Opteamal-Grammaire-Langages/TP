@@ -51,17 +51,19 @@ declaration
 xml_element
  : start empty_or_content { printf("Fermeture du noeud \n%s\n",$1->toString().c_str()); }
  ;
+
 start
  : START attr_list	{ printf("Nouveau noeud :\n%s\n",$1->second.c_str()); $$=new XMLBalise($1->second.c_str(), "", false); }
- | NSSTART attr_list	{ printf("Nouvelle noeud :\n%s, Namespace : %s\n",$1->second.c_str()),$1->first.c_str(); $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), false); }
+ | NSSTART attr_list	{ printf("Nouveau noeud :\n%s:%s\n",$1->first.c_str(), $1->second.c_str()); $$=new XMLBalise($1->second.c_str(), $1->first.c_str(), false); }
  ;
+
 attr_list
- : attr_list attr { $$->insert(*$2); delete $2;}
- | { printf("Liste d'attributs \n");$$=new AttributList; }
+ : { printf("Liste d'attributs \n");$$=new AttributList; }
+ | attr_list attr {$$->insert(*$2); delete $2;}
  ;
 
 attr
- : name_attr EQ STRING { printf("%s=%s\n",$1,$3); $$=new pair<string,string>($1,$3); } 
+ : name_attr EQ STRING { printf("%s=%s\n",$1,$3); $$=new pair<string,string>($1,$1); } 
  ;	
 
 name_attr
@@ -70,11 +72,11 @@ name_attr
  ;
 
 empty_or_content
- : SLASH CLOSE	
+ : SLASH CLOSE	{ printf("Balise autofermante!\n") }
  | close_content_and_end CLOSE 
  ;
 close_content_and_end
- : CLOSE	content_opt end_or_ns_end 
+ : CLOSE content_opt end_or_ns_end 
  ;
 
 end_or_ns_end
