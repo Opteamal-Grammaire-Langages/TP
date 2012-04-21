@@ -5,6 +5,10 @@ using namespace std;
 #include <list>
 #include <utility>
 #include <string>
+// Includes des fichiers pour la structure DTD
+#include "../../ModelDTD/src/Document.h"
+#include "../../ModelDTD/src/Element.h"
+#include "../../ModelDTD/src/DTDattribut.h"
 typedef pair<string,string> Attribut;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;

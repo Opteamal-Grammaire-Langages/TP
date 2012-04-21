@@ -23,7 +23,7 @@ list<Element*> Document::getListeElements()
 	return listeElements;
 }
 
-map<string, list<Attribut*> > Document::getMapAttributs()
+map<string, list<DTDattribut*> > Document::getMapAttributs()
 {
 	return mapAttributs;
 }
@@ -32,7 +32,7 @@ void Document::addElement(Element * elem){
 	listeElements.push_front(elem);
 }
 
-void Document::addAttributsElement(pair<string, list<Attribut*> > paire) {
+void Document::addAttributsElement(pair<string, list<DTDattribut*> > paire) {
 	mapAttributs.insert(paire);
 }
 
@@ -57,14 +57,14 @@ string Document::toString(){
 		ret += ">\n";
 	}
 	
-	for(map<string, list<Attribut*> >::iterator it=mapAttributs.begin() ; it!=mapAttributs.end() ; ++it)
+	for(map<string, list<DTDattribut*> >::iterator it=mapAttributs.begin() ; it!=mapAttributs.end() ; ++it)
 	{
 		ret += "<!ATTLIST ";
 	  ret += it->first; // accede à la clé
 	  ret += "\n";
-	  list<Attribut*> listeAttributs = it->second; // accede à la valeur
+	  list<DTDattribut*> listeAttributs = it->second; // accede à la valeur
 	  
-	  for(list<Attribut*>::iterator ita = listeAttributs.begin(); ita != listeAttributs.end(); ita++){
+	  for(list<DTDattribut*>::iterator ita = listeAttributs.begin(); ita != listeAttributs.end(); ita++){
 	  	ret += "\t";
 			ret += (*ita)->toString();
 			ret += "\n";
@@ -75,10 +75,3 @@ string Document::toString(){
 
 	return ret;
 }
-
-
-
-
-
-
-
