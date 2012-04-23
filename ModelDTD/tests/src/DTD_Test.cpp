@@ -10,7 +10,7 @@
 #include <iostream>
 #include "../../src/Document.h"
 #include "../../src/Element.h"
-#include "../../src/Attribut.h"
+#include "../../src/DTDattribut.h"
 
 using namespace std;
 int test1();
@@ -69,18 +69,18 @@ int test2(){
 	doc.addElement(&elem3);
 	doc.addElement(&elem4);
 	
-	Attribut a("id","CDATA","#REQUIRED");
-	list<Attribut*> atts1;
+	DTDattribut a("id","CDATA","#REQUIRED");
+	list<DTDattribut*> atts1;
 	atts1.push_back(&a);
 	
-	Attribut a2("id","CDATA","#REQUIRED");
-	Attribut a3("name","CDATA","#REQUIRED");
-	list<Attribut*> atts2;
+	DTDattribut a2("id","CDATA","#REQUIRED");
+	DTDattribut a3("name","CDATA","#REQUIRED");
+	list<DTDattribut*> atts2;
 	atts2.push_back(&a2);
 	atts2.push_back(&a3);
 	
-	pair<string, list<Attribut*> > p1("titre",atts1);
-	pair<string, list<Attribut*> > p2("document",atts2);
+	pair<string, list<DTDattribut*> > p1("titre",atts1);
+	pair<string, list<DTDattribut*> > p2("document",atts2);
 	doc.addAttributsElement(p1);
 	doc.addAttributsElement(p2);
 
