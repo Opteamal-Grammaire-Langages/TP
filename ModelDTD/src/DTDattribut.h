@@ -8,6 +8,11 @@ class	DTDattribut{
 	string toString(){
 		return nomAtt + " " + typeAtt + " " + optionAtt;
 	}
+
+	string getNomAtt() {
+		return nomAtt;
+	}
+
 	string nomAtt;
 	string typeAtt;
 	string optionAtt;
