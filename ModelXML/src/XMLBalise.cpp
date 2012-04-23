@@ -142,6 +142,11 @@ string XMLBalise::getType(){
 list<XMLElement *> XMLBalise::getElements(){
 	return this->elements;
 }
+
+map<string,string> XMLBalise::getAttributes() {
+	return this->attributs;
+}
+
 string XMLBalise::getName(){
 	return name;
 }

@@ -22,6 +22,7 @@ public:
 	void setAutoClosed(bool autoClosed);
 
 	list<XMLElement *> getElements();
+	map<string,string> getAttributes();
 
 	string toString();
 	string toString(int lvl);
