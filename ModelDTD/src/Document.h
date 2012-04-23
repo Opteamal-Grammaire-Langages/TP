@@ -21,6 +21,7 @@ public:
 	virtual ~Document();
 	list<Element*> getListeElements();
 	map<string, list<DTDattribut*> > getMapAttributs();
+	list<DTDattribut*> getAttribut(string nomBalise);
 	string getDescriptionElement(string elem);
 	void addElement(Element * elem);
 	void addAttributsElement(pair<string, list<DTDattribut*> >);
