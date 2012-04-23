@@ -28,6 +28,7 @@ public:
 protected:
 	Document * docDTD;
 	bool validate(const string xmlTypes, string regex);
+	bool validateDTD (const string attName, list<DTDattribut*> attributsDTD);
 
 };
 
