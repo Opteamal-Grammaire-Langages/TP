@@ -15,13 +15,16 @@ public:
 	virtual ~XMLBalise();
 
 	void addElement(XMLElement * elem);
+  void setElementList(list<XMLElement*> * elemList);
 	void addAttribute(string name, string value="");
+  void setAttList(map<string,string> * list);
 	void setValueAttribute(string name, string value);
 	void setAutoClosed(bool autoClosed);
 
 	list<XMLElement *> getElements();
 
 	string toString();
+	string toString(int lvl);
 	string getChildrenTypes();
 	string getType();
 	string getName();

@@ -22,6 +22,14 @@ string XMLData::getData() {
 string XMLData::toString() {
 	return data;
 }
+string XMLData::toString(int lvl) {
+  string dump;
+  for (int i=0; i<lvl; i++){
+    dump += TAB;
+  }
+  dump += data;
+  return dump; 
+}
 
 string XMLData::getType(){
 	return "CDATA";

@@ -8,7 +8,7 @@
 #ifndef DOCUMENT_H_
 #define DOCUMENT_H_
 #include "Element.h"
-#include "Attribut.h"
+#include "DTDattribut.h"
 #include <list>
 #include <map>
 
@@ -20,15 +20,15 @@ public:
 	Document();
 	virtual ~Document();
 	list<Element*> getListeElements();
-	map<string, list<Attribut*> > getMapAttributs();
+	map<string, list<DTDattribut*> > getMapAttributs();
 	string getDescriptionElement(string elem);
 	void addElement(Element * elem);
-	void addAttributsElement(pair<string, list<Attribut*> >);
+	void addAttributsElement(pair<string, list<DTDattribut*> >);
 	string toString();
 
 private:
 	list<Element*> listeElements;
-	map<string, list<Attribut*> > mapAttributs;
+	map<string, list<DTDattribut*> > mapAttributs;
 };
 
 #endif /* DOCUMENT_H_ */

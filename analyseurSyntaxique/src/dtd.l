@@ -3,6 +3,7 @@
 %{
 #include <ctype.h>
 #include <string.h>
+#include "commun.h"
 #include "dtd.tab.h"
 
 static char* skipSpace(char *s) {

@@ -1,10 +1,11 @@
 <!DOCTYPE rapport SYSTEM "rap1.dtd">
-<rapport b a="lol">
+<rapport a="lol" b="pas lol">
   <titre>Réaliser un compilateur</titre>
-  <auteur>
+  <ns:auteur>
     <prenom> Nino </prenom>
     <nom> Silverio </nom>
   </auteur>
+  <useless/>
   <resume> Ceci est extrait du livre "Réaliser un compilateur : 
 	les outils Lex et Yacc" de Nino Silverio. </resume>
   <chapitre>

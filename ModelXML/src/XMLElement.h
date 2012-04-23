@@ -10,6 +10,7 @@
 
 #include <string>
 
+#define TAB "  " //I don't like big tabs
 using namespace std;
 
 class XMLElement {
@@ -18,6 +19,7 @@ public:
 	virtual ~XMLElement();
 
 	virtual string toString() = 0;
+	virtual string toString(int lvl) = 0;
 	virtual string getType() = 0;
 };
 
