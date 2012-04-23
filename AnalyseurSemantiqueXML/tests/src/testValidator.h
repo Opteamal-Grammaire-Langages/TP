@@ -26,10 +26,12 @@ public:
 	static bool testValidator1();
 	static bool testValidator2();
 	static bool testValidator3();
+	static bool testValidator4();
 
 protected:
 	static XMLBalise * creationArbreXML();
 	static Document * creationDTD();
+	static Document * creationDTDPasAttribut();
 
 	static XMLBalise * creationArbreXMLNonValide();
 
