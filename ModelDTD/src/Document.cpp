@@ -28,6 +28,10 @@ map<string, list<DTDattribut*> > Document::getMapAttributs()
 	return mapAttributs;
 }
 
+list<DTDattribut*> Document::getAttribut(string nomBalise) {
+	return this->mapAttributs[nomBalise];
+}
+
 void Document::addElement(Element * elem){
 	listeElements.push_front(elem);
 }
