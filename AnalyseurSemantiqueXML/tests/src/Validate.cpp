@@ -23,6 +23,10 @@ int main() {
 		cout << "Test 3 correct" << endl;
 	} else { cout << "Test 3 incorrect" << endl; }
 
+	if (testValidator::testValidator4() == false) {
+			cout << "Test 4 correct" << endl;
+	} else { cout << "Test 4 incorrect" << endl; }
+
 
 	return 0;
 }
