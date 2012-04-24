@@ -10,7 +10,7 @@ BUILDDIR=./build
 OBJ=main.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
 LIBPATHS = #-L../lib
-LIBS= #-lmodelDTD
+LIBS=
 
 all: $(EXE) 
 

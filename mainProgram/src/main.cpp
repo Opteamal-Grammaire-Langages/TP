@@ -1,7 +1,31 @@
 #include <iostream>
 #include <string>
-
+#include <vector>
+#include "../../analyseurSyntaxique/src/commun.h"
 using namespace std;
+int result = 0;
+void analyse(vector<string> args)
+{
+  if (args[2] == "-t") // analyse precise d'un fichier
+  {
+    if (args[3] == "dtd")
+    {
+      result = analyseDtd(args[4].c_str());
+    }
+    else if (args[3] == "xml")
+    {
+      result = analyseXml(args[4].c_str());
+    }
+    else if (args[3] == "xsl")
+    {
+      // a remplir
+    }
+  }
+  else //analyse complete xml et dtd associee
+  {
+    result = analyseXml(args[2].c_str());
+  }
+}
 void displayHelp()
 {
   cout << "Synopsis :" << endl;
@@ -15,9 +39,9 @@ void displayHelp()
 }
 int main(int argc, char **argv)
 {
-  string  * args = new string[argc];
+  vector<string> args;
   for(int i=0; i<argc; i++) {
-    args[i].append(argv[i]);
+    args.push_back(argv[i]);
   }
   switch(argc){
     case 1:
@@ -35,10 +59,13 @@ int main(int argc, char **argv)
       }
       break;
     default :
+      if(args[1]=="-a" || args[1]=="--analyze")
+      {
+        analyse(args);
+      } else {
         displayHelp();
+      }
       break;
-
   }
-  delete[] args;
   return 1;
 }
