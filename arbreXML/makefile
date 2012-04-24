@@ -13,8 +13,12 @@ LIBS=../ModelXML/lib/libmodelXML.a
 all: $(EXE) test
 
 test: 
-	./$(EXE) test/rap1.xml 2>/dev/null >/dev/null
-	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
+	@./$(EXE) test/rap1.xml test/rap1.parsed.xml 2>/dev/null >/dev/null
+	@./$(EXE) test/rap1.parsed.xml test/rap1.parsed2.xml 2>/dev/null >/dev/null
+	@diff test/rap1.parsed.xml test/rap1.parsed2.xml
+	@./$(EXE) test/rap2.xml test/rap2.parsed.xml 2>/dev/null >/dev/null
+	@./$(EXE) test/rap2.parsed.xml test/rap2.parsed2.xml 2>/dev/null >/dev/null
+	@diff test/rap2.parsed.xml test/rap2.parsed2.xml
 	@echo "All tests successfuls"
 
 $(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
@@ -46,6 +50,8 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 
 clean:
 	@echo -n cleaning repository... 
+	@-rm -f test/rap1.parsed.xml test/rap2.parsed.xml test/rap1.parsed2.xml test/rap2.parsed2.xml
 	@rm -rf $(SUBDIR)/*.tab.c $(SUBDIR)/lex.*.c $(SUBDIR)/*.tab.h $(SUBDIR)/*.a
 	@rm -rf $(SUBDIR)/*.o ./*.output $(EXE) $(SUBDIR)/$(OBJ) $(SUBDIR)/*.gch
 	@echo cleaned.
+
