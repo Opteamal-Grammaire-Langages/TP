@@ -46,7 +46,7 @@ bool Validator::validateXML(XMLBalise * xml){
 							it_attribute != listeAttributes.end() && regOK == true;
 							it_attribute++) {
 
-					regOK = validateDTD(it_attribute->first, docDTD->getAttribut(xml->getName()));
+					regOK = validateAtt(it_attribute->first, docDTD->getAttribut(xml->getName()));
 				}
 			}
 		}
@@ -72,7 +72,7 @@ bool Validator::validateXML(XMLBalise * xml){
 /*
  * On vérifie que l'attribut du XML (premier argument) est bien dans la DTD
  */
-bool Validator::validateDTD (string attName, list<DTDattribut*> attributsDTD) {
+bool Validator::validateAtt (string attName, list<DTDattribut*> attributsDTD) {
 
 	bool trouve = false;
 	list<DTDattribut *>::iterator it;

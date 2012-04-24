@@ -31,7 +31,7 @@ public:
 	string getName();
 	string getNameSpace();
 	
-	XMLBalise * match(string nameToMatch, XMLBalise * xsl);
+	XMLBalise * match(XMLBalise * xsl);
 
 protected:
 	list<XMLElement *> elements;
