@@ -63,12 +63,17 @@ string XMLTest::testStructure4() {
 	XMLData * elAData = new XMLData("blum");
 	xml->addElement(elAData);
 	
+	cout<<"XML"<<xml->toString()<<endl;
+	
 	//XSL
 	XMLBalise * xsl = new XMLBalise("xsl:template");
 	xsl->setAutoClosed(false);
 	xsl->addAttribute("match", "A");
 	
-	cout<<"Result1"<<xml->match(xsl);	
+	cout<<"XSL1"<<xsl->toString()<<endl;
+	xsl->getElements().begin();
+	cout<<"taille"<<xsl->getElements().size();
+	cout<<"Result1"<<xml->match(xsl)<<endl;	
 	
 
 	 return "coucou";
