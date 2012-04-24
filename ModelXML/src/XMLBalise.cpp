@@ -158,3 +158,31 @@ void XMLBalise::setAutoClosed(bool autoClosed){
 string XMLBalise::getNameSpace(){
 	return ns;
 }
+
+XMLBalise * XMLBalise::match(string nameToMatch, XMLBalise * xsl){
+	
+	for(list<XMLElement *>::iterator it_element = xsl->getElements().begin();
+			it_element != xsl->getElements().end();
+			it_element++) {
+			XMLBalise* balise = dynamic_cast<XMLBalise*>(*it_element);
+		 if( (balise != 0) 
+		 && (balise->getName() == "xsl:template") 
+		 && (balise->getAttributes().find("match") != balise->getAttributes().end()) )
+		 {
+		 	if(balise->getAttributes()["match"] == nameToMatch ){
+		 		return balise;
+		 	}
+		 }else{
+		 	cout<<"MATCH NOT FOUND"<<endl;
+		 }
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+

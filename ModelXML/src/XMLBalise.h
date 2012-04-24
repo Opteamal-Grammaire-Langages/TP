@@ -30,6 +30,8 @@ public:
 	string getType();
 	string getName();
 	string getNameSpace();
+	
+	XMLBalise * match(string nameToMatch, XMLBalise * xsl);
 
 protected:
 	list<XMLElement *> elements;
