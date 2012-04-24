@@ -17,7 +17,7 @@ int analyseDtd(char * input)
   return 0;
 }
 
-int main(int argc, char **argv)
+int analyseXml(int argc, char **argv)
 {
   int err;
   xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
@@ -32,5 +32,10 @@ int main(int argc, char **argv)
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
 	else  printf("Parse ended with success\n");
   return 0;
+}
+
+int main(int argc, char **argv)
+{
+  return analyseXml(argc, argv);
 }
 
