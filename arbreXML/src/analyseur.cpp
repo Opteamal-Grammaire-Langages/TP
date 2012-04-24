@@ -1,6 +1,7 @@
 #include "commun.h"
 #include "stdio.h"
 #include "analyseur.h"
+char * outname;
 int analyseDtd(char * input)
 {
   int err;
@@ -17,12 +18,29 @@ int analyseDtd(char * input)
   return 0;
 }
 
+void dump(const char * toDump)
+{
+  FILE * out;
+  printf("passage dans dump\n");
+  if (outname==NULL){
+		out=fopen("output.xml","w");
+  } else {
+		out=fopen(outname,"w");
+	}
+	fprintf(out,"%s",toDump);
+	fclose(out);
+}
+
 int main(int argc, char **argv)
 {
   int err;
   //xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
 	if (argc<1){
 		return -1;
+	} else if (argc<2) {
+		outname=NULL;
+	} else {
+		outname=argv[2];
 	}
 	xmlin=fopen(argv[1],"r");
 	if(xmlin==NULL){
