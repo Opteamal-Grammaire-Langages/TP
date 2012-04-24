@@ -14,5 +14,6 @@ int main() {
 	cout << XMLTest::testStructure1() << endl;
 	cout << XMLTest::testStructure2() << endl;
 	cout << XMLTest::testStructure3() << endl;
+	cout << XMLTest::testStructure4() << endl;
 	return 0;
 }
