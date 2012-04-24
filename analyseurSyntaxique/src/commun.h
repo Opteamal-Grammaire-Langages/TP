@@ -13,6 +13,7 @@ typedef pair<string,string> Attribut;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;
 int analyseDtd(char * input);
+int analyseXml(int argc, char **argv);
 
 // Includes des fichiers pour la construction de la structure XML
 //#include "../../ModelXML/src/XMLElement.h"
