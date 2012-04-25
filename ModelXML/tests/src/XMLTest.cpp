@@ -63,18 +63,29 @@ string XMLTest::testStructure4() {
 	XMLData * elAData = new XMLData("blum");
 	xml->addElement(elAData);
 	
-	cout<<"XML"<<xml->toString()<<endl;
+	XMLBalise * xml2 = new XMLBalise("B");
+	xml2->setAutoClosed(false);
+	xml2->addAttribute("a", "1");
+	XMLData * elAData2 = new XMLData("blum");
+	xml2->addElement(elAData2);
+	
+	//cout<<"XML"<<endl<<xml->toString()<<endl;
 	
 	//XSL
-	XMLBalise * xsl = new XMLBalise("xsl:template");
+	XMLBalise * xsl = new XMLBalise("xslDocument");
+	XMLBalise * xsltemplate = new XMLBalise("xsl:template");
 	xsl->setAutoClosed(false);
-	xsl->addAttribute("match", "A");
+	xsltemplate->addAttribute("match", "A");
+	xsl->addElement((XMLElement *)xsltemplate);
 	
-	cout<<"XSL1"<<xsl->toString()<<endl;
-	xsl->getElements().begin();
-	cout<<"taille"<<xsl->getElements().size();
-	cout<<"Result1"<<xml->match(xsl)<<endl;	
-	
+	//cout<<"XSL1"<<endl<<xsl->toString()<<endl;
 
-	 return "coucou";
+	//cout<<"Result1"<<xml->match(xsl)<<" "<<true<<endl;	
+	
+	if(xml->match(xsl) != 0 && xml2->match(xsl) == 0){
+		return "TEST 4 succed";
+	}else{
+		return "TEST 4 failed!!";
+	}
+	 
 }

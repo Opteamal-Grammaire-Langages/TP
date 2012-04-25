@@ -161,25 +161,25 @@ string XMLBalise::getNameSpace(){
 
 XMLBalise * XMLBalise::match( XMLBalise * xsl){
 
+	list<XMLElement *> listeElements = xsl->getElements();
 	//Parcours de tous les elements XML
-	for(list<XMLElement *>::iterator it_element = xsl->getElements().begin();
-			it_element != xsl->getElements().end() && xsl->getElements().size() > 0;
+	for(list<XMLElement *>::iterator it_element = listeElements.begin();
+			it_element != listeElements.end() ;
 			it_element++) {
 
 			XMLBalise* balise = dynamic_cast<XMLBalise*>(*it_element);
-
+		 
 		 if( (balise != 0) // Si balise est une instance de XMLBalise
 		 && (balise->getName() == "xsl:template")
 		 && (balise->getAttributes().find("match") != balise->getAttributes().end()) ) // Si l'attribut match est present
 		 {
+		 	map<string,string> mapAttributs = balise->getAttributes();
+		 	string matchingName = mapAttributs.find("match")->second;
 
-		 	if(balise->getAttributes()["match"] == name ){ //Si la valeur de l'attribut match est celle recherchee
+		 	if (name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
 		 		return balise;
 		 	}
-		 }else{
-		 	cout<<"MATCH NOT FOUND"<<endl;
 		 }
-
 	}
 	return 0;
 }
