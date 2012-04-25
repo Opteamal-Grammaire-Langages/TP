@@ -4,10 +4,10 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-EXE=analyseur #Nom du binaire à construire
+EXE=analyseurDTD #Nom du binaire à construire
 SUBDIR=./src
 OBJ=analyseur.o
-LIBS=
+LIBS=../ModelDTD/lib/libmodelDTD.a
 
 #analyseDTD: *.l *.y makefile
 #	flex dtd.l
@@ -22,8 +22,8 @@ LIBS=
 all: $(EXE) test
 
 test: 
-	./$(EXE) test/rap1.xml 2>/dev/null >/dev/null
-	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
+	./$(EXE) test/rap1.dtd 2>/dev/null >/dev/null
+	./$(EXE) test/rap2.dtd 2>/dev/null >/dev/null
 	@echo "All tests successfuls"
 
 $(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
