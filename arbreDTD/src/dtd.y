@@ -35,7 +35,7 @@ main: dtd_component {*doc = $1;}
 ;
 
 dtd_component
-: dtd_component elem {$$->addElement($2) /* ajout d'un element a la DTD */;}
+: dtd_component elem {$$->addElement($2) /* ajout d'un element a la DTD  */;}
 | dtd_component dtd_list_opt {$$->addAttributsElement(*($2));} /* ajout d'une paire (nom element, listeAtt)*/
 | /* empty */ {$$ = new Document(); /* initialisation de la structure */}
 ;
