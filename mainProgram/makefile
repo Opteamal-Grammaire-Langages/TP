@@ -9,8 +9,7 @@ SUBDIR=./src
 BUILDDIR=./build
 OBJ=main.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
-LIBPATHS = #-L../lib
-LIBS=
+LIBS=../analyseurSyntaxique/libanalyseur.a # ../analyseurSyntaxique/src/bison.a
 
 all: $(EXE) 
 
@@ -29,7 +28,7 @@ $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp
 
 clean:
 	@echo -n cleaning repository... 
-	-rm -f $(BUILDDIR)/*.o $(EXE)
+	@-rm -f $(BUILDDIR)/*.o $(EXE)
 	@echo cleaned.
 	
 .PHONY : test clean

@@ -1,6 +1,7 @@
 DIR=analyseurSyntaxique
 
-FOLDERS := ModelXML AnalyseurSemantiqueXML analyseurSyntaxique ModelDTD
+FOLDERS := ModelXML AnalyseurSemantiqueXML analyseurSyntaxique ModelDTD\
+ arbreXML arbreDTD mainProgram 
 
 first : $(DIR)
 	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE)) ; echo ; done
@@ -10,7 +11,7 @@ clean : $(DIR)
 	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) $@) ; echo ; done
 	
 tests:
-	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) test) ; echo ; done
+	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) -s test) ; echo ; done
 	
 cleanTests:
 	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE) $@) ; echo ; done

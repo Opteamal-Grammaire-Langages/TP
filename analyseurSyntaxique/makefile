@@ -34,9 +34,11 @@ $(EXE): $(LIB) $(OBJPATH) $(SUBDIR)/bison.a
 	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(SUBDIR)/bison.a $(LIBS)
 	@echo done
 
-$(LIB): $(LOBJPATH) 
+$(LIB): $(LOBJPATH) $(SUBDIR)/bison.a
 	@echo -n archiving $(LIB)... 
-	@ar rcs $(LIB) $(LOBJPATH)
+	@ar -x $(SUBDIR)/bison.a
+	@ar rcs $(LIB) $(LOBJPATH) ./*.o
+	@rm -f ./*.o
 	@echo done.
 
 $(SUBDIR)/%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
