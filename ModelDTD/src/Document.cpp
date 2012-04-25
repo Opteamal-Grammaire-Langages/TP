@@ -11,7 +11,6 @@
 
 Document::Document() {
 	// TODO Auto-generated constructor stub
-	//listeElements = new List<Element*>();
 }
 
 Document::~Document() {
@@ -64,7 +63,7 @@ string Document::toString(){
 	for(map<string, list<DTDattribut*> >::iterator it=mapAttributs.begin() ; it!=mapAttributs.end() ; ++it)
 	{
 		ret += "<!ATTLIST ";
-	  ret += it->first; // accede à la clé
+	  ret += it->first; // accede à la clé (le nom de l'element)
 	  ret += "\n";
 	  list<DTDattribut*> listeAttributs = it->second; // accede à la valeur
 	  
