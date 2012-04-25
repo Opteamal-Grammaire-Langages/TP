@@ -81,8 +81,8 @@ string XMLTest::testStructure4() {
 	//cout<<"XSL1"<<endl<<xsl->toString()<<endl;
 
 	//cout<<"Result1"<<xml->match(xsl)<<" "<<true<<endl;	
-	
-	if(xml->match(xsl) != 0 && xml2->match(xsl) == 0){
+
+	if(xml->match(xsl) != 0 && xml->match(xsl)->getName() == "xsl:template" && xml2->match(xsl) == 0){
 		return "TEST 4 succed";
 	}else{
 		return "TEST 4 failed!!";
