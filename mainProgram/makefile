@@ -29,7 +29,7 @@ $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp
 
 clean:
 	@echo -n cleaning repository... 
-	-rm -rf $(BUILDDIR)/*.o $(EXE)
+	-rm -f $(BUILDDIR)/*.o $(EXE)
 	@echo cleaned.
 	
 .PHONY : test clean
