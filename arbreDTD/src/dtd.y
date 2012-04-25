@@ -35,8 +35,8 @@ main: dtd_component {*doc = $1;}
 ;
 
 dtd_component
-: dtd_component elem {$$->addElement($2);}
-| dtd_component dtd_list_opt {$$->addAttributsElement(*($2));}
+: dtd_component elem {$$->addElement($2) /* ajout d'un element a la DTD */;}
+| dtd_component dtd_list_opt {$$->addAttributsElement(*($2));} /* ajout d'une paire (nom element, listeAtt)*/
 | /* empty */ {$$ = new Document(); /* initialisation de la structure */}
 ;
 
@@ -50,8 +50,8 @@ content
 ;
 
 children
-: choice card_opt {$$ = new string(*$1 + *$2);}
-| seq card_opt {$$ = new string(*$1 + *$2);}
+: choice card_opt {$$ = new string(*$1 + *$2); /* concatenation de la liste des choix et cardinalites */}
+| seq card_opt {$$ = new string(*$1 + *$2);}   /* concatenation des sequences et leurs cardinalites */
 ;
 
 card_opt
@@ -101,6 +101,7 @@ list_mixed
 
 dtd_list_opt
 : ATTLIST IDENT att_definition_opt CLOSE {$$ = new pair<string, list<DTDattribut*> >(string($2), *($3)); free($2);}
+/*creation d'une paire (nom element, liste de ses attributs)*/
 ;
 
 
