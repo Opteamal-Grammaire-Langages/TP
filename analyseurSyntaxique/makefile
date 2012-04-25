@@ -6,7 +6,8 @@ EDLFLAGS=-Wall
 ECHO=@echo
 EXE=analyseur #Nom du binaire à construire
 SUBDIR=./src
-OBJ=analyseur.o
+OBJ=analyseur.o test.o
+OBJPATH= $(foreach file, $(OBJ), $(SUBDIR)/$(file))
 LIBS=
 
 #analyseDTD: *.l *.y makefile
@@ -26,9 +27,9 @@ test:
 	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
 	@echo "All tests successfuls"
 
-$(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+$(EXE): $(OBJPATH) $(SUBDIR)/bison.a $(LIBS)
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(SUBDIR)/bison.a $(LIBS)
 	@echo done
 
 $(SUBDIR)/%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
