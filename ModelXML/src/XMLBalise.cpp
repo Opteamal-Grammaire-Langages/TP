@@ -31,6 +31,15 @@ XMLBalise::~XMLBalise() {
 void XMLBalise::addElement(XMLElement * elem){
 	elements.push_back(elem);
 }
+
+void XMLBalise::addElements(list<XMLElement *> elem){
+
+	list<XMLElement *>::iterator it;
+	for(it = elem.begin(); it != elem.end() ; it++){
+		elements.push_back(*it);
+	}
+}
+
 void XMLBalise::setElementList(list<XMLElement*> * list){
   elements=*list;
   delete list;
@@ -159,6 +168,11 @@ string XMLBalise::getNameSpace(){
 	return ns;
 }
 
+/**
+ * Vérifie l'existence d'un noeud XLST qui matche avec le nom de la balise XML
+ * Si la balise est trouvee, renvoie la balise XLST
+ * Si la balise n'est pas trouvee, renvoie 0
+ */
 XMLBalise * XMLBalise::match( XMLBalise * xsl){
 
 	list<XMLElement *> listeElements = xsl->getElements();
