@@ -3,6 +3,8 @@
  *
  *  Created on: 3 avr. 2012
  *      Author: caucagne1
+ *
+ *  Cette classe correspond a un element defini dans une structure DTD.
  */
 
 #ifndef ELEMENT_H_
@@ -17,8 +19,12 @@ public:
 	Element(string nom, string description);
 	virtual ~Element();
 
+	/*
+	 * Getters
+	 */
 	string getDescription() const {return description;}
 	string getNom() const {return nom;}
+
 	string toString();
 
 private:

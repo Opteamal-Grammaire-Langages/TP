@@ -11,10 +11,10 @@ int dtdlex(void);
 %union { 
    char *s;
    string *st;
-   Element* e;
-   DTDattribut *a;
-   Document *d;
-   pair<string, list<DTDattribut*> > *p;
+   Element* e; /* element defini dans la DTD */
+   DTDattribut *a; /* attribut d'un element */
+   Document *d; /* l'objet contenat la structure DTD */
+   pair<string, list<DTDattribut*> > *p; /* association nom element - liste attributs */
    list<DTDattribut*> *l;
    }
 
@@ -28,7 +28,7 @@ int dtdlex(void);
 %type <p> dtd_list_opt
 %type <l> att_definition_opt
 
-%parse-param {Document ** doc}
+%parse-param {Document ** doc} /* recuperation de la structure DTD */
 %%
 
 main: dtd_component {*doc = $1;}
@@ -37,7 +37,7 @@ main: dtd_component {*doc = $1;}
 dtd_component
 : dtd_component elem {$$->addElement($2);}
 | dtd_component dtd_list_opt {$$->addAttributsElement(*($2));}
-| /* empty */ {$$ = new Document();}
+| /* empty */ {$$ = new Document(); /* initialisation de la structure */}
 ;
 
 elem
