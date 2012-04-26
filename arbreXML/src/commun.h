@@ -1,5 +1,5 @@
-#ifndef COMMUN_H
-#define COMMUN_H
+#ifndef COMMUN_H_MODEL_XML
+#define COMMUN_H_MODEL_XML
 
 using namespace std;
 #include <list>
