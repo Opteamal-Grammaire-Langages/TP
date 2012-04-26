@@ -15,11 +15,16 @@ int model(string file, string type, string outputfile, bool debug) {
   if (file.empty()) {
     return -1;
   }
-  if (type=="xml") {
+  if (type=="xml" || type=="xsl") {
     XMLElement * document = modelizeXml(file.c_str(),out,debug);
-    cout << "Model as parsed :\n" << document->toString(0).c_str() <<endl; 
-  } else {
-    //todo
+    cout << "XML Model as parsed :\n" << document->toString(0).c_str() <<endl; 
+    delete document;
+  } else if (type=="dtd"){
+    Document * doc =new Document;
+    int ret = modelizeDtd(file.c_str(),&doc,debug);
+    if (ret==-1) return -1;
+    cout << "DTD Model as parsed :\n" << doc->toString().c_str() <<endl;
+    delete doc;
   }
   return 0;
 }
@@ -73,15 +78,15 @@ void displayHelp()
 {
   cout << "Synopsis :" << endl;
   cout << "\tanalyzer [-h]" << endl;
-  cout << "\tanalyzer [-a] [-v] [-t type] FILENAME" << endl;
-  cout << "\tanalyser [-m] -t type [-o output] FILENAME" << endl;
+  cout << "\tanalyzer [-A] [-v] [-t type] FILENAME" << endl;
+  cout << "\tanalyser [-V] -t type [-o output] FILENAME" << endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
-  cout << "\t-a / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
+  cout << "\t-A / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
                          If a DOCTYPE declaration is found, the corresponding DTD is parsed as well\n\
                          If -t type is specified, check FILENAME syntax against \"type\" syntax.\n\
                          In this case, if the file is an xml file, don't check the corresponding DTD" << endl;
-  cout << "\t-m / --model : Fill and display an memory structure with the input file, type specifies\n\
+  cout << "\t-M / --model : Fill and display an memory structure with the input file, type specifies\n\
                           what kind of memory model must be filled" << endl;
   cout << "\t-t / --type {xml,dtd,xsl} : specify the type of FILENAME" << endl;
   cout << "\t-v / --verbose" << endl;
@@ -111,15 +116,15 @@ int parseLine(vector<string> args){
         output=args[i+1];
         i++; //Don't check the next arg, it must be a file
       } else return -1;
-    } else if (args[i]=="-a" || args[i]=="--analyze") {
+    } else if (args[i]=="-A" || args[i]=="--analyze") {
       if (todo==NONE) {
         todo=ANALYSE;
       } else return -2;
-    } else if (args[i]=="-h" || args[i]=="--help") {
+    } else if (args[i]=="-H" || args[i]=="-h" || args[i]=="--help") {
       if (todo==NONE) {
         todo=HELP;
       } else return -2;
-    } else if (args[i]=="-m" || args[i]=="--model") {
+    } else if (args[i]=="-M" || args[i]=="--model") {
       if (todo==NONE) {
         todo=MODELIZE;
       } else return -2;

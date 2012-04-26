@@ -4,19 +4,14 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-EXE=analyseurDTD #Nom du binaire à construire
+EXE=modeliseurDTD #Nom du binaire à construire
+LIB=libmodeliseurdtd.a
+LOBJ=analyseur.o
+OBJ=test.o
 SUBDIR=./src
-OBJ=analyseur.o
-LIBS=../ModelDTD/lib/libmodelDTD.a
-
-#analyseDTD: *.l *.y makefile
-#	flex dtd.l
-#	bison --debug --verbose --defines=yy.tab.h dtd.y
-#	g++ -g -DYYDEBUG=1 -o analyseDTD  lex.yy.c dtd.tab.c 
-#analyseXML: *.l *.y makefile
-#	flex  xml.l
-#	bison --debug --verbose --defines=yy.tab.h xml.y
-#	g++ -g -DYYDEBUG=1 -o analyseXML  lex.yy.c  xml.tab.c 
+OBJPATH= $(foreach file, $(OBJ), $(SUBDIR)/$(file))
+LOBJPATH= $(foreach file, $(LOBJ), $(SUBDIR)/$(file))
+LIBS=$(LIB) ../ModelDTD/lib/libmodelDTD.a
 
 .PHONY : test clean
 all: $(EXE) test
@@ -26,10 +21,17 @@ test:
 	./$(EXE) test/rap2.dtd 2>/dev/null >/dev/null
 	@echo "All tests successfuls"
 
-$(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+$(EXE): $(OBJPATH) $(LIBS)
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBS)
 	@echo done
+
+$(LIB): $(LOBJPATH) $(SUBDIR)/bison.a
+	@echo -n archiving $(LIB)... 
+	@ar -x $(SUBDIR)/bison.a
+	@ar rcs $(LIB) $(LOBJPATH) ./*.o
+	@rm -f ./*.o
+	@echo done.
 
 $(SUBDIR)/%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
