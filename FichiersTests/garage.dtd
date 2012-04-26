@@ -1,0 +1,16 @@
+<!ELEMENT garage (nomGarage, anneeOuverture, proprietaire, voiture*)>
+<!ELEMENT nomGarage (#PCDATA)>
+<!ELEMENT anneeOuverture (#PCDATA)>
+<!ELEMENT proprietaire (prenom, nom)>
+<!ELEMENT prenom (#PCDATA)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT voiture (marque, modele, couleur?, annee, moteur, nbKm, prix)>
+<!ELEMENT marque (#PCDATA)>
+<!ELEMENT modele (#PCDATA)>
+<!ELEMENT couleur (#PCDATA)>
+<!ELEMENT annee (#PCDATA)>
+<!ELEMENT moteur (#PCDATA)>
+<!ELEMENT nbKm (#PCDATA)>
+<!ELEMENT prix (#PCDATA)>
+<!ATTLIST prix 
+	devise CDATA #IMPLIED>

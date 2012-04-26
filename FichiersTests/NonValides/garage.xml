@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="garage2.xsl"?>
+<!DOCTYPE garage SYSTEM "garage.dtd">
+<garage>
+	<nomGarage>Tout Roule<nomGarage>
+	<anneeOuverture>2005</anneeOuverture>
+	<proprietaire>
+		<prenom>Oscar</prenom>
+		<nom>Hossery</nom>
+	</proprietaire>
+	<voiture>
+		<marque>Peugeot</marque>
+		<modele>206</modele>
+		<couleur>Rouge</couleur>
+		<annee>2000</annee>
+		<moteur>1.4 HDi 70 ch</moteur>
+		<nbKm>153420</nbKm>
+		<prix devise="€">2000</prix>
+	</voiture>
+	<voiture>
+		<marque>Peugeot</marque>
+		<modele>207</modele>
+		<couleur>Noir</couleur>
+		<annee>2008</annee>
+		<moteur>1.6 VTi 120 ch</moteur>
+		<nbKm>92000</nbKm>
+		<prix devise>3000</prix>
+	</voiture>
+	<voiture>
+		<marque>Audi</marque>
+		<modele>TT</modele>
+		<couleur>Gris métalisé</couleur>
+		<annee>2012</annee>
+		<moteur>3.2 FSI 250 ch</moteur>
+		<nbKm>0</nbKm>
+		<prix devise="€">47990</prix>
+	</voiture>
+</garage>

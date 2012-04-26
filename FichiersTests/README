@@ -1,0 +1,3 @@
+- garage.xsl -> sans value-of
+- garage2.xsl -> avec value-of
+- dossier NonValides -> les mêmes fichiers où on peut faire des petites modifications pour montrer que l'analyseur détecte bien quand un fichier n'est pas valide
