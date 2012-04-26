@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+char * outname;
 extern FILE * xmlin;
 extern int xmldebug;
 extern int xmlparse ();
