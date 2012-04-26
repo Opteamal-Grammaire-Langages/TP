@@ -13,6 +13,7 @@
 #define CLOSE_TAG ">"
 #define SLASH "/"
 
+
 XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
@@ -165,6 +166,10 @@ void XMLBalise::setAutoClosed(bool autoClosed){
 
 string XMLBalise::getNameSpace(){
 	return ns;
+}
+
+bool XMLBalise::getAutoClosed(){
+	return autoClosed;
 }
 
 /**

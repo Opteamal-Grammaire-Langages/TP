@@ -21,11 +21,11 @@ class XSLTProcessor {
 
 public:
 
-	XMLElement * generateXSLXML(XMLElement * docXML, XMLBalise * xls){}
+	list<XMLElement *> generateXSLXML(XMLBalise * docXML, XMLBalise * xls);
 protected:
-	XMLBalise * generateTemplate(XMLBalise * templateMatched, XMLBalise * xls, XMLBalise * noeudXMLMatched){}
-	XMLBalise * lookOverXSLToBuildTemplate(XMLElement * elementXML, XMLBalise * xls){}
+	list<XMLElement *> generateTemplate(XMLBalise * templateMatched, XMLBalise * xls, XMLBalise * noeudXMLMatched);
+	list<XMLElement *> lookOverXSLToBuildTemplate(XMLBalise * elementXSL, XMLBalise * xls, XMLBalise * xmlMatching);
 
-}
+};
 
 #endif /* XLSTPROCESSOR_H_ */

@@ -16,9 +16,9 @@ public:
 
 	void addElement(XMLElement * elem);
 	void addElements(list<XMLElement *> elem);
-  void setElementList(list<XMLElement*> * elemList);
+	void setElementList(list<XMLElement*> * elemList);
 	void addAttribute(string name, string value="");
-  void setAttList(map<string,string> * list);
+	void setAttList(map<string,string> * list);
 	void setValueAttribute(string name, string value);
 	void setAutoClosed(bool autoClosed);
 
@@ -31,6 +31,7 @@ public:
 	string getType();
 	string getName();
 	string getNameSpace();
+	bool getAutoClosed();
 	
 	XMLBalise * match(XMLBalise * xsl);
 
