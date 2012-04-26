@@ -1,5 +1,5 @@
-#ifndef COMMUN_H
-#define COMMUN_H
+#ifndef COMMUN_H_ANALYSE_SYN
+#define COMMUN_H_ANALYSE_SYN
 
 using namespace std;
 #include <list>
