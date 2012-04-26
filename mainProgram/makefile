@@ -4,12 +4,12 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-EXE=analyzer #Nom du binaire à construire
+EXE=tpgl #Nom du binaire à construire
 SUBDIR=./src
 BUILDDIR=./build
 OBJ=main.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
-LIBS=../analyseurSyntaxique/libanalyseur.a # ../analyseurSyntaxique/src/bison.a
+LIBS=../arbreXML/libmodeliseurxml.a ../ModelXML/lib/libmodelXML.a ../analyseurSyntaxique/libanalyseur.a
 
 all: $(EXE) 
 

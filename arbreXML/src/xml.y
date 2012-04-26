@@ -83,7 +83,7 @@ close_content_and_end
 
 end_or_ns_end
  : END	
- | NSEND	{ printf("FIN : %s et %s\n",$1->first.c_str(),$1->second.c_str()); }
+ | NSEND	{ /*printf("FIN : %s et %s\n",$1->first.c_str(),$1->second.c_str());*/ }
  ;
 
 content_opt 

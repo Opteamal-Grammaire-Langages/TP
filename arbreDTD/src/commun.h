@@ -1,5 +1,5 @@
-#ifndef COMMUN_H
-#define COMMUN_H
+#ifndef COMMUN_H_MODEL_DTD
+#define COMMUN_H_MODEL_DTD
 
 using namespace std;
 #include <list>

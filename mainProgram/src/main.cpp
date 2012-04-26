@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../../arbreXML/src/commun.h"
 #include "../../analyseurSyntaxique/src/commun.h"
-#include "../../arbreXML/src/modeliseurxml.h"
 #include "../../arbreDTD/src/commun.h"
 
 using namespace std;
@@ -10,16 +10,21 @@ enum command {NONE,ANALYSE,MODELIZE,HELP};
 int result = 0;
 
 int model(string file, string type, string outputfile, bool debug) {
-  if (file.empty() || outputfile.empty()) {
+  const char * out=NULL;
+  if (!outputfile.empty()) out=outputfile.c_str();
+  if (file.empty()) {
     return -1;
   }
-  id (type=="xml") {
-    modelizeXml(file.c_str,outputfile.c_str,debug);
+  if (type=="xml") {
+    XMLElement * document = modelizeXml(file.c_str(),out,debug);
+    printf("lol");
+    cout << "Model as parsed :\n" << document->toString(0).c_str() <<endl; 
   } else {
     //todo
   }
   return 0;
 }
+
 int analyze(string file, string type="", bool debug=false)
 {
   if (file.empty())
@@ -56,8 +61,10 @@ void displayError(int error)
   switch (error){
     case -1 :
       cout << "Error 1, bad arguments" << endl;
+      break;
     case -2 :
       cout << "Error 2, bad command" << endl;
+      break;
     default :
       cout << "Error " << error << ", unknown error" << endl;
       break;
@@ -113,6 +120,10 @@ int parseLine(vector<string> args){
       if (todo==NONE) {
         todo=HELP;
       } else return -2;
+    } else if (args[i]=="-m" || args[i]=="--model") {
+      if (todo==NONE) {
+        todo=MODELIZE;
+      } else return -2;
     } else if (i==args.size()-1 && args[i][0]!='-') {
       file=args[i];
     }
@@ -127,7 +138,8 @@ int parseLine(vector<string> args){
       return analyze(file,type,debug);
       break;
     case MODELIZE :
-      return model(file,type,output);
+      return model(file,type,output,debug);
+      break;
     default :
       displayHelp();
       break;
