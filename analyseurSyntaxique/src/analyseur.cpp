@@ -1,10 +1,10 @@
 #include "commun.h"
 #include "stdio.h"
 #include "analyseur.h"
-int analyseDtd(const char * input)
+int analyseDtd(const char * input, int debug)
 {
   int err;
-  dtddebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
+  dtddebug = debug; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 	dtdin=fopen(input,"r");
 	if(dtdin==NULL){
 		return -1;
@@ -20,10 +20,10 @@ int analyseDtd(const char * input)
   return 0;
 }
 
-int analyseXml(const char * file)
+int analyseXml(const char * file, int debug)
 {
   int err;
-  xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
+  xmldebug = debug; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
   xmlin=fopen(file,"r");
   if(xmlin==NULL){
     return -1;
