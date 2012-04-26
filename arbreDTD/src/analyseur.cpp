@@ -7,13 +7,13 @@ int analyseDtd(char * input, Document ** doc)
 {
   int err;
 
-  dtddebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
-	dtdin=fopen(input,"r");
-	if(dtdin==NULL){
+  ddtddebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
+	ddtdin=fopen(input,"r");
+	if(ddtdin==NULL){
 		return -1;
 	}
 
-  err = dtdparse(doc);
+  err = ddtdparse(doc);
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
         else  printf("Parse ended with success\n");
   return 0;

@@ -3,12 +3,12 @@
 
 #include <stdio.h>
 
-extern FILE * xmlin;
-extern int xmldebug;
-extern int xmlparse ();
-extern FILE * dtdin;
-extern int dtddebug;
-extern int dtdparse (Document ** doc);
+extern FILE * dxmlin;
+extern int dxmldebug;
+extern int dxmlparse ();
+extern FILE * ddtdin;
+extern int ddtddebug;
+extern int ddtdparse (Document ** doc);
 
 
 #endif
