@@ -23,19 +23,19 @@ XMLElement* modelizeXml(const char * infile, const char * outfile, bool debug)
 {
   int err;
   if (debug){
-    xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
+    mxmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
   } else {
-    xmldebug = 0;
+    mxmldebug = 0;
   }
 	if (infile==NULL){
 		return new XMLData("");
 	}
   outname=outfile;
-	xmlin=fopen(infile,"r");
-	if(xmlin==NULL){
+  mxmlin=fopen(infile,"r");
+	if(mxmlin==NULL){
 		return new XMLData("");
 	}
-  err = xmlparse();
+  err = mxmlparse();
   if (err != 0){
     printf("Parse ended with %d error(s)\n", err);
     return new XMLData("");

@@ -9,7 +9,9 @@ SUBDIR=./src
 BUILDDIR=./build
 OBJ=main.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
-LIBS=../arbreXML/libmodeliseurxml.a ../ModelXML/lib/libmodelXML.a ../analyseurSyntaxique/libanalyseur.a
+LIBS=../arbreXML/libmodeliseurxml.a ../ModelXML/lib/libmodelXML.a \
+		 ../analyseurSyntaxique/libanalyseur.a ../arbreDTD/libmodeliseurdtd.a \
+		 ../ModelDTD/lib/libmodelDTD.a
 
 all: $(EXE) 
 

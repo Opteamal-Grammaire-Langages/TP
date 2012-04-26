@@ -3,9 +3,9 @@
 #include <string.h>
 #include <iostream>
 
-void dtderror(Document ** doc, char *msg);
-int dtdwrap(void);
-int dtdlex(void);
+void ddtderror(Document ** doc, char *msg);
+int ddtdwrap(void);
+int ddtdlex(void);
 %}
 
 %union { 
@@ -143,12 +143,12 @@ default_declaration
 | FIXED STRING     {$$ = new string("#FIXED" + string($2)); free($2);}
 ;
 %%
-int dtdwrap(void)
+int ddtdwrap(void)
 {
   return 1;
 }
 
-void dtderror(Document ** doc, char *msg)
+void ddtderror(Document ** doc, char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }
