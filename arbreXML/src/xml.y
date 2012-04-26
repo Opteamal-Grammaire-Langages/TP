@@ -2,9 +2,9 @@
 using namespace std;
 #include "commun.h"
 
-int xmlwrap(void);
-void xmlerror(char *msg);
-int xmllex(void);
+int mxmlwrap(void);
+void mxmlerror(char *msg);
+int mxmllex(void);
 
 %}
 
@@ -94,12 +94,12 @@ content_opt
  ;
 %%
 
-int xmlwrap(void)
+int mxmlwrap(void)
 {
   return 1;
 }
 
-void xmlerror(char *msg)
+void mxmlerror(char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }

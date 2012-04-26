@@ -2,14 +2,11 @@
 #define _ANALYSEUR_H
 
 #include "commun.h"
-#include <stdio.h>
-
-extern FILE * xmlin;
-extern int xmldebug;
-extern int xmlparse ();
-extern FILE * dtdin;
-extern int dtddebug;
-extern int dtdparse ();
-
+  extern FILE * mxmlin;
+  extern int mxmldebug;
+  extern int mxmlparse ();
+  extern FILE * mdtdin;
+  extern int mdtddebug;
+  extern int mdtdparse ();
 
 #endif

@@ -17,7 +17,6 @@ int model(string file, string type, string outputfile, bool debug) {
   }
   if (type=="xml") {
     XMLElement * document = modelizeXml(file.c_str(),out,debug);
-    printf("lol");
     cout << "Model as parsed :\n" << document->toString(0).c_str() <<endl; 
   } else {
     //todo
