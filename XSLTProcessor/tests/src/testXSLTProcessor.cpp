@@ -171,7 +171,7 @@ bool testXSLTProcessor::testXSLT2() {
 
 	// Transformation
 	list<XMLElement *> listeTransfo;
-	//listeTransfo = generateXSLXML(xml, xsl);
+	listeTransfo = XSLTProcessor::generateXSLXML(xml, xsl);
 
 	cout << "===== HTML TRANSFORME =====" << endl;
 	list<XMLElement*>::iterator it;
