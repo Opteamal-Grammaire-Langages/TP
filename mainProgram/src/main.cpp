@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "../../analyseurSyntaxique/src/commun.h"
-#include "../../arbreXML/src/commun.h"
+#include "../../arbreXML/src/modeliseurxml.h"
 #include "../../arbreDTD/src/commun.h"
 
 using namespace std;

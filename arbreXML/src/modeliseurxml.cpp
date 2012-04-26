@@ -1,5 +1,5 @@
 #include "stdio.h"
-#include "analyseur.h"
+#include "modeliseurxml.h"
 char * outname;
 XMLElement * document;
 int modeliseDtd(char * input)
