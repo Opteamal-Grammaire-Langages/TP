@@ -1,8 +1,5 @@
 #include "testValidator.h"
 
-
-
-
 /* Creation de la DTD valide */
 Document * testValidator::creationDTD() {
 	Document * document = new Document();

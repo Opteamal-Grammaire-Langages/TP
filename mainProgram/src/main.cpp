@@ -4,6 +4,7 @@
 #include "../../arbreXML/src/commun.h"
 #include "../../analyseurSyntaxique/src/commun.h"
 #include "../../arbreDTD/src/commun.h"
+#include "../../AnalyseurSemantiqueXML/src/Validator.h"
 
 
 using namespace std;
@@ -11,7 +12,24 @@ enum command {NONE,ANALYSE,MODELIZE,VALIDATE,HELP};
 int result = 0;
 
 int validate(string file, string dtd, bool debug){
-  
+  Document * docdef =new Document;
+  int ret = modelizeDtd(dtd.c_str(),&docdef,debug);
+  if (ret==-1) return -1;
+  XMLElement * document = modelizeXml(file.c_str(),NULL,debug);
+  Validator val(docdef);
+  XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
+  if (balise==NULL){
+    cout << "Invalid XML document" << endl;
+    return -1;
+  }
+  bool valid=val.validateXML(balise);
+  if (valid){
+    cout << "valid document" << endl;
+  } else {
+    cout << "invalid document" << endl;
+  }
+  delete docdef;
+  delete document;
   return 0;
 } 
 int model(string file, string type, string outputfile, bool debug) {
