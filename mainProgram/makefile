@@ -11,7 +11,8 @@ OBJ=main.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
 LIBS=../arbreXML/libmodeliseurxml.a ../ModelXML/lib/libmodelXML.a \
 		 ../analyseurSyntaxique/libanalyseur.a ../arbreDTD/libmodeliseurdtd.a \
-		 ../ModelDTD/lib/libmodelDTD.a
+		 ../ModelDTD/lib/libmodelDTD.a ../AnalyseurSemantiqueXML/lib/libvalidator.a \
+		 -lboost_regexp
 
 all: $(EXE) 
 
