@@ -26,8 +26,8 @@ LIBS=$(LIB)
 all: $(EXE) test
 
 test: 
-	./$(EXE) test/rap1.xml 2>/dev/null >/dev/null
-	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
+	./$(EXE) test/rap1.xml 2>/dev/null >test2.log
+	./$(EXE) test/rap2.xml 2>/dev/null >test2.log
 	@echo "All tests successfuls"
 $(EXE): $(LIB) $(OBJPATH) $(SUBDIR)/bison.a 
 	@echo building $<

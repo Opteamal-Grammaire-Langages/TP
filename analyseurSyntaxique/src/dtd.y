@@ -41,10 +41,10 @@ children
 ;
 
 card_opt
-: QMARK {$$ = "?"; }
-| AST  {$$ = "*"; }
-| PLUS {$$ = "+"; }
-| /* empty */ {$$ = ""; }
+: QMARK {/*$$ = "?";*/ }
+| AST  {/*$$ = "*";*/ }
+| PLUS {/*$$ = "+";*/ }
+| /* empty */ {/*$$ = "";*/ }
 ;
 
 cp
@@ -53,36 +53,36 @@ cp
 ;
 
 choice
-: OPENPAR cp list_choice CLOSEPAR {$$ = strcat(strcat(strcat("(", $2), $3), ")");}
+: OPENPAR cp list_choice CLOSEPAR {} 
 ;
 
 list_choice
-: list_choice PIPE cp {$$ = strcat(strcat($1, "|"), $3);}
-| PIPE cp {$$ = strcat("|",$2);}
+: list_choice PIPE cp {}
+| PIPE cp {} 
 ;
 
 seq
-: OPENPAR cp list_seq_opt CLOSEPAR {$$ = strcat(strcat(strcat("(", $2), $3), ")");}
+: OPENPAR cp list_seq_opt CLOSEPAR {}
 ;
 
 list_seq_opt
-: list_seq_opt COMMA cp  {$$ = strcat(strcat($1, ","), $3);}
-| /* empty */ {$$ = ""; }
+: list_seq_opt COMMA cp  {/*$$ = strcat(strcat($1, ","), $3);*/}
+| /* empty */ {printf("lol\n"); $$ = ""; }
 ;
 
 mixed
-: OPENPAR PCDATA list_mixed CLOSEPAR AST {$$ = strcat(strcat(strcat(strcat("(", "PCDATA"), $3), ")"), "*");}
-| OPENPAR PCDATA CLOSEPAR ast_opt  {$$ = strcat(strcat(strcat("(", "PCDATA"), ")"), $4);}
+: OPENPAR PCDATA list_mixed CLOSEPAR AST {}
+| OPENPAR PCDATA CLOSEPAR ast_opt {}
 ;
 
 ast_opt
-: AST  {$$ = "*"; }
-| /* empty */  {$$ = ""; }
+: AST {} 
+| /* empty */ {} 
 ;
 
 list_mixed
-: list_mixed PIPE IDENT {$$ = strcat(strcat($1, "|"), $3);}
-| PIPE IDENT {$$ = strcat("|", $2);}
+: list_mixed PIPE IDENT {}
+| PIPE IDENT {}
 ;
 
 dtd_list_opt
@@ -100,32 +100,32 @@ attribute
 ;
 
 att_type
-: CDATA    {$$ = "CDATA";}
-| TOKENTYPE {$$ = $1;}
-| enumerate     {$$ = $1;}
+: CDATA {}
+| TOKENTYPE 
+| enumerate {} 
 ;
 
 enumerate
-: OPENPAR enum_list_plus CLOSEPAR  {$$ = strcat(strcat("(", $2), ")");}
+: OPENPAR enum_list_plus CLOSEPAR {}
 ;
 
 enum_list_plus
-: enum_list PIPE item_enum
+: enum_list PIPE item_enum {}
 ;
 
 enum_list
-: item_enum               
-| enum_list PIPE item_enum
+: item_enum {}
+| enum_list PIPE item_enum {}
 ;
 
 item_enum
-: IDENT
+: IDENT 
 ;
 
 default_declaration
-: DECLARATION     {$$ = $1;}
-| STRING         {$$ = $1;}
-| FIXED STRING     {$$ = strcat("FIXED", $2);}
+: DECLARATION 
+| STRING 
+| FIXED STRING {}
 ;
 %%
 int dtdwrap(void)
