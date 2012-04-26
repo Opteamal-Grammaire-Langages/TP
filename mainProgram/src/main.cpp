@@ -6,12 +6,17 @@
 #include "../../arbreDTD/src/commun.h"
 
 using namespace std;
-enum command {NONE,ANALYSE,HELP};
+enum command {NONE,ANALYSE,MODELIZE,HELP};
 int result = 0;
 
-int model(string file, string type) {
-  if (file.empty()) {
+int model(string file, string type, string outputfile, bool debug) {
+  if (file.empty() || outputfile.empty()) {
     return -1;
+  }
+  id (type=="xml") {
+    modelizeXml(file.c_str,outputfile.c_str,debug);
+  } else {
+    //todo
   }
   return 0;
 }
@@ -63,7 +68,7 @@ void displayHelp()
   cout << "Synopsis :" << endl;
   cout << "\tanalyzer [-h]" << endl;
   cout << "\tanalyzer [-a] [-v] [-t type] FILENAME" << endl;
-  cout << "\tanalyser [-m] -t type FILENAME" << endl;
+  cout << "\tanalyser [-m] -t type [-o output] FILENAME" << endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
   cout << "\t-a / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
@@ -83,6 +88,7 @@ int parseLine(vector<string> args){
   //the arguments make any sense.
   bool debug=false;
   string type;
+  string output;
   command todo=NONE;
   string file;
   //Set arguments :
@@ -93,6 +99,11 @@ int parseLine(vector<string> args){
       if (args[i+1][0]!='-'){
         type=args[i+1];
         i++; //Don't check the next arg, it must be a type
+      } else return -1;
+    } else if (args[i]=="-o" || args[i]=="--output") {
+      if (args[i+1][0]!='-'){
+        output=args[i+1];
+        i++; //Don't check the next arg, it must be a file
       } else return -1;
     } else if (args[i]=="-a" || args[i]=="--analyze") {
       if (todo==NONE) {
@@ -115,6 +126,8 @@ int parseLine(vector<string> args){
     case ANALYSE :
       return analyze(file,type,debug);
       break;
+    case MODELIZE :
+      return model(file,type,output);
     default :
       displayHelp();
       break;

@@ -3,25 +3,16 @@
 
 int main(int argc, char **argv)
 {
-  int err;
-  //xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
+  char * outfile;
+  XMLElement * document;
 	if (argc<1){
 		return -1;
 	} else if (argc<2) {
-		outname=NULL;
+		outfile=NULL;
 	} else {
-		outname=argv[2];
+		outfile=argv[2];
 	}
-	xmlin=fopen(argv[1],"r");
-	if(xmlin==NULL){
-		return -1;
-	}
-  err = xmlparse();
-  if (err != 0){
-    printf("Parse ended with %d error(s)\n", err);
-    return -1;
-  }
-	else  printf("Parse ended with success\n");
+  document = modelizeXml(argv[1],outfile); 
   printf("Document as parsed : \n%s\n",document->toString(0).c_str());
   return 0;
 }

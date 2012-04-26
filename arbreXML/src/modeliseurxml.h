@@ -4,8 +4,6 @@
 #include "commun.h"
 #include <stdio.h>
 
-extern char * outname;
-extern XMLElement * document;
 extern FILE * xmlin;
 extern int xmldebug;
 extern int xmlparse ();
