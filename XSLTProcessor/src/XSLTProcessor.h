@@ -10,19 +10,22 @@
 
 #include <string>
 #include <list>
+#include <iostream>
 
 #include "../../ModelXML/src/XMLBalise.h"
 #include "../../ModelXML/src/XMLElement.h"
+#include "../../ModelXML/src/XMLData.h"
 using namespace std;
 
 class XSLTProcessor {
 
 public:
-	list<XMLElement *> xlstProcessor(XMLBalise *, XMLBalise *);
-	XMLBalise * generateXSLXML (XMLBalise * xml, XMLBalise * xsl);
 
+	XMLElement * generateXSLXML(XMLElement * docXML, XMLBalise * xls){}
+protected:
+	XMLBalise * generateTemplate(XMLBalise * templateMatched, XMLBalise * xls, XMLBalise * noeudXMLMatched){}
+	XMLBalise * lookOverXSLToBuildTemplate(XMLElement * elementXML, XMLBalise * xls){}
 
-
-};
+}
 
 #endif /* XLSTPROCESSOR_H_ */
