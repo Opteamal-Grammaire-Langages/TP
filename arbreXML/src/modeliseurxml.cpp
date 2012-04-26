@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "modeliseurxml.h"
-char * outname;
+const char * outname;
 XMLElement * document;
 /*
 int modelizeDtd(char * input)
@@ -19,7 +19,7 @@ int modelizeDtd(char * input)
   return 0;
 }
 */
-XMLElement* modelizeXml(char * infile, char * outfile, bool debug)
+XMLElement* modelizeXml(const char * infile, const char * outfile, bool debug)
 {
   int err;
   if (debug){

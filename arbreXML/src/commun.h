@@ -15,7 +15,7 @@ typedef list<XMLElement*> ElementList;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;
 void dump(XMLElement * toDump);
-XMLElement* modelizeXml(char * infile, char * outfile=NULL, bool debug=false);
+XMLElement* modelizeXml(const char * infile, const char * outfile=NULL, bool debug=false);
 
 // Includes des fichiers pour la construction de la structure XML
 
