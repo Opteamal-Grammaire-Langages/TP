@@ -4,37 +4,39 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-EXE=tpgl #Nom du binaire à construire
-SUBDIR=./src
-BUILDDIR=./build
-OBJ=main.o
+EXE= XSLTProcessorTests #Nom du binaire à construire
+SUBDIR= ./src
+OBJ= testXSLTProcessor.o testXSLTProcessorMain.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
-LIBS=../arbreXML/libmodeliseurxml.a ../ModelXML/lib/libmodelXML.a \
-		 ../analyseurSyntaxique/libanalyseur.a ../arbreDTD/libmodeliseurdtd.a \
-		 ../ModelDTD/lib/libmodelDTD.a
+BUILDDIR= build
+LIBPATHS = -L../lib -L../../ModelXML/lib -L../../ModelDTD/lib
+LIBS= -lmodelXML -lmodelDTD -lboost_regex
 
-all: $(EXE) 
+all: $(EXE) test
 
 $(EXE): $(BUILDDIR) $(OBJPATH)
-	@echo building $@
+	@echo building $<
 	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBPATHS) $(LIBS)
 	@echo done
 	
 $(BUILDDIR):
 	@-mkdir -p $(BUILDDIR)
-	
-$(BUILDDIR)/%.o: $(SUBDIR)/%.cpp
+
+$(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
 	$(CC) $(CCFLAGS) -c -o $@ $<
 	@echo done
 
 clean:
 	@echo -n cleaning repository... 
-	@-rm -f $(BUILDDIR)/*.o $(EXE)
+	-rm -rf $(BUILDDIR)/*.o $(EXE)
 	@echo cleaned.
 	
 .PHONY : test clean
 
 validate:
-	done
+	@echo "Start testing XSLT Processor"
+	./$(EXE)
+	@echo "End testing XSLT Processor"
+
 

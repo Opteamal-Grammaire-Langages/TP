@@ -6,8 +6,7 @@
   <nom>Nino</nom>
   <prenom>Silverio</prenom>
  </auteur>
- <resume>Ceci est un extrait du livre "Realiser un compilateur: 
-	les outils Lex et Yacc" de Nino Silverio</resume>
+ <resume>Ceci est un extrait du livre</resume>
  <chapitre titre="Introduction: concepts de base">
    <section titre="Fonctions et structure d'un compilateur">
     <p>Tout programme redige dans un langage de programmation de haut 

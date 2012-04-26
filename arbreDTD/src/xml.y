@@ -2,9 +2,9 @@
 using namespace std;
 #include "commun.h"
 
-int xmlwrap(void);
-void xmlerror(char *msg);
-int xmllex(void);
+int dxmlwrap(void);
+void dxmlerror(char *msg);
+int dxmllex(void);
 
 %}
 
@@ -37,7 +37,7 @@ declarations_opt
  ;
  
 declaration
- : DOCTYPE IDENT IDENT STRING CLOSE { printf("%s\n",$4);analyseDtd($4); }
+ : DOCTYPE IDENT IDENT STRING CLOSE { printf("%s\n",$4);Document * doc = new Document; modelizeDtd($4,&doc); delete doc; }
  ;
 
 xml_element
@@ -78,12 +78,12 @@ content_opt
  ;
 %%
 
-int xmlwrap(void)
+int dxmlwrap(void)
 {
   return 1;
 }
 
-void xmlerror(char *msg)
+void dxmlerror(char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }

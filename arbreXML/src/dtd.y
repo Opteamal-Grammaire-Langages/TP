@@ -1,8 +1,8 @@
 %{
 
-void dtderror(char *msg);
-int dtdwrap(void);
-int dtdlex(void);
+void mdtderror(char *msg);
+int mdtdwrap(void);
+int mdtdlex(void);
 %}
 
 %union { 
@@ -124,12 +124,12 @@ default_declaration
 | FIXED STRING 
 ;
 %%
-int dtdwrap(void)
+int mdtdwrap(void)
 {
   return 1;
 }
 
-void dtderror(char *msg)
+void mdtderror(char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }

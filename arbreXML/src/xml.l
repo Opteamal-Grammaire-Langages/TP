@@ -97,18 +97,18 @@ closespecial "?>"{nl}?
 <INITIAL>"="		{ return EQ;}
 <INITIAL>{close}	{ BEGIN(CONTENT); return CLOSE;}
 <INITIAL>{closespecial}	{ return CLOSESPECIAL;}
-<INITIAL>{name}		{ xmllval.s = strdup(xmltext); return IDENT;}
-<INITIAL>{nsname}		{ xmllval.s = strdup(xmltext); return NSIDENT;}
-<INITIAL>{string}	{ xmllval.s = strdup(getString(xmltext)); return STRING;}
+<INITIAL>{name}		{ mxmllval.s = strdup(mxmltext); return IDENT;}
+<INITIAL>{nsname}		{ mxmllval.s = strdup(mxmltext); return NSIDENT;}
+<INITIAL>{string}	{ mxmllval.s = strdup(getString(mxmltext)); return STRING;}
 
-{openspecial}{ws}?{name}	{ BEGIN(INITIAL); char * tmp = word(xmltext); xmllval.en = new ElementName("",tmp); free(tmp); return STARTSPECIAL;}
-{open}{ws}?{name}	{ BEGIN(INITIAL); char * tmp = word(xmltext); xmllval.en = new ElementName("",tmp); free(tmp); return START;}
-{open}{ws}?{nsname}	{ BEGIN(INITIAL); char *tmp1 = nameSpace(xmltext); char * tmp2 = split_namespace(xmltext); xmllval.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return NSSTART;}
-{open}"/"{name}		{BEGIN(INITIAL); char * tmp = word(xmltext); xmllval.en = new ElementName("",tmp); free(tmp); return END;}
-{open}"/"{nsname}		{BEGIN(INITIAL); char *tmp1 = nameSpace(xmltext); char * tmp2 = split_namespace(xmltext); xmllval.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return NSEND;}
-{comment}		{ xmllval.s = strdup(xmltext); return COMMENT;}
+{openspecial}{ws}?{name}	{ BEGIN(INITIAL); char * tmp = word(mxmltext); mxmllval.en = new ElementName("",tmp); free(tmp); return STARTSPECIAL;}
+{open}{ws}?{name}	{ BEGIN(INITIAL); char * tmp = word(mxmltext); mxmllval.en = new ElementName("",tmp); free(tmp); return START;}
+{open}{ws}?{nsname}	{ BEGIN(INITIAL); char *tmp1 = nameSpace(mxmltext); char * tmp2 = split_namespace(mxmltext); mxmllval.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return NSSTART;}
+{open}"/"{name}		{BEGIN(INITIAL); char * tmp = word(mxmltext); mxmllval.en = new ElementName("",tmp); free(tmp); return END;}
+{open}"/"{nsname}		{BEGIN(INITIAL); char *tmp1 = nameSpace(mxmltext); char * tmp2 = split_namespace(mxmltext); mxmllval.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return NSEND;}
+{comment}		{ mxmllval.s = strdup(mxmltext); return COMMENT;}
 
-<CONTENT>{ws}?{pcdata}		{ xmllval.s = strdup(skipSpace(xmltext)); return DATA;}
+<CONTENT>{ws}?{pcdata}		{ mxmllval.s = strdup(skipSpace(mxmltext)); return DATA;}
 
-.			{ fprintf(stderr, "!ERROR(%c)\n", *xmltext);}
+.			{ fprintf(stderr, "!ERROR(%c)\n", *mxmltext);}
 

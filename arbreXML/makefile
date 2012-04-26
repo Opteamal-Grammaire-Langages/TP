@@ -46,11 +46,11 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 	@(\
 	cd $(SUBDIR)/;\
 	echo flexing...;\
-	flex -Pxml xml.l;\
-	flex -Pdtd dtd.l;\
+	flex -Pmxml xml.l;\
+	flex -Pmdtd dtd.l;\
 	echo bisoning...;\
-	bison --debug --verbose --name-prefix=xml --defines=xml.tab.h xml.y;\
-	bison --debug --verbose --name-prefix=dtd --defines=dtd.tab.h dtd.y;\
+	bison --debug --verbose --name-prefix=mxml --defines=xml.tab.h xml.y;\
+	bison --debug --verbose --name-prefix=mdtd --defines=dtd.tab.h dtd.y;\
 	echo compiling...;\
 	$(CC) -w -c -DYYDEBUG=1 -c *.c;\
 	echo archiving...;\

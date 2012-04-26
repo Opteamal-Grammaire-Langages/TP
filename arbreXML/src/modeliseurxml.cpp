@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "modeliseurxml.h"
-char * outname;
+const char * outname;
 XMLElement * document;
 /*
 int modelizeDtd(char * input)
@@ -19,21 +19,23 @@ int modelizeDtd(char * input)
   return 0;
 }
 */
-XMLElement* modelizeXml(char * infile, char * outfile, bool debug)
+XMLElement* modelizeXml(const char * infile, const char * outfile, bool debug)
 {
   int err;
   if (debug){
-    xmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
+    mxmldebug = 1; // pour enlever l'affichage de l'éxécution du parser, commenter cette ligne
+  } else {
+    mxmldebug = 0;
   }
 	if (infile==NULL){
 		return new XMLData("");
 	}
   outname=outfile;
-	xmlin=fopen(infile,"r");
-	if(xmlin==NULL){
+  mxmlin=fopen(infile,"r");
+	if(mxmlin==NULL){
 		return new XMLData("");
 	}
-  err = xmlparse();
+  err = mxmlparse();
   if (err != 0){
     printf("Parse ended with %d error(s)\n", err);
     return new XMLData("");
@@ -45,6 +47,7 @@ XMLElement* modelizeXml(char * infile, char * outfile, bool debug)
 void dump(XMLElement * toDump)
 {
   FILE * out;
+  printf("dumping document");
   document=toDump;
   if (outname==NULL){
 		out=fopen("output.xml","w");

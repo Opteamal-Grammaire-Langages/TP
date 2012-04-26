@@ -1,5 +1,5 @@
-#ifndef COMMUN_H
-#define COMMUN_H
+#ifndef COMMUN_H_MODEL_DTD
+#define COMMUN_H_MODEL_DTD
 
 using namespace std;
 #include <list>
@@ -12,8 +12,7 @@ using namespace std;
 typedef pair<string,string> Attribut;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;
-int analyseDtd(char * input);
-int analyseXml(int argc, char **argv);
+int modelizeDtd(const char * input, Document ** doc, bool debug=false);
 
 // Includes des fichiers pour la construction de la structure XML
 //#include "../../ModelXML/src/XMLElement.h"

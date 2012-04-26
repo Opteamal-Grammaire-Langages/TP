@@ -2,9 +2,9 @@
 using namespace std;
 #include "commun.h"
 
-int xmlwrap(void);
-void xmlerror(char *msg);
-int xmllex(void);
+int mxmlwrap(void);
+void mxmlerror(char *msg);
+int mxmllex(void);
 
 %}
 
@@ -83,7 +83,7 @@ close_content_and_end
 
 end_or_ns_end
  : END	
- | NSEND	{ printf("FIN : %s et %s\n",$1->first.c_str(),$1->second.c_str()); }
+ | NSEND	{ /*printf("FIN : %s et %s\n",$1->first.c_str(),$1->second.c_str());*/ }
  ;
 
 content_opt 
@@ -94,12 +94,12 @@ content_opt
  ;
 %%
 
-int xmlwrap(void)
+int mxmlwrap(void)
 {
   return 1;
 }
 
-void xmlerror(char *msg)
+void mxmlerror(char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }

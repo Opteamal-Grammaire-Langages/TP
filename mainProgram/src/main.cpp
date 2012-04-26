@@ -1,25 +1,39 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../../arbreXML/src/commun.h"
 #include "../../analyseurSyntaxique/src/commun.h"
-#include "../../arbreXML/src/modeliseurxml.h"
 #include "../../arbreDTD/src/commun.h"
 
+
 using namespace std;
-enum command {NONE,ANALYSE,MODELIZE,HELP};
+enum command {NONE,ANALYSE,MODELIZE,VALIDATE,HELP};
 int result = 0;
 
+int validate(string file, string dtd, bool debug){
+  
+  return 0;
+} 
 int model(string file, string type, string outputfile, bool debug) {
-  if (file.empty() || outputfile.empty()) {
+  const char * out=NULL;
+  if (!outputfile.empty()) out=outputfile.c_str();
+  if (file.empty()) {
     return -1;
   }
-  id (type=="xml") {
-    modelizeXml(file.c_str,outputfile.c_str,debug);
-  } else {
-    //todo
+  if (type=="xml" || type=="xsl") {
+    XMLElement * document = modelizeXml(file.c_str(),out,debug);
+    cout << "XML Model as parsed :\n" << document->toString(0).c_str() <<endl; 
+    delete document;
+  } else if (type=="dtd"){
+    Document * doc =new Document;
+    int ret = modelizeDtd(file.c_str(),&doc,debug);
+    if (ret==-1) return -1;
+    cout << "DTD Model as parsed :\n" << doc->toString().c_str() <<endl;
+    delete doc;
   }
   return 0;
 }
+
 int analyze(string file, string type="", bool debug=false)
 {
   if (file.empty())
@@ -56,8 +70,10 @@ void displayError(int error)
   switch (error){
     case -1 :
       cout << "Error 1, bad arguments" << endl;
+      break;
     case -2 :
       cout << "Error 2, bad command" << endl;
+      break;
     default :
       cout << "Error " << error << ", unknown error" << endl;
       break;
@@ -66,17 +82,21 @@ void displayError(int error)
 void displayHelp()
 {
   cout << "Synopsis :" << endl;
-  cout << "\tanalyzer [-h]" << endl;
-  cout << "\tanalyzer [-a] [-v] [-t type] FILENAME" << endl;
-  cout << "\tanalyser [-m] -t type [-o output] FILENAME" << endl;
+  cout << "\ttpgl -h" << endl;
+  cout << "\ttpgl -A [-v] [-t type] FILENAME" << endl;
+  cout << "\ttpgl -M -t type [-v] [-o output] FILENAME" << endl;
+  cout << "\ttpgl -V [-v] -d DTD FILENAME" << endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
-  cout << "\t-a / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
+  cout << "\t-A / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
                          If a DOCTYPE declaration is found, the corresponding DTD is parsed as well\n\
                          If -t type is specified, check FILENAME syntax against \"type\" syntax.\n\
                          In this case, if the file is an xml file, don't check the corresponding DTD" << endl;
-  cout << "\t-m / --model : Fill and display an memory structure with the input file, type specifies\n\
+  cout << "\t-M / --model : Fill and display an memory structure with the input file, type specifies\n\
                           what kind of memory model must be filled" << endl;
+  cout << "\t-V / --validate : validate an xml file against the dtd provided\n" << endl;
+  cout << "Arguments :" << endl;
+  cout << "\t-d / --dtd DTD : specify the dtd to be checked against in case of a validation" << endl;
   cout << "\t-t / --type {xml,dtd,xsl} : specify the type of FILENAME" << endl;
   cout << "\t-v / --verbose" << endl;
 }
@@ -89,6 +109,7 @@ int parseLine(vector<string> args){
   bool debug=false;
   string type;
   string output;
+  string dtd;
   command todo=NONE;
   string file;
   //Set arguments :
@@ -105,13 +126,27 @@ int parseLine(vector<string> args){
         output=args[i+1];
         i++; //Don't check the next arg, it must be a file
       } else return -1;
-    } else if (args[i]=="-a" || args[i]=="--analyze") {
+    } else if (args[i]=="-d" || args[i]=="--dtd") {
+      if (args[i+1][0]!='-'){
+        dtd=args[i+1];
+        i++; //Don't check the next arg, it must be a file
+      } else return -1;
+    } else if (args[i]=="-A" || args[i]=="--analyze") {
       if (todo==NONE) {
         todo=ANALYSE;
       } else return -2;
-    } else if (args[i]=="-h" || args[i]=="--help") {
+    } else if (args[i]=="-H" || args[i]=="-h" || args[i]=="--help") {
       if (todo==NONE) {
         todo=HELP;
+      } else return -2;
+    } else if (args[i]=="-V" || args[i]=="--validate") {
+      if (todo==NONE) {
+        todo=VALIDATE;
+      } else return -2;
+
+    } else if (args[i]=="-M" || args[i]=="--model") {
+      if (todo==NONE) {
+        todo=MODELIZE;
       } else return -2;
     } else if (i==args.size()-1 && args[i][0]!='-') {
       file=args[i];
@@ -127,7 +162,11 @@ int parseLine(vector<string> args){
       return analyze(file,type,debug);
       break;
     case MODELIZE :
-      return model(file,type,output);
+      return model(file,type,output,debug);
+      break;
+    case VALIDATE :
+      return validate(file,dtd,debug);
+      break;
     default :
       displayHelp();
       break;
