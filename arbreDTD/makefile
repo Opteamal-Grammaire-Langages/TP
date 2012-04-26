@@ -4,10 +4,10 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-EXE=analyseur #Nom du binaire à construire
+EXE=analyseurDTD #Nom du binaire à construire
 SUBDIR=./src
 OBJ=analyseur.o
-LIBS=
+LIBS=../ModelDTD/lib/libmodelDTD.a
 
 #analyseDTD: *.l *.y makefile
 #	flex dtd.l
@@ -22,8 +22,8 @@ LIBS=
 all: $(EXE) test
 
 test: 
-	./$(EXE) test/rap1.xml 2>/dev/null >/dev/null
-	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
+	./$(EXE) test/rap1.dtd 2>/dev/null >/dev/null
+	./$(EXE) test/rap2.dtd 2>/dev/null >/dev/null
 	@echo "All tests successfuls"
 
 $(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
@@ -55,6 +55,6 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 
 clean:
 	@echo -n cleaning repository... 
-	@-rm -rf $(SUBDIR)/*.tab.c $(SUBDIR)/lex.*.c $(SUBDIR)/*.tab.h $(SUBDIR)/*.a
-	@-rm -rf $(SUBDIR)/*.o ./*.output $(EXE) $(SUBDIR)/$(OBJ) $(SUBDIR)/*.gch
+	@-rm -f $(SUBDIR)/*.tab.c $(SUBDIR)/lex.*.c $(SUBDIR)/*.tab.h $(SUBDIR)/*.a
+	@-rm -f $(SUBDIR)/*.o ./*.output $(EXE) $(SUBDIR)/$(OBJ) $(SUBDIR)/*.gch
 	@echo cleaned.

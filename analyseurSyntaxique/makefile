@@ -5,9 +5,13 @@ CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
 EXE=analyseur #Nom du binaire à construire
+LIB=libanalyseur.a
 SUBDIR=./src
-OBJ=analyseur.o
-LIBS=
+LOBJ=analyseur.o
+OBJ=test.o
+OBJPATH= $(foreach file, $(OBJ), $(SUBDIR)/$(file))
+LOBJPATH= $(foreach file, $(LOBJ), $(SUBDIR)/$(file))
+LIBS=$(LIB)
 
 #analyseDTD: *.l *.y makefile
 #	flex dtd.l
@@ -25,11 +29,17 @@ test:
 	./$(EXE) test/rap1.xml 2>/dev/null >/dev/null
 	./$(EXE) test/rap2.xml 2>/dev/null >/dev/null
 	@echo "All tests successfuls"
-
-$(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+$(EXE): $(LIB) $(OBJPATH) $(SUBDIR)/bison.a 
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(SUBDIR)/bison.a $(LIBS)
 	@echo done
+
+$(LIB): $(LOBJPATH) $(SUBDIR)/bison.a
+	@echo -n archiving $(LIB)... 
+	@ar -x $(SUBDIR)/bison.a
+	@ar rcs $(LIB) $(LOBJPATH) ./*.o
+	@rm -f ./*.o
+	@echo done.
 
 $(SUBDIR)/%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<
@@ -55,6 +65,6 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 
 clean:
 	@echo -n cleaning repository... 
-	@-rm -rf $(SUBDIR)/*.tab.c $(SUBDIR)/lex.*.c $(SUBDIR)/*.tab.h $(SUBDIR)/*.a
-	@-rm -rf $(SUBDIR)/*.o ./*.output $(EXE) $(SUBDIR)/$(OBJ) $(SUBDIR)/*.gch
+	@-rm -f $(SUBDIR)/*.tab.c $(SUBDIR)/lex.*.c $(SUBDIR)/*.tab.h $(SUBDIR)/*.a
+	@-rm -f $(SUBDIR)/*.o ./*.output $(EXE) $(LOBJPATH) $(OBJPATH) $(SUBDIR)/*.gch
 	@echo cleaned.

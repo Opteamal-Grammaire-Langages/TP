@@ -6,11 +6,14 @@ using namespace std;
 #include <utility>
 #include <string>
 // Includes des fichiers pour la structure DTD
+#include "../../ModelDTD/src/Document.h"
+#include "../../ModelDTD/src/Element.h"
+#include "../../ModelDTD/src/DTDattribut.h"
 typedef pair<string,string> Attribut;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;
-int analyseDtd(const char * input);
-int analyseXml(const char * argv);
+int analyseDtd(char * input);
+int analyseXml(int argc, char **argv);
 
 // Includes des fichiers pour la construction de la structure XML
 //#include "../../ModelXML/src/XMLElement.h"

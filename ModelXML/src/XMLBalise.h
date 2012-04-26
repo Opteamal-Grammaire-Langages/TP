@@ -15,6 +15,7 @@ public:
 	virtual ~XMLBalise();
 
 	void addElement(XMLElement * elem);
+	void addElements(list<XMLElement *> elem);
   void setElementList(list<XMLElement*> * elemList);
 	void addAttribute(string name, string value="");
   void setAttList(map<string,string> * list);

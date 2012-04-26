@@ -9,35 +9,25 @@ int dtdlex(void);
 
 %union { 
    char *s;
-   Element* e;
-   DTDattribut *a;
-   Document *d;
-   pair<string, list<DTDattribut*> > *p;
-   list<DTDattribut*> *l;
    }
 
 %token ELEMENT ATTLIST CLOSE OPENPAR CLOSEPAR COMMA PIPE FIXED EMPTY ANY PCDATA AST QMARK PLUS CDATA
 %token <s> IDENT TOKENTYPE DECLARATION STRING
 %type <s> content children mixed choice card_opt seq cp list_choice list_seq_opt ast_opt list_mixed att_type
  %type <s> enumerate enum_list enum_list_plus item_enum default_declaration
-%type <e> elem
-%type <a> attribute
-%type <d> dtd_component
-%type <p> dtd_list_opt
-%type <l> att_definition_opt
 %%
 
 main: dtd_component
     ;
 
 dtd_component
-: dtd_component elem {$$->addElement($2);}
-| dtd_component dtd_list_opt {$$->addAttributsElement(*($2));}
-| /* empty */ {$$ = new Document();}
+: dtd_component elem {}
+| dtd_component dtd_list_opt {}
+| /* empty */ {}
 ;
 
 elem
-: ELEMENT IDENT content CLOSE {$$ = new Element(string($2), $3); free($2);}
+: ELEMENT IDENT content CLOSE {}
 ;
 
 content
@@ -96,17 +86,17 @@ list_mixed
 ;
 
 dtd_list_opt
-: ATTLIST IDENT att_definition_opt CLOSE {$$ = new pair<string, list<DTDattribut*> >(string($2), *($3)); free($2);}
+: ATTLIST IDENT att_definition_opt CLOSE {}
 ;
 
 
 att_definition_opt
-: att_definition_opt attribute {$$ = $1; $$->push_front($2);}
-| /* empty */ {$$ = new list<DTDattribut*>();}
+: att_definition_opt attribute {}
+| /* empty */ {}
 ;
 
 attribute
-: IDENT att_type default_declaration {$$ = new DTDattribut(string($1), $2, $3); free($1);}
+: IDENT att_type default_declaration {}
 ;
 
 att_type

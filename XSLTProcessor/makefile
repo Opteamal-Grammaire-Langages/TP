@@ -1,4 +1,4 @@
-#Génère la librarie static modelXML
+#Génère la librarie static XSLTProcessor
 
 #Variables utilisées :
 CC=g++ #Compilateur
@@ -10,8 +10,8 @@ SUBDIR=./src
 BUILDDIR=./build
 LIBDIR=./lib
 TESTDIR=./tests
-OBJ:=XMLBalise.o XMLData.o XMLElement.o
-OUT=./lib/libmodelXML.a
+OBJ:=XSLTProcessor.o
+OUT=./lib/libxsltprocessor.a
 OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
 $(OUT): $(BUILDDIR) $(LIBDIR) $(OBJPATH) 

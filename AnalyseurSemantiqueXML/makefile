@@ -32,7 +32,7 @@ $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 
 clean:
 	@echo -n cleaning repository... 
-	@-rm -rf $(BUILDDIR)/*.o $(OUT)
+	@-rm -f $(BUILDDIR)/*.o $(OUT)
 	@echo cleaned.
 	
 cleanTests:

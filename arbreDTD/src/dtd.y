@@ -11,10 +11,10 @@ int dtdlex(void);
 %union { 
    char *s;
    string *st;
-   Element* e;
-   DTDattribut *a;
-   Document *d;
-   pair<string, list<DTDattribut*> > *p;
+   Element* e; /* element defini dans la DTD */
+   DTDattribut *a; /* attribut d'un element */
+   Document *d; /* l'objet contenat la structure DTD */
+   pair<string, list<DTDattribut*> > *p; /* association nom element - liste attributs */
    list<DTDattribut*> *l;
    }
 
@@ -28,16 +28,16 @@ int dtdlex(void);
 %type <p> dtd_list_opt
 %type <l> att_definition_opt
 
-%parse-param {Document ** doc}
+%parse-param {Document ** doc} /* recuperation de la structure DTD */
 %%
 
 main: dtd_component {*doc = $1;}
 ;
 
 dtd_component
-: dtd_component elem {$$->addElement($2);}
-| dtd_component dtd_list_opt {$$->addAttributsElement(*($2));}
-| /* empty */ {$$ = new Document();}
+: dtd_component elem {$$->addElement($2) /* ajout d'un element a la DTD  */;}
+| dtd_component dtd_list_opt {$$->addAttributsElement(*($2));} /* ajout d'une paire (nom element, listeAtt)*/
+| /* empty */ {$$ = new Document(); /* initialisation de la structure */}
 ;
 
 elem
@@ -50,8 +50,8 @@ content
 ;
 
 children
-: choice card_opt {$$ = new string(*$1 + *$2);}
-| seq card_opt {$$ = new string(*$1 + *$2);}
+: choice card_opt {$$ = new string(*$1 + *$2); /* concatenation de la liste des choix et cardinalites */}
+| seq card_opt {$$ = new string(*$1 + *$2);}   /* concatenation des sequences et leurs cardinalites */
 ;
 
 card_opt
@@ -101,6 +101,7 @@ list_mixed
 
 dtd_list_opt
 : ATTLIST IDENT att_definition_opt CLOSE {$$ = new pair<string, list<DTDattribut*> >(string($2), *($3)); free($2);}
+/*creation d'une paire (nom element, liste de ses attributs)*/
 ;
 
 
