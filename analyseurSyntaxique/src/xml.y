@@ -37,7 +37,7 @@ declarations_opt
  ;
  
 declaration
- : DOCTYPE IDENT IDENT STRING CLOSE { printf("%s\n",$4);analyseDtd($4); }
+ : DOCTYPE IDENT IDENT STRING CLOSE { printf("Found DTD file %sl\n",$4);analyseDtd($4,xmldebug); }
  ;
 
 xml_element

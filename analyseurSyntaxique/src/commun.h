@@ -9,8 +9,8 @@ using namespace std;
 typedef pair<string,string> Attribut;
 typedef list<Attribut> AttList;
 typedef pair<string,string> ElementName;
-int analyseDtd(const char * input);
-int analyseXml(const char * argv);
+int analyseDtd(const char * input,int debug);
+int analyseXml(const char * argv, int debug);
 
 // Includes des fichiers pour la construction de la structure XML
 //#include "../../ModelXML/src/XMLElement.h"

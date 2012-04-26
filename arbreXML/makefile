@@ -4,10 +4,14 @@ EDL=g++ #Linker
 CCFLAGS=-Wall #Options de compilations
 EDLFLAGS=-Wall
 ECHO=@echo
-EXE=analyseur #Nom du binaire à construire
+EXE=modeliseurxml #Nom du binaire à construire
+LIB=libmodeliseurxml.a
 SUBDIR=./src
-OBJ=analyseur.o
-LIBS=../ModelXML/lib/libmodelXML.a
+LOBJ=modeliseurxml.o
+OBJ=test.o
+OBJPATH= $(foreach file, $(OBJ), $(SUBDIR)/$(file))
+LOBJPATH= $(foreach file, $(LOBJ), $(SUBDIR)/$(file))
+LIBS=$(LIB) ../ModelXML/lib/libmodelXML.a
 
 .PHONY : test clean
 all: $(EXE) test
@@ -21,10 +25,17 @@ test:
 	@diff test/rap2.parsed.xml test/rap2.parsed2.xml
 	@echo "All tests successfuls"
 
-$(EXE): $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+$(EXE): $(LIB) $(OBJPATH)
 	@echo building $<
-	$(EDL) -o $(EXE) $(EDLFLAGS) $(SUBDIR)/$(OBJ) $(SUBDIR)/bison.a $(LIBS)
+	$(EDL) -o $(EXE) $(EDLFLAGS) $(OBJPATH) $(LIBS)
 	@echo done
+
+$(LIB): $(LOBJPATH) $(SUBDIR)/bison.a
+	@echo -n archiving $(LIB)... 
+	@ar -x $(SUBDIR)/bison.a
+	@ar rcs $(LIB) $(LOBJPATH) ./*.o
+	@rm -f ./*.o
+	@echo done.
 
 $(SUBDIR)/%.o : $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 	@echo compiling $<

@@ -1,6 +1,7 @@
 #ifndef _ANALYSEUR_H
 #define _ANALYSEUR_H
 
+#include "commun.h"
 #include <stdio.h>
 
 extern FILE * xmlin;
