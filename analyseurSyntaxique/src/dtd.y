@@ -67,7 +67,7 @@ seq
 
 list_seq_opt
 : list_seq_opt COMMA cp  {/*$$ = strcat(strcat($1, ","), $3);*/}
-| /* empty */ {printf("lol\n"); $$ = ""; }
+| /* empty */ {}
 ;
 
 mixed
