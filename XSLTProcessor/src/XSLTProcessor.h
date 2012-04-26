@@ -21,10 +21,10 @@ class XSLTProcessor {
 
 public:
 
-	list<XMLElement *> generateXSLXML(XMLBalise * docXML, XMLBalise * xls);
+	static list<XMLElement *> generateXSLXML(XMLBalise * docXML, XMLBalise * xls);
 protected:
-	list<XMLElement *> generateTemplate(XMLBalise * templateMatched, XMLBalise * xls, XMLBalise * noeudXMLMatched);
-	list<XMLElement *> lookOverXSLToBuildTemplate(XMLBalise * elementXSL, XMLBalise * xls, XMLBalise * xmlMatching);
+	static list<XMLElement *> generateTemplate(XMLBalise * templateMatched, XMLBalise * xls, XMLBalise * noeudXMLMatched);
+	static list<XMLElement *> lookOverXSLToBuildTemplate(XMLBalise * elementXSL, XMLBalise * xls, XMLBalise * xmlMatching);
 
 };
 
