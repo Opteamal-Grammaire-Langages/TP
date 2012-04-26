@@ -11,10 +11,8 @@ class	DTDattribut{
 
 public:
 
-	DTDattribut();
 	DTDattribut(string nom, string type, string option):
-		nomAtt(nom),typeAtt(type),optionAtt(option){}
-	virtual ~DTDattribut();
+	nomAtt(nom),typeAtt(type),optionAtt(option){}
 
 	string getNomAtt() { return nomAtt;}
 	string toString(){ return nomAtt + " " + typeAtt + " " + optionAtt; }
