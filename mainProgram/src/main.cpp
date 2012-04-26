@@ -2,10 +2,19 @@
 #include <string>
 #include <vector>
 #include "../../analyseurSyntaxique/src/commun.h"
+#include "../../arbreXML/src/commun.h"
+#include "../../arbreDTD/src/commun.h"
+
 using namespace std;
 enum command {NONE,ANALYSE,HELP};
 int result = 0;
 
+int model(string file, string type) {
+  if (file.empty()) {
+    return -1;
+  }
+  return 0;
+}
 int analyze(string file, string type="", bool debug=false)
 {
   if (file.empty())
@@ -54,13 +63,15 @@ void displayHelp()
   cout << "Synopsis :" << endl;
   cout << "\tanalyzer [-h]" << endl;
   cout << "\tanalyzer [-a] [-v] [-t type] FILENAME" << endl;
+  cout << "\tanalyser [-m] -t type FILENAME" << endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
   cout << "\t-a / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
                          If a DOCTYPE declaration is found, the corresponding DTD is parsed as well\n\
                          If -t type is specified, check FILENAME syntax against \"type\" syntax.\n\
                          In this case, if the file is an xml file, don't check the corresponding DTD" << endl;
-  cout << "Options :" << endl;
+  cout << "\t-m / --model : Fill and display an memory structure with the input file, type specifies\n\
+                          what kind of memory model must be filled" << endl;
   cout << "\t-t / --type {xml,dtd,xsl} : specify the type of FILENAME" << endl;
   cout << "\t-v / --verbose" << endl;
 }
