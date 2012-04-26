@@ -1,9 +1,11 @@
 #ifndef _ANALYSEUR_H
 #define _ANALYSEUR_H
 
+#include "commun.h"
 #include <stdio.h>
 
-char * outname;
+extern char * outname;
+extern XMLElement * document;
 extern FILE * xmlin;
 extern int xmldebug;
 extern int xmlparse ();

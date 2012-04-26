@@ -1,4 +1,3 @@
-#include "commun.h"
 #include "stdio.h"
 #include "analyseur.h"
 
@@ -18,8 +17,12 @@ int main(int argc, char **argv)
 		return -1;
 	}
   err = xmlparse();
-  if (err != 0) printf("Parse ended with %d error(s)\n", err);
+  if (err != 0){
+    printf("Parse ended with %d error(s)\n", err);
+    return -1;
+  }
 	else  printf("Parse ended with success\n");
+  printf("Document as parsed : \n%s\n",document->toString(0).c_str());
   return 0;
 }
 

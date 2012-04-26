@@ -1,7 +1,8 @@
-#include "commun.h"
 #include "stdio.h"
 #include "analyseur.h"
-int analyseDtd(char * input)
+char * outname;
+XMLElement * document;
+int modeliseDtd(char * input)
 {
   int err;
 
@@ -17,16 +18,16 @@ int analyseDtd(char * input)
   return 0;
 }
 
-void dump(const char * toDump)
+void dump(XMLElement * toDump)
 {
   FILE * out;
-  printf("passage dans dump\n");
+  document=toDump;
   if (outname==NULL){
 		out=fopen("output.xml","w");
   } else {
 		out=fopen(outname,"w");
 	}
-	fprintf(out,"%s",toDump);
+	fprintf(out,"%s",toDump->toString(0).c_str());
 	fclose(out);
 }
 
