@@ -54,7 +54,7 @@ specials_opt
  ;
  
 special
- : STARTSPECIAL attr_list CLOSESPECIAL { $$=new XMLBalise($1->second.c_str(), "", true); $$->setAttList($2); }
+ : STARTSPECIAL attr_list CLOSESPECIAL { $$=new XMLBalise($1->second.c_str(), "", true,true); $$->setAttList($2); }
  ;
  
 declarations_opt
