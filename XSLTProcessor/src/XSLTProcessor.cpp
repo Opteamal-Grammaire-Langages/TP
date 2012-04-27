@@ -26,10 +26,10 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 				if (baliseChild != 0) {
 					list<XMLElement *> childs = generateXSLXML(baliseChild,
 							xls);
-					generatedXML.insert(generatedXML.begin(),childs.begin(),childs.end());
+					generatedXML.insert(generatedXML.end(),childs.begin(),childs.end());
 							//balise->addElements(childs);
 				} else {
-					XMLData * data = dynamic_cast<XMLData*>(docXML);
+					XMLData * data = dynamic_cast<XMLData*>((*it_element));
 					if (data != 0) {
 						//On copie la data
 						XMLData * newData = new XMLData(data->getData());
@@ -68,7 +68,7 @@ list<XMLElement *> XSLTProcessor::generateTemplate(XMLBalise * templateMatched,
 		// Si l element est un noeud
 		if(baliseChild != 0){
 			list<XMLElement *> childs = lookOverXSLToBuildTemplate(baliseChild, xls,noeudXMLMatched);
-			templateContent.insert(templateContent.begin(),childs.begin(),childs.end());
+			templateContent.insert(templateContent.end(),childs.begin(),childs.end());
 		}else{
 			XMLData* dataChild = dynamic_cast<XMLData*>((*it_element));
 			XMLData* data = new XMLData(dataChild->getData());
