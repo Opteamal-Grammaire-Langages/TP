@@ -14,6 +14,7 @@ int mxmllex(void);
    AttributList * atList;
    Attribut* at; 
    ElementList * xeList;
+   list<XMLBalise*> * xbList;
    XMLElement* xe;
    XMLBalise* xb;
    XMLData* xd;
@@ -28,7 +29,8 @@ int mxmllex(void);
 %type <xb> start xml_element special
 %type <at> attr
 %type <atList> attr_list
-%type <xeList> empty_or_content close_content_and_end content_opt specials_opt
+%type <xeList> empty_or_content close_content_and_end content_opt 
+%type <xbList> specials_opt
 %type <decl> declaration declarations_opt
 %type <xdoc> document
 
@@ -49,7 +51,7 @@ comment
  ;
  
 specials_opt
- : {$$=new list<XMLElement *>; }
+ : {$$=new list<XMLBalise *>; }
  | specials_opt special {$1->push_back($2); $$=$1;}
  ;
  

@@ -9,6 +9,7 @@
 #include <cstdlib> //free
 #include "XMLDocument.h"
 
+
 #define OPEN_TAG "<"
 #define CLOSE_TAG ">"
 #define SLASH "/"
@@ -24,7 +25,7 @@ XMLDocument::~XMLDocument() {
 	list<XMLBalise *>::iterator it;
 
 	for(it = specials.begin(); it != specials.end() ; it++){
-		delete (XMLElement*)(*it);
+		delete (*it);
 	}
   delete doctype;
 }
@@ -89,10 +90,11 @@ string XMLDocument::toString(int lvl){
 string XMLDocument::getXSLfile(){
   list<XMLBalise*>::iterator it;
   for (it=specials.begin(); it!=specials.end(); it++){
-    if ((*it)->getName=="xml-stylesheet"){
+    if ((*it)->getName()=="?xml-stylesheet"){
       return (*it)->getAttributes()["href"];
     }
   }
+  return "";
 }
 string XMLDocument::getType(){
 	return "document";
@@ -110,7 +112,7 @@ string XMLDocument::getChildType(){
 	return child->getType();
 }
 
-list<XMLElement *> XMLDocument::getSpecials(){
+list<XMLBalise *> XMLDocument::getSpecials(){
 	return this->specials;
 }
 

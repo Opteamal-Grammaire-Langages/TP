@@ -5,6 +5,7 @@
 #include <list>
 #include <string>
 #include <map>
+#include "XMLBalise.h"
 #include "XMLElement.h"
 #include "../../ModelDTD/src/Document.h"
 
@@ -27,7 +28,7 @@ public:
   string getType();
   string getXSLfile();
 	string toString(int lvl);
-	list<XMLElement *> getSpecials();
+	list<XMLBalise *> getSpecials();
 	string getChildType();
   XMLElement * getChild();
 	

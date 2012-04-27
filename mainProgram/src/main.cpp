@@ -14,6 +14,8 @@ enum command {NONE,ANALYSE,MODELIZE,VALIDATE,PROCESS,HELP};
 int result = 0;
 
 int process(string infile, string xslfile, bool debug){
+
+  string xslstr;
   XMLDocument * document = modelizeXml(infile.c_str(),NULL,debug);
   if (document->getChild() == NULL){
     cout << "Invalid XML document" << endl;
@@ -24,8 +26,17 @@ int process(string infile, string xslfile, bool debug){
     cout << "Invalid XML document" << endl;
     return -1;
   }
-
-  XMLDocument * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
+  if (xslfile.empty()){
+    xslstr=document->getXSLfile(); 
+    cout << "xslstr : " << xslstr << endl;
+    if (xslstr.empty()){
+      cout << "No <?xml-stylesheet?> in xml file" << endl;
+      return -1;
+    }
+  } else {
+    xslstr=xslfile;
+  }
+  XMLDocument * xsldocument = modelizeXml(xslstr.c_str(),NULL,debug);
   if (document->getChild() == NULL){
     cout << "Invalid XSL document" << endl;
     return -1;
@@ -40,7 +51,7 @@ int process(string infile, string xslfile, bool debug){
   list<XMLElement*>::iterator it;
   cout << "HTML :" <<endl;
   for (it=listeHTML.begin(); it!=listeHTML.end(); it++){
-    cout << (*it)->toString(0);
+    cout << (*it)->toString(0) << endl;
   }
   return 0;
 }
@@ -153,7 +164,7 @@ void displayHelp()
   cout << "\ttpgl -A [-v] [-t type] FILENAME" << endl;
   cout << "\ttpgl -M -t type [-v] [-o output] FILENAME" << endl;
   cout << "\ttpgl -V [-v] [-d DTD] FILENAME" << endl;
-  cout << "\ttpgl -P [-v] -x XSL FILENAME" <<endl;
+  cout << "\ttpgl -P [-v] [-x XSL] FILENAME" <<endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
   cout << "\t-A / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
