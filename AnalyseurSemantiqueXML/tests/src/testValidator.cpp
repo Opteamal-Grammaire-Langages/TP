@@ -26,7 +26,7 @@ Document * testValidator::creationDTD() {
 /* Creation de la DTD valide avec balise multiple */
 Document * testValidator::creationDTDBaliseMultiple() {
 	Document * document = new Document();
-	Element * elA = new Element ("A", "#(B)*,CDATA,C#");
+	Element * elA = new Element ("A", "((B,)*(CDATA,)(C))");
 	Element * elC = new Element ("C", "D");
 	Element * elB = new Element ("B", "CDATA");
 	Element * elD = new Element ("D", "");

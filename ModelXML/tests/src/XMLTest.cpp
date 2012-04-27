@@ -73,7 +73,7 @@ string XMLTest::testStructure4() {
 	
 	//XSL
 	XMLBalise * xsl = new XMLBalise("xslDocument");
-	XMLBalise * xsltemplate = new XMLBalise("xsl:template");
+	XMLBalise * xsltemplate = new XMLBalise("template", "xsl");
 	xsl->setAutoClosed(false);
 	xsltemplate->addAttribute("match", "A");
 	xsl->addElement((XMLElement *)xsltemplate);
@@ -82,7 +82,7 @@ string XMLTest::testStructure4() {
 
 	//cout<<"Result1"<<xml->match(xsl)<<" "<<true<<endl;	
 
-	if(xml->match(xsl) != 0 && xml->match(xsl)->getName() == "xsl:template" && xml2->match(xsl) == 0){
+	if(xml->match(xsl) != 0 && xml->match(xsl)->getName() == "template" && xml2->match(xsl) == 0){
 		return "TEST succed";
 	}else{
 		return "TEST failed!!";

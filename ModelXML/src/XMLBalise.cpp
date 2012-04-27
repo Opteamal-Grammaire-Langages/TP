@@ -18,6 +18,7 @@ XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
 	this->ns = ns;
+  parent = 0;
 }
 
 XMLBalise::~XMLBalise() {
@@ -59,6 +60,10 @@ void XMLBalise::setAttList(map<string,string> * list){
 
 void XMLBalise::addAttribute(string attribute, string value){
 	attributs[attribute] = value;
+}
+
+void XMLBalise::setAttList(map<string,string> list){
+  attributs=list;
 }
 
 string XMLBalise::toString(){
@@ -110,7 +115,7 @@ string XMLBalise::toString(int lvl){
   }
   ret += OPEN_TAG; 
   ret += this->ns;
-  if (!ns.empty()) ret += ":";
+  if (!ns.empty())) ret += ":";
 	ret += this->name;
 
 	// Ecriture des attributs de la balise
@@ -201,7 +206,7 @@ XMLBalise * XMLBalise::match( XMLBalise * xsl, bool racine){
 			XMLBalise* balise = dynamic_cast<XMLBalise*>(*it_element);
 		 
 		 if( (balise != 0) // Si balise est une instance de XMLBalise
-		 && (balise->getName() == "xsl:template")
+		 && (balise->getName() == "template") && balise->getNameSpace().compare("xsl") == 0
 		 && (balise->getAttributes().find("match") != balise->getAttributes().end()) ) // Si l'attribut match est present
 		 {
 		 	map<string,string> mapAttributs = balise->getAttributes();
