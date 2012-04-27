@@ -12,7 +12,7 @@
 
 #define TAB "  " //I don't like big tabs
 using namespace std;
-
+class XMLBalise;
 
 class XMLElement {
 public:
@@ -22,6 +22,11 @@ public:
 	virtual string toString() = 0;
 	virtual string toString(int lvl) = 0;
 	virtual string getType() = 0;
+	XMLBalise * getParent();
+	void setParent(XMLBalise *);
+	
+protected:
+	XMLBalise * parent;
 
 };
 

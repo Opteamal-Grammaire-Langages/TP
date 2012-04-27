@@ -6,6 +6,7 @@ using namespace std;
 #include <utility>
 #include <string>
 #include <map>
+#include "../../ModelXML/src/XMLDocument.h"
 #include "../../ModelXML/src/XMLElement.h"
 #include "../../ModelXML/src/XMLBalise.h"
 #include "../../ModelXML/src/XMLData.h"

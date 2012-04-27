@@ -1,5 +1,5 @@
-#ifndef XMLBALISE_H_
-#define XMLBALISE_H_
+#ifndef XMLDOCUMENT_H_
+#define XMLDOCUMENT_H_
 
 #include <iostream>
 #include <list>
