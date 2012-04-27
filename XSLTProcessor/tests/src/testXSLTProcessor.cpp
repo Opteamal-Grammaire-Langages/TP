@@ -124,6 +124,7 @@ XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
 	pBalise->addElement(pBalise2Data);
 
 	XMLBalise * baliseBody = new XMLBalise("body");
+	baliseBody->addAttribute("id","baliseBody");
 	baliseBody->addElement(h2Balise);
 	baliseBody->addElement(pBalise);
 
