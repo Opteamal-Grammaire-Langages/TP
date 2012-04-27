@@ -43,6 +43,7 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 			}
 			// Si un template match
 		} else {
+			cout<<"match: " + docXML->getName();
 			generatedXML = generateTemplate(templatedMatching, xls, docXML);
 		}
 		//Balise autoClosed
