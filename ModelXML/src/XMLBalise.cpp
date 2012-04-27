@@ -209,7 +209,7 @@ XMLBalise * XMLBalise::match( XMLBalise * xsl, bool racine){
 			XMLBalise* balise = dynamic_cast<XMLBalise*>(*it_element);
 		 
 		 if( (balise != 0) // Si balise est une instance de XMLBalise
-		 && (balise->getName() == "xsl:template")
+		 && (balise->getName() == "template") && balise->getNameSpace().compare("xsl") == 0
 		 && (balise->getAttributes().find("match") != balise->getAttributes().end()) ) // Si l'attribut match est present
 		 {
 		 	map<string,string> mapAttributs = balise->getAttributes();
