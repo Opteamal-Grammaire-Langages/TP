@@ -71,8 +71,11 @@ string XMLBalise::toString(){
 	// Ouverture de la balise
 	string ret (OPEN_TAG);
 
-  ret+= this->ns;
-  ret += ":";
+	if(this->ns.compare("")){
+		ret+= this->ns;
+  	ret += ":";
+	}
+  
 	ret += this->name;
 
 
