@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 #include "../../arbreXML/src/commun.h"
 #include "../../analyseurSyntaxique/src/commun.h"
 #include "../../arbreDTD/src/commun.h"
@@ -12,7 +13,7 @@ using namespace std;
 enum command {NONE,ANALYSE,MODELIZE,VALIDATE,PROCESS,HELP};
 int result = 0;
 
-int process(string infile, string xslfile){
+int process(string infile, string xslfile, bool debug){
   XMLElement * document = modelizeXml(infile.c_str(),NULL,debug);
   XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
   if (balise==NULL){
@@ -20,16 +21,16 @@ int process(string infile, string xslfile){
     return -1;
   }
   XMLElement * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
-  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (document);
+  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (xsldocument);
   if (xslbalise==NULL){
     cout << "Invalid XSL document" << endl;
     return -1;
   }
   list<XMLElement*> listeHTML;
   listeHTML = XSLTProcessor::generateXSLXML(balise,xslbalise);
-  liste<XMLElement*>::iteraror it;
+  list<XMLElement*>::iterator it;
   cout << "HTML :" <<endl;
-  for (it=listeHTML.begin(), it!=listeHTML.end(); it++){
+  for (it=listeHTML.begin(); it!=listeHTML.end(); it++){
     cout << (*it)->toString(0);
   }
   return 0;
@@ -128,7 +129,7 @@ void displayHelp()
   cout << "\ttpgl -A [-v] [-t type] FILENAME" << endl;
   cout << "\ttpgl -M -t type [-v] [-o output] FILENAME" << endl;
   cout << "\ttpgl -V [-v] -d DTD FILENAME" << endl;
-  cout << "\ttpgl -P -x XSL FILENAME" <<endl;
+  cout << "\ttpgl -P [-v] -x XSL FILENAME" <<endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
   cout << "\t-A / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
@@ -223,7 +224,7 @@ int parseLine(vector<string> args){
       return validate(file,dtd,debug);
       break;
     case PROCESS :
-      return process(file,xsl);
+      return process(file,xsl,debug);
       break;
     default :
       displayHelp();
