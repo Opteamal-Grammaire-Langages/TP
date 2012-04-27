@@ -70,6 +70,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 	elMatchRacine->addAttribute("match", "/");
 
 	XMLBalise * elBody = new XMLBalise("body");
+	elBody->addAttribute("id","baliseBody");
 	XMLBalise * elHTML = new XMLBalise("html");
 	XMLBalise * apply1 = new XMLBalise("apply-templates", "xsl", true);
 

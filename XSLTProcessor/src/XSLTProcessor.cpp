@@ -92,6 +92,7 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 	if (elementXSL->getAutoClosed() == false) {
 
 		XMLBalise *returnBalise = new XMLBalise(elementXSL->getName());
+		returnBalise->setAttList(elementXSL->getAttributes());
 		returnBalises.push_back(returnBalise);
 
 		list<XMLElement *> elementsFils = elementXSL->getElements();
