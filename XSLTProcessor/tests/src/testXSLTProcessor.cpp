@@ -66,7 +66,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSL() {
 XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Match Racine
-	/*XMLBalise * elMatchRacine = new XMLBalise("xsl:template");
+	XMLBalise * elMatchRacine = new XMLBalise("xsl:template");
 	elMatchRacine->addAttribute("match", "/");
 
 	XMLBalise * elBody = new XMLBalise("body");
@@ -75,7 +75,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	elBody->addElement(apply1);
 	elHTML->addElement(elBody);
-	elMatchRacine->addElement(elHTML);*/
+	elMatchRacine->addElement(elHTML);
 
 
 	// Match Titre
