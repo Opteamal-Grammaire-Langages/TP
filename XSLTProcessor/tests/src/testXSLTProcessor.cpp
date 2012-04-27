@@ -66,12 +66,12 @@ XMLBalise * testXSLTProcessor::creationArbreXSL() {
 XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Match Racine
-	XMLBalise * elMatchRacine = new XMLBalise("xsl:template");
+	XMLBalise * elMatchRacine = new XMLBalise("template","xsl");
 	elMatchRacine->addAttribute("match", "/");
 
 	XMLBalise * elBody = new XMLBalise("body");
 	XMLBalise * elHTML = new XMLBalise("html");
-	XMLBalise * apply1 = new XMLBalise("xsl:apply-templates", "", true);
+	XMLBalise * apply1 = new XMLBalise("apply-templates", "xsl", true);
 
 	elBody->addElement(apply1);
 	elHTML->addElement(elBody);
@@ -79,7 +79,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 
 	// Match Titre
-	XMLBalise * elMatchTitre = new XMLBalise("xsl:template");
+	XMLBalise * elMatchTitre = new XMLBalise("template", "xsl");
 	elMatchTitre->addAttribute("match","titre");
 
 	XMLBalise * elTitreH2 = new XMLBalise("h2");
@@ -90,18 +90,18 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 
 	// Match Auteur
-	XMLBalise * elMatchAuteur = new XMLBalise("xsl:template");
+	XMLBalise * elMatchAuteur = new XMLBalise("template", "xsl");
 	elMatchAuteur->addAttribute("match","auteur");
 
 	XMLBalise * elAuteurP = new XMLBalise("p");
-	XMLBalise * elAuteurApply = new XMLBalise("xsl:apply-templates", "", true);
+	XMLBalise * elAuteurApply = new XMLBalise("apply-templates", "xsl", true);
 
 	elAuteurP->addElement(elAuteurApply);
 	elMatchAuteur->addElement(elAuteurP);
 
 
 	// Racine du XSL
-	XMLBalise * xslStyleSheet = new XMLBalise("xsl:stylesheet");
+	XMLBalise * xslStyleSheet = new XMLBalise("stylesheet", "xsl");
 	xslStyleSheet->addElement(elMatchRacine);
 	xslStyleSheet->addElement(elMatchTitre);
 	xslStyleSheet->addElement(elMatchAuteur);
