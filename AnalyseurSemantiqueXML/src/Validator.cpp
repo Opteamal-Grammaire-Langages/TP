@@ -86,21 +86,25 @@ bool Validator::validateAtt (string attName, list<DTDattribut*> attributsDTD) {
 
 bool Validator::validate(const string xmlTypes, string descriptionTypeBalise){
 	string xmlTypesM = xmlTypes.substr(0, xmlTypes.length()-1);
+	xmlTypesM = convertToRegex(xmlTypesM);
 
 	//const string regexRecupere= convertToRegex(descriptionTypeBalise);
 	const string regexRecupere = descriptionTypeBalise;
+
+
 	cout << "ChildrenTypes : [" << xmlTypesM << "]    - DTD : [" << regexRecupere << "]" << endl;
 
+
 	regex e (regexRecupere);
+	cout << regex_match(xmlTypesM,e) << endl;
 	return regex_match(xmlTypesM,e);
 }
 
 string Validator::convertToRegex(string description){
-	int pos = 0;
-	pos = description.find(',');
-	while (pos != (int) string::npos) {
-		description.replace(pos, 1, " ");
-		pos = description.find(',');
+	int pos = description.find(" ");
+	while (pos != string::npos) {
+		description.replace(pos, 1, ",");
+		pos = description.find(" ", pos+1);
 	}
 	return description;
 }
