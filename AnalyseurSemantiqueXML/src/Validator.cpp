@@ -101,7 +101,7 @@ bool Validator::validate(const string xmlTypes, string descriptionTypeBalise){
 }
 
 string Validator::convertToRegex(string description){
-	int pos = description.find(" ");
+	unsigned int pos = description.find(" ");
 	while (pos != string::npos) {
 		description.replace(pos, 1, ",");
 		pos = description.find(" ", pos+1);
