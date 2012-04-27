@@ -21,7 +21,7 @@ int xmllex(void);
 %%
 
 document
- : declarations_opt xml_element misc_seq_opt 
+ : specials_opt declarations_opt xml_element misc_seq_opt 
  ;
 misc_seq_opt
  : misc_seq_opt comment
@@ -29,6 +29,16 @@ misc_seq_opt
  ;
 comment
  : COMMENT
+ ;
+ 
+specials_opt
+ : specials_opt
+ | special
+ | /*empty*/
+ ;
+ 
+special
+ : STARTSPECIAL attr_opt CLOSESPECIAL
  ;
 
 declarations_opt
