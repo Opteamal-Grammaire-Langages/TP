@@ -17,7 +17,8 @@ int mxmllex(void);
    XMLElement* xe;
    XMLBalise* xb;
    XMLData* xd;
-   Document* declaration;
+   XMLDocument * xdoc;
+   Document* decl;
 }
 
 %token EQ SLASH CLOSE CLOSESPECIAL DOCTYPE
@@ -28,12 +29,14 @@ int mxmllex(void);
 %type <at> attr
 %type <atList> attr_list
 %type <xeList> empty_or_content close_content_and_end content_opt
-%type <document> declaration
+%type <decl> declaration declarations_opt
+%type <xdoc> document
 
 %%
 
 document
- : specials_opt declarations_opt xml_element misc_seq_opt { dump($3)} 
+ : specials_opt declarations_opt xml_element misc_seq_opt { $$=new Document(); $$->setSpecials($1);
+  $$->setChild($3); dump($$);} 
  ;
  
 misc_seq_opt
