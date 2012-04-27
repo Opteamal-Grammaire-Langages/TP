@@ -102,7 +102,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Racine du XSL
 	XMLBalise * xslStyleSheet = new XMLBalise("xsl:stylesheet");
-	//xslStyleSheet->addElement(elMatchRacine);
+	xslStyleSheet->addElement(elMatchRacine);
 	xslStyleSheet->addElement(elMatchTitre);
 	xslStyleSheet->addElement(elMatchAuteur);
 
