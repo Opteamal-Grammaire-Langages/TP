@@ -4,7 +4,7 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 		XMLBalise * xls, bool racine) {//TODO cpy attributes
 	list<XMLElement *> generatedXML;
 
-	if (docXML->getAutoClosed() == false) {
+	//if (docXML->getAutoClosed() == false) {
 		XMLBalise * templatedMatching = docXML->match(xls, racine); //On recupere si possible match du noeud courrant
 
 		//Si le noeud courrant ne match pas
@@ -43,14 +43,14 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 			}
 			// Si un template match
 		} else {
-			cout<<"match: " + docXML->getName();
+			cout<<"match: " + docXML->getName() + "\n";
 			generatedXML = generateTemplate(templatedMatching, xls, docXML);
 		}
 		//Balise autoClosed
-	} else {
-		XMLBalise * baliseClosed = new XMLBalise(docXML->getName(), "", true);
-		generatedXML.push_back(baliseClosed);
-	}
+	//} else {
+	//	XMLBalise * baliseClosed = new XMLBalise(docXML->getName(), "", true);
+	//	generatedXML.push_back(baliseClosed);
+	//}
 
 	return generatedXML;
 }
@@ -120,7 +120,7 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 	// Si auto closed
 	}else{
 		// Balise apply templates
-		if(elementXSL->getName().compare("xsl:apply-templates") == 0){
+		if(elementXSL->getName().compare("apply-templates") == 0 && elementXSL->getNameSpace().compare("xsl") == 0){
 
 			list<XMLElement *> elementsFils = xmlMatching->getElements();
 			for (list<XMLElement *>::iterator it_element = elementsFils.begin();it_element != elementsFils.end(); it_element++) {
@@ -145,9 +145,10 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 				}
 
 			}
-			//Si on a une data
+			//Si on a une balise
 		}else{
 			XMLBalise * child = new XMLBalise(elementXSL->getName(),"",true);
+			child->setAttList(elementXSL->getAttributes());
 			returnBalises.push_back(child);
 		}
 

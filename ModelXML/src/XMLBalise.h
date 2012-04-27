@@ -21,6 +21,7 @@ public:
 	void setAttList(map<string,string> * list);
 	void setValueAttribute(string name, string value);
 	void setAutoClosed(bool autoClosed);
+	void setAttList(map<string,string> list);
 
 	list<XMLElement *> getElements();
 	map<string,string> getAttributes();
@@ -41,6 +42,7 @@ protected:
 	string name;
 	string ns;
 	bool autoClosed;
+
 };
 
 #endif /* XMLBALISE_H_ */

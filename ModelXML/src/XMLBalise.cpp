@@ -18,6 +18,7 @@ XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
 	this->ns = ns;
+	parent = 0;
 }
 
 XMLBalise::~XMLBalise() {
@@ -59,6 +60,10 @@ void XMLBalise::setAttList(map<string,string> * list){
 
 void XMLBalise::addAttribute(string attribute, string value){
 	attributs[attribute] = value;
+}
+
+void XMLBalise::setAttList(map<string,string> list){
+  attributs=list;
 }
 
 string XMLBalise::toString(){
