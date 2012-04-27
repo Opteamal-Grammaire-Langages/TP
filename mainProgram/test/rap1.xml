@@ -1,4 +1,4 @@
-<!DOCTYPE rapport SYSTEM "rap1.dtd">
+<!DOCTYPE rapport SYSTEM "test/rap1.dtd">
 <rapport a="lol">
   <titre>Réaliser un compilateur</titre>
   <auteur>
