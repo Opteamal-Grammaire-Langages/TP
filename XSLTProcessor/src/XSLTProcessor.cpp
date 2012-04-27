@@ -1,18 +1,18 @@
 #include "XSLTProcessor.h"
 
 list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
-		XMLBalise * xls) {//TODO cpy attributes
+		XMLBalise * xls, bool racine) {//TODO cpy attributes
 	list<XMLElement *> generatedXML;
 
 	if (docXML->getAutoClosed() == false) {
-		XMLBalise * templatedMatching = docXML->match(xls); //On recupere si possible match du noeud courrant
+		XMLBalise * templatedMatching = docXML->match(xls, racine); //On recupere si possible match du noeud courrant
 
 		//Si le noeud courrant ne match pas
 		if (templatedMatching == 0) {
 
 			//On defini la balise a renvoyer
-			XMLBalise * balise = new XMLBalise(docXML->getName(), "", false);
-			generatedXML.push_back(balise);
+			//XMLBalise * balise = new XMLBalise(docXML->getName(), "", false);
+			//generatedXML.push_back(balise);
 
 			list<XMLElement *> elementsFils = docXML->getElements();
 
@@ -26,21 +26,24 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 				if (baliseChild != 0) {
 					list<XMLElement *> childs = generateXSLXML(baliseChild,
 							xls);
-					balise->addElements(childs);
+					generatedXML.insert(generatedXML.end(),childs.begin(),childs.end());
+							//balise->addElements(childs);
 				} else {
-					XMLData * data = dynamic_cast<XMLData*>(docXML);
+					XMLData * data = dynamic_cast<XMLData*>((*it_element));
 					if (data != 0) {
 						//On copie la data
 						XMLData * newData = new XMLData(data->getData());
-						balise->addElement(newData);
+						//balise->addElement(newData);
+						generatedXML.push_back(newData);
 					} else {
 						cout << "ERROR UNEXPECTED: generateXSLXML" << endl;
 					}
-					balise->addElement(*it_element);
+					//balise->addElement(*it_element);
 				}
 			}
 			// Si un template match
 		} else {
+			cout<<"match: " + docXML->getName();
 			generatedXML = generateTemplate(templatedMatching, xls, docXML);
 		}
 		//Balise autoClosed
@@ -66,7 +69,7 @@ list<XMLElement *> XSLTProcessor::generateTemplate(XMLBalise * templateMatched,
 		// Si l element est un noeud
 		if(baliseChild != 0){
 			list<XMLElement *> childs = lookOverXSLToBuildTemplate(baliseChild, xls,noeudXMLMatched);
-			templateContent.insert(templateContent.begin(),childs.begin(),childs.end());
+			templateContent.insert(templateContent.end(),childs.begin(),childs.end());
 		}else{
 			XMLData* dataChild = dynamic_cast<XMLData*>((*it_element));
 			XMLData* data = new XMLData(dataChild->getData());
@@ -243,3 +246,4 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 
  }
  */
+

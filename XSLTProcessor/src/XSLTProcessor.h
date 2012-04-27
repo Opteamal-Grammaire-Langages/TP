@@ -21,7 +21,7 @@ class XSLTProcessor {
 
 public:
 
-	static list<XMLElement *> generateXSLXML(XMLBalise * docXML, XMLBalise * xls);
+	static list<XMLElement *> generateXSLXML(XMLBalise * docXML, XMLBalise * xls, bool racine = false);
 protected:
 	static list<XMLElement *> generateTemplate(XMLBalise * templateMatched, XMLBalise * xls, XMLBalise * noeudXMLMatched);
 	static list<XMLElement *> lookOverXSLToBuildTemplate(XMLBalise * elementXSL, XMLBalise * xls, XMLBalise * xmlMatching);
