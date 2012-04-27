@@ -32,12 +32,12 @@ comment
  ;
  
 specials_opt
- : specials_opt special
- | /*empty*/
+ : /*empty*/ {printf("special empty\n");}
+ | special specials_opt {printf("special_opt\n");}
  ;
  
 special
- : STARTSPECIAL attr_opt CLOSESPECIAL
+ : STARTSPECIAL attr_opt CLOSESPECIAL { printf("special\n");}
  ;
 
 declarations_opt
@@ -50,7 +50,7 @@ declaration
  ;
 
 xml_element
- : start empty_or_content 
+ : start empty_or_content {printf("xml_element found\n");}
  ;
 start
  : START attr_opt	{ printf("%s et %s\n",$1->first.c_str(),$1->second.c_str()); }

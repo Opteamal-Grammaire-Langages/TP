@@ -67,7 +67,7 @@ string XMLBalise::toString(){
 	string ret (OPEN_TAG);
 
   ret+= this->ns;
-  ret += ":";
+  if (!ns.empty()) ret += ":";
 	ret += this->name;
 
 
@@ -110,7 +110,7 @@ string XMLBalise::toString(int lvl){
   }
   ret += OPEN_TAG; 
   ret += this->ns;
-  ret += ":";
+  if (!ns.empty()) ret += ":";
 	ret += this->name;
 
 	// Ecriture des attributs de la balise

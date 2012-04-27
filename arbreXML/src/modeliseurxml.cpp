@@ -47,7 +47,7 @@ XMLElement* modelizeXml(const char * infile, const char * outfile, bool debug)
 void dump(XMLElement * toDump)
 {
   FILE * out;
-  printf("dumping document");
+  printf("dumping document\n");
   document=toDump;
   if (outname==NULL){
 		out=fopen("output.xml","w");
