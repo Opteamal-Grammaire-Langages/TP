@@ -14,14 +14,23 @@ enum command {NONE,ANALYSE,MODELIZE,VALIDATE,PROCESS,HELP};
 int result = 0;
 
 int process(string infile, string xslfile, bool debug){
-  XMLElement * document = modelizeXml(infile.c_str(),NULL,debug);
-  XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
+  XMLDocument * document = modelizeXml(infile.c_str(),NULL,debug);
+  if (document->getChild() == NULL){
+    cout << "Invalid XML document" << endl;
+    return -1;
+  }
+  XMLBalise * balise = dynamic_cast<XMLBalise*> (document->getChild());
   if (balise==NULL){
     cout << "Invalid XML document" << endl;
     return -1;
   }
-  XMLElement * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
-  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (xsldocument);
+
+  XMLDocument * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
+  if (document->getChild() == NULL){
+    cout << "Invalid XSL document" << endl;
+    return -1;
+  }
+  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (xsldocument->getChild());
   if (xslbalise==NULL){
     cout << "Invalid XSL document" << endl;
     return -1;
