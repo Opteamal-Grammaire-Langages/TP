@@ -12,7 +12,7 @@ int mxmllex(void);
    char * s;
    ElementName * en;  /* le nom d'un element avec son namespace */
    AttributList * atList;
-   Attribut* at, special; 
+   Attribut* at; 
    ElementList * xeList;
    XMLElement* xe;
    XMLBalise* xb;
@@ -25,18 +25,18 @@ int mxmllex(void);
 %token <s> ENCODING STRING DATA COMMENT IDENT NSIDENT
 %token <en> NSSTART START STARTSPECIAL END NSEND
 %type <s> name_attr
-%type <xb> start xml_element
+%type <xb> start xml_element special
 %type <at> attr
 %type <atList> attr_list
-%type <xeList> empty_or_content close_content_and_end content_opt
+%type <xeList> empty_or_content close_content_and_end content_opt specials_opt
 %type <decl> declaration declarations_opt
 %type <xdoc> document
 
 %%
 
 document
- : specials_opt declarations_opt xml_element misc_seq_opt { $$=new Document(); $$->setSpecials($1);
-  $$->setChild($3); dump($$);} 
+ : specials_opt declarations_opt xml_element misc_seq_opt { $$=new XMLDocument(); 
+  $$->setSpecialsList($1); $$->setDoctype($2); $$->setChild($3); dump($$);} 
  ;
  
 misc_seq_opt
@@ -49,8 +49,8 @@ comment
  ;
  
 specials_opt
- : specials_opt special
- | /*empty*/
+ : specials_opt special {$1->push_back($2); $$=$1;}
+ | {$$=new list<XMLElement *>;}
  ;
  
 special
@@ -58,8 +58,8 @@ special
  ;
  
 declarations_opt
- : declaration
- | /*empty*/
+ : declaration {$$=$1;}
+ | /*empty*/ {$$=NULL;}
  ;
  
 declaration

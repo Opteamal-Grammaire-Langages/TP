@@ -11,7 +11,8 @@ LOBJ=modeliseurxml.o
 OBJ=test.o
 OBJPATH= $(foreach file, $(OBJ), $(SUBDIR)/$(file))
 LOBJPATH= $(foreach file, $(LOBJ), $(SUBDIR)/$(file))
-LIBS=$(LIB) ../ModelXML/lib/libmodelXML.a ../arbreDTD/libmodeliseurdtd.a
+LIBS=$(LIB) ../ModelXML/lib/libmodelXML.a ../ModelDTD/lib/libmodelDTD.a \
+	../arbreDTD/libmodeliseurdtd.a 
 
 .PHONY : test clean
 all: $(EXE) test

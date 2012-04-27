@@ -98,6 +98,11 @@ string XMLDocument::getType(){
 XMLElement * XMLDocument::getChild(){
   return child;
 }
+
+void XMLDocument::setChild(XMLElement *ch){
+  child=ch;
+}
+
 string XMLDocument::getChildType(){
 	return child->getType();
 }
