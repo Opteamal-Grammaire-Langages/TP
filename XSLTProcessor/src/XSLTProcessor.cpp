@@ -1,11 +1,11 @@
 #include "XSLTProcessor.h"
 
 list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
-		XMLBalise * xls) {//TODO cpy attributes
+		XMLBalise * xls, bool racine) {//TODO cpy attributes
 	list<XMLElement *> generatedXML;
 
 	if (docXML->getAutoClosed() == false) {
-		XMLBalise * templatedMatching = docXML->match(xls); //On recupere si possible match du noeud courrant
+		XMLBalise * templatedMatching = docXML->match(xls, racine); //On recupere si possible match du noeud courrant
 
 		//Si le noeud courrant ne match pas
 		if (templatedMatching == 0) {
@@ -43,6 +43,7 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 			}
 			// Si un template match
 		} else {
+			cout<<"match: " + docXML->getName();
 			generatedXML = generateTemplate(templatedMatching, xls, docXML);
 		}
 		//Balise autoClosed

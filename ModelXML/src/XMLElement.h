@@ -22,10 +22,7 @@ public:
 	virtual string toString() = 0;
 	virtual string toString(int lvl) = 0;
 	virtual string getType() = 0;
-	void setParent(XMLElement * elem);
-	XMLElement * getParent(XMLElement * elem);
-protected:
-	XMLElement * parent;
+
 };
 
 #endif /* XMLELEMENT_H_ */
