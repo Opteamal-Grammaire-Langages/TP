@@ -106,7 +106,7 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 
 				if(dataChild != 0){
 					XMLData * dat = new XMLData(dataChild->getData());
-					returnBalises.push_back(dat);
+					returnBalise->addElement(dat);
 				}else{
 					cout<<"UNEXPECTED ERROR: lookOverXSLToBuildTemplate"<<endl;
 				}
