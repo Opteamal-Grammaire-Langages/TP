@@ -1,7 +1,7 @@
 #include "XSLTProcessor.h"
 
 list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
-		XMLBalise * xls, bool racine) {//TODO cpy attributes
+		XMLBalise * xls, bool racine) {
 	list<XMLElement *> generatedXML;
 
 	//if (docXML->getAutoClosed() == false) {
