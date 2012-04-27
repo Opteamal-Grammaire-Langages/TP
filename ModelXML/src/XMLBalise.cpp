@@ -206,9 +206,18 @@ XMLBalise * XMLBalise::match( XMLBalise * xsl){
 		 	map<string,string> mapAttributs = balise->getAttributes();
 		 	string matchingName = mapAttributs.find("match")->second;
 
-		 	if (name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
-		 		return balise;
-		 	}
+			//Si on est pas la racine
+			if(this->parent == 0){
+				if (name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
+		 			return balise;
+		 		}
+			//Si on se trouve a la racine
+			}else{
+				if (matchingName.compare("/") == 0 ){ //Si la valeur de l'attribut match est celle recherchee
+		 			return balise;
+		 		}
+			}
+		 	
 		 }
 	}
 	return 0;
