@@ -71,6 +71,8 @@ string XMLBalise::toString(){
 	// Ouverture de la balise
 	string ret (OPEN_TAG);
 
+  ret+= this->ns;
+  ret += ":";
 	ret += this->name;
 
 
@@ -112,6 +114,8 @@ string XMLBalise::toString(int lvl){
     ret += TAB;
   }
   ret += OPEN_TAG; 
+  ret += this->ns;
+  ret += ":";
 	ret += this->name;
 
 	// Ecriture des attributs de la balise

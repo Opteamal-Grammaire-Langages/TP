@@ -32,8 +32,7 @@ comment
  ;
  
 specials_opt
- : specials_opt
- | special
+ : specials_opt special
  | /*empty*/
  ;
  
