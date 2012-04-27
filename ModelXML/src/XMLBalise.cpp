@@ -12,6 +12,7 @@
 #define OPEN_TAG "<"
 #define CLOSE_TAG ">"
 #define SLASH "/"
+#define QM "?"
 
 
 XMLBalise::XMLBalise(string name, string ns, bool autoClosed,bool special){
@@ -88,7 +89,7 @@ string XMLBalise::toString(){
 
 	if (autoClosed) {
 		// Fermeture de la balise
-		ret += SLASH;
+		special ? ret += QM : ret += SLASH;
 		ret += CLOSE_TAG;
 	}
 	else {
@@ -129,7 +130,7 @@ string XMLBalise::toString(int lvl){
 	}
 	if (autoClosed) {
 		// Fermeture de la balise
-		ret += SLASH;
+		special ? ret += QM : ret += SLASH;
 		ret += CLOSE_TAG;
 	}
 	else {
