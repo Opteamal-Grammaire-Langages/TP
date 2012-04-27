@@ -1,0 +1,16 @@
+Transformations XSL
+-------------------
+
+Ce dossier fournit les classes nécessaires pour faire de la 
+transformation XSL (XML + XSL --> HTML)
+
+Utilisation : 
+
+      Compilation du projet :
+              make clean
+              make
+
+Pour lancer les tests :
+- Aller dans le répertoire des tests
+- Compiler
+- Lancer le fichier de test

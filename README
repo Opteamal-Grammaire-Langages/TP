@@ -1,0 +1,18 @@
+TP Grammaire et Langages
+------------------------
+
+Vous trouverez dans les dossiers ci-joint les différentes phases du 
+projet :
+
+- arbreXML : Modéliseur XML
+- arbreDTD : Modéliseur DTD
+- AnalyseurSemantiqueXML : Analyseur Sémantique XML
+- analyseurSyntaxique : Analyseur Syntaxique XML + DTD
+- ModelDTD : Modèle DTD
+- ModelXML : Modèle XML
+- XSLTProcessor : Transformations XSL
+
+- mainProgram : Programme principal du projet. Permet de lancer tous les 
+autres exécutables du projet.
+- FichiersTests : Fichiers de test pouvant être utilisés avec le 
+programme principal

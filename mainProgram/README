@@ -1,0 +1,9 @@
+mainProgram
+-----------
+
+Pour compiler le programme principal :
+- Se placer dans le répertoire courant
+- Exécuter la commande make
+- Lancer ./tpgl 
+
+L'aide et les nombreuses options disponibles s'afficheront ensuite.
