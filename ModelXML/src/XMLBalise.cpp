@@ -18,6 +18,7 @@ XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
 	this->ns = ns;
+	parent = 0;
 }
 
 XMLBalise::~XMLBalise() {
@@ -30,6 +31,7 @@ XMLBalise::~XMLBalise() {
 
 void XMLBalise::addElement(XMLElement * elem){
 	elements.push_back(elem);
+	elem->setParent(this);
 }
 
 void XMLBalise::addElements(list<XMLElement *> elem){
@@ -37,17 +39,27 @@ void XMLBalise::addElements(list<XMLElement *> elem){
 	list<XMLElement *>::iterator it;
 	for(it = elem.begin(); it != elem.end() ; it++){
 		elements.push_back(*it);
+		(*it)->setParent(this);
 	}
 }
 
 void XMLBalise::setElementList(list<XMLElement*> * list){
-  elements=*list;
+  /*elements=*list;*/
+  
+  addElements(*list);
+  
+  /*list<XMLElement*>::iterator it;
+	for(it = elements.begin(); it != elements.end() ; it++){
+		(*it)->setParent(this);
+	}*/
   delete list;
 }
+
 void XMLBalise::setAttList(map<string,string> * list){
   attributs=*list;
   delete list;
 }
+
 void XMLBalise::addAttribute(string attribute, string value){
 	attributs[attribute] = value;
 }
