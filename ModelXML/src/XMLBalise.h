@@ -11,7 +11,7 @@ using namespace std;
 
 class XMLBalise: public XMLElement {
 public:
-	XMLBalise(string name, string ns="", bool autoClosed = false);
+	XMLBalise(string name, string ns="", bool autoClosed = false, bool special=false);
 	virtual ~XMLBalise();
 
 	void addElement(XMLElement * elem);
@@ -42,6 +42,7 @@ protected:
 	string name;
 	string ns;
 	bool autoClosed;
+  bool special;
 
 };
 

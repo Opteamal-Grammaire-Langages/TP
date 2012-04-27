@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	} else {
 		outfile=argv[2];
 	}
-  document = modelizeXml(argv[1],outfile,false); 
+  document = modelizeXml(argv[1],outfile,true); 
   printf("Document as parsed : \n%s\n",document->toString(0).c_str());
   return 0;
 }

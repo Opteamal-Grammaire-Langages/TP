@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "modeliseurxml.h"
 const char * outname;
-XMLElement * document;
+XMLDocument * document;
 /*
 int modelizeDtd(char * input)
 {
@@ -19,7 +19,7 @@ int modelizeDtd(char * input)
   return 0;
 }
 */
-XMLElement* modelizeXml(const char * infile, const char * outfile, bool debug)
+XMLDocument* modelizeXml(const char * infile, const char * outfile, bool debug)
 {
   int err;
   if (debug){
@@ -28,23 +28,23 @@ XMLElement* modelizeXml(const char * infile, const char * outfile, bool debug)
     mxmldebug = 0;
   }
 	if (infile==NULL){
-		return new XMLData("");
+		return new XMLDocument;
 	}
   outname=outfile;
   mxmlin=fopen(infile,"r");
 	if(mxmlin==NULL){
-		return new XMLData("");
+		return new XMLDocument;
 	}
   err = mxmlparse();
   if (err != 0){
     printf("Parse ended with %d error(s)\n", err);
-    return new XMLData("");
+    return new XMLDocument;
   }
 	else  printf("Parse ended with success\n");
   return document;
 }
 
-void dump(XMLElement * toDump)
+void dump(XMLDocument * toDump)
 {
   FILE * out;
   printf("dumping document\n");

@@ -14,14 +14,23 @@ enum command {NONE,ANALYSE,MODELIZE,VALIDATE,PROCESS,HELP};
 int result = 0;
 
 int process(string infile, string xslfile, bool debug){
-  XMLElement * document = modelizeXml(infile.c_str(),NULL,debug);
-  XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
+  XMLDocument * document = modelizeXml(infile.c_str(),NULL,debug);
+  if (document->getChild() == NULL){
+    cout << "Invalid XML document" << endl;
+    return -1;
+  }
+  XMLBalise * balise = dynamic_cast<XMLBalise*> (document->getChild());
   if (balise==NULL){
     cout << "Invalid XML document" << endl;
     return -1;
   }
-  XMLElement * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
-  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (xsldocument);
+
+  XMLDocument * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
+  if (document->getChild() == NULL){
+    cout << "Invalid XSL document" << endl;
+    return -1;
+  }
+  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (xsldocument->getChild());
   if (xslbalise==NULL){
     cout << "Invalid XSL document" << endl;
     return -1;
@@ -37,12 +46,25 @@ int process(string infile, string xslfile, bool debug){
 }
 
 int validate(string file, string dtd, bool debug){
-  Document * docdef =new Document;
-  int ret = modelizeDtd(dtd.c_str(),&docdef,debug);
-  if (ret==-1) return -1;
-  XMLElement * document = modelizeXml(file.c_str(),NULL,debug);
+
+  Document * docdef;
+
+  XMLDocument * document = modelizeXml(file.c_str(),NULL,debug);
+  if (document->getChild() == NULL){
+    cout << "Invalid XML document" << endl;
+    return -1;
+  }
+
+  if (!dtd.empty()){
+    docdef=new Document;
+    int ret = modelizeDtd(dtd.c_str(),&docdef,debug);
+    if (ret==-1) return -1;
+  } else {
+    docdef=document->getDoctype();
+  }
+  
   Validator val(docdef);
-  XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
+  XMLBalise * balise = dynamic_cast<XMLBalise*> (document->getChild());
   if (balise==NULL){
     cout << "Invalid XML document" << endl;
     return -1;
@@ -53,7 +75,9 @@ int validate(string file, string dtd, bool debug){
   } else {
     cout << "invalid document" << endl;
   }
-  delete docdef;
+  if (!dtd.empty()){
+    delete docdef;
+  }
   delete document;
   return 0;
 } 
@@ -128,7 +152,7 @@ void displayHelp()
   cout << "\ttpgl -h" << endl;
   cout << "\ttpgl -A [-v] [-t type] FILENAME" << endl;
   cout << "\ttpgl -M -t type [-v] [-o output] FILENAME" << endl;
-  cout << "\ttpgl -V [-v] -d DTD FILENAME" << endl;
+  cout << "\ttpgl -V [-v] [-d DTD] FILENAME" << endl;
   cout << "\ttpgl -P [-v] -x XSL FILENAME" <<endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
@@ -138,7 +162,7 @@ void displayHelp()
                          In this case, if the file is an xml file, don't check the corresponding DTD" << endl;
   cout << "\t-M / --model : Fill and display an memory structure with the input file, type specifies\n\
                           what kind of memory model must be filled" << endl;
-  cout << "\t-V / --validate : validate an xml file against the dtd provided" << endl;
+  cout << "\t-V / --validate : validate an xml file against its dtd or the dtd you provided" << endl;
   cout << "\t-P / --process\n" << endl;
   cout << "Arguments :" << endl;
   cout << "\t-d / --dtd DTD : specify the dtd to be checked against in case of a validation" << endl;
