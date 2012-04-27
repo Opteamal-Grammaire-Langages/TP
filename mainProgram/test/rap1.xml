@@ -1,5 +1,5 @@
 <!DOCTYPE rapport SYSTEM "test/rap1.dtd">
-<rapport a="lol">
+<rapport>
   <titre>Réaliser un compilateur</titre>
   <auteur>
     <prenom> Nino </prenom>

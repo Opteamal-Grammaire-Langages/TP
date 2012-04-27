@@ -21,10 +21,10 @@ XMLDocument::XMLDocument(){
 }
 
 XMLDocument::~XMLDocument() {
-	list<XMLElement *>::iterator it;
+	list<XMLBalise *>::iterator it;
 
 	for(it = specials.begin(); it != specials.end() ; it++){
-		delete *it;
+		delete (XMLElement*)(*it);
 	}
   delete doctype;
 }
@@ -36,23 +36,18 @@ void XMLDocument::setDoctype(Document * dtd){
 Document * XMLDocument::getDoctype(){
   return doctype;
 }
-void XMLDocument::addSpecials(list<XMLElement *> spec){
+void XMLDocument::addSpecials(list<XMLBalise *> spec){
 
-	list<XMLElement *>::iterator it;
+	list<XMLBalise *>::iterator it;
 	for(it = spec.begin(); it != spec.end() ; it++){
 		specials.push_back(*it);
 	}
 }
 
-void XMLDocument::setSpecialsList(list<XMLElement*> * list){
-  /*elements=*list;*/
+void XMLDocument::setSpecialsList(list<XMLBalise*> * list){
   
   addSpecials(*list);
   
-  /*list<XMLElement*>::iterator it;
-	for(it = elements.begin(); it != elements.end() ; it++){
-		(*it)->setParent(this);
-	}*/
   delete list;
 }
 
@@ -61,7 +56,7 @@ string XMLDocument::toString(){
 	string ret;
 
   // Ecriture du contenu des speciaux
-  for(list<XMLElement *>::iterator it_element = specials.begin();
+  for(list<XMLBalise *>::iterator it_element = specials.begin();
       it_element != specials.end();
       it_element++) {
     ret += (*it_element)->toString() + "\n";
@@ -80,7 +75,7 @@ string XMLDocument::toString(int lvl){
   }
 
   // Ecriture du contenu des speciaux
-  for(list<XMLElement *>::iterator it_element = specials.begin();
+  for(list<XMLBalise *>::iterator it_element = specials.begin();
       it_element != specials.end();
       it_element++) {
     ret += (*it_element)->toString(0) + "\n";
@@ -91,6 +86,14 @@ string XMLDocument::toString(int lvl){
 	return ret;
 }
 
+string XMLDocument::getXSLfile(){
+  list<XMLBalise*>::iterator it;
+  for (it=specials.begin(); it!=specials.end(); it++){
+    if ((*it)->getName=="xml-stylesheet"){
+      return (*it)->getAttributes()["href"];
+    }
+  }
+}
 string XMLDocument::getType(){
 	return "document";
 }

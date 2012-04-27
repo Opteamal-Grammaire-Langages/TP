@@ -16,8 +16,8 @@ public:
 	virtual ~XMLDocument();
 
 	void setChild(XMLElement * child);
-	void setSpecialsList(list<XMLElement*> * specList);
-  void addSpecials(list<XMLElement*> spec);
+	void setSpecialsList(list<XMLBalise*> * specList);
+  void addSpecials(list<XMLBalise*> spec);
   void setDoctype(Document * dtd);
   Document * getDoctype();
 
@@ -25,6 +25,7 @@ public:
 
 	string toString();
   string getType();
+  string getXSLfile();
 	string toString(int lvl);
 	list<XMLElement *> getSpecials();
 	string getChildType();
@@ -32,7 +33,7 @@ public:
 	
 protected:
 	Document * doctype;
-  list<XMLElement*> specials;
+  list<XMLBalise*> specials;
 	XMLElement * child;
 };
 

@@ -27,7 +27,7 @@ XMLBalise::~XMLBalise() {
 	list<XMLElement *>::iterator it;
 
 	for(it = elements.begin(); it != elements.end() ; it++){
-		free(*it);
+		delete (*it);
 	}
 }
 
