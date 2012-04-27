@@ -1,6 +1,7 @@
 %{
 using namespace std;
 #include "commun.h"
+#include "../../arbreDTD/src/commun.h"
 
 int mxmlwrap(void);
 void mxmlerror(char *msg);
@@ -12,11 +13,12 @@ int mxmllex(void);
    char * s;
    ElementName * en;  /* le nom d'un element avec son namespace */
    AttributList * atList;
-   Attribut* at; 
+   Attribut* at, special; 
    ElementList * xeList;
    XMLElement* xe;
    XMLBalise* xb;
    XMLData* xd;
+   Document* declaration;
 }
 
 %token EQ SLASH CLOSE CLOSESPECIAL DOCTYPE
@@ -27,27 +29,40 @@ int mxmllex(void);
 %type <at> attr
 %type <atList> attr_list
 %type <xeList> empty_or_content close_content_and_end content_opt
+%type <document> declaration
 
 %%
 
 document
- : declarations_opt xml_element misc_seq_opt { dump($2)} 
+ : specials_opt declarations_opt xml_element misc_seq_opt { dump($3)} 
  ;
+ 
 misc_seq_opt
  : misc_seq_opt comment
  | /*empty*/
  ;
+ 
 comment
  : COMMENT
  ;
-
+ 
+specials_opt
+ : specials_opt
+ | special
+ | /*empty*/
+ ;
+ 
+special
+ : STARTSPECIAL attr_list CLOSESPECIAL { $$=new XMLBalise($1->second.c_str(), "", false); $$->setAttList($2); }
+ ;
+ 
 declarations_opt
  : declaration
  | /*empty*/
  ;
  
 declaration
- : DOCTYPE IDENT IDENT STRING CLOSE { /*printf("%s\n",$4);*/ }
+ : DOCTYPE IDENT IDENT STRING CLOSE { Document* doc = new Document; modelizeDtd($4, &doc); $$=doc; }
  ;
 
 xml_element

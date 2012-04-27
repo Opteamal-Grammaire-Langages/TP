@@ -33,7 +33,7 @@ public:
 	string getNameSpace();
 	bool getAutoClosed();
 	
-	XMLBalise * match(XMLBalise * xsl);
+	XMLBalise * match(XMLBalise * xsl, bool racine = false);
 
 protected:
 	list<XMLElement *> elements;

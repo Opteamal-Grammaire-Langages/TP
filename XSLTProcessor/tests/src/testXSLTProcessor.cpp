@@ -66,7 +66,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSL() {
 XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Match Racine
-	/*XMLBalise * elMatchRacine = new XMLBalise("xsl:template");
+	XMLBalise * elMatchRacine = new XMLBalise("xsl:template");
 	elMatchRacine->addAttribute("match", "/");
 
 	XMLBalise * elBody = new XMLBalise("body");
@@ -75,7 +75,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	elBody->addElement(apply1);
 	elHTML->addElement(elBody);
-	elMatchRacine->addElement(elHTML);*/
+	elMatchRacine->addElement(elHTML);
 
 
 	// Match Titre
@@ -102,7 +102,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Racine du XSL
 	XMLBalise * xslStyleSheet = new XMLBalise("xsl:stylesheet");
-	//xslStyleSheet->addElement(elMatchRacine);
+	xslStyleSheet->addElement(elMatchRacine);
 	xslStyleSheet->addElement(elMatchTitre);
 	xslStyleSheet->addElement(elMatchAuteur);
 
@@ -111,6 +111,8 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 
 XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
+
+
 	XMLBalise * h2Balise = new XMLBalise("h2");
 	XMLData * h2BaliseData = new XMLData("Titre !");
 	h2Balise->addElement(h2BaliseData);
@@ -121,9 +123,13 @@ XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
 	pBalise->addElement(pBaliseData);
 	pBalise->addElement(pBalise2Data);
 
+	XMLBalise * baliseBody = new XMLBalise("body");
+	baliseBody->addElement(h2Balise);
+	baliseBody->addElement(pBalise);
+
 	XMLBalise * baliseFinale = new XMLBalise("html");
-	baliseFinale->addElement(h2Balise);
-	baliseFinale->addElement(pBalise);
+	baliseFinale->addElement(baliseBody);
+
 
 	return baliseFinale;
 }
@@ -173,7 +179,7 @@ bool testXSLTProcessor::testXSLT2() {
 
 	// Transformation
 	list<XMLElement *> listeTransfo;
-	listeTransfo = XSLTProcessor::generateXSLXML(xml, xsl);
+	listeTransfo = XSLTProcessor::generateXSLXML(xml, xsl, true);
 
 	cout << "===== HTML TRANSFORME =====" << endl;
 	list<XMLElement*>::iterator it;

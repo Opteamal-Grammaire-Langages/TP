@@ -18,7 +18,6 @@ XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
 	this->ns = ns;
-	parent = 0;
 }
 
 XMLBalise::~XMLBalise() {
@@ -31,7 +30,6 @@ XMLBalise::~XMLBalise() {
 
 void XMLBalise::addElement(XMLElement * elem){
 	elements.push_back(elem);
-	elem->setParent(this);
 }
 
 void XMLBalise::addElements(list<XMLElement *> elem){
@@ -39,7 +37,6 @@ void XMLBalise::addElements(list<XMLElement *> elem){
 	list<XMLElement *>::iterator it;
 	for(it = elem.begin(); it != elem.end() ; it++){
 		elements.push_back(*it);
-		(*it)->setParent(this);
 	}
 }
 
@@ -189,7 +186,7 @@ bool XMLBalise::getAutoClosed(){
  * Si la balise est trouvee, renvoie la balise XLST
  * Si la balise n'est pas trouvee, renvoie 0
  */
-XMLBalise * XMLBalise::match( XMLBalise * xsl){
+XMLBalise * XMLBalise::match( XMLBalise * xsl, bool racine){
 
 	list<XMLElement *> listeElements = xsl->getElements();
 	//Parcours de tous les elements XML
@@ -206,9 +203,18 @@ XMLBalise * XMLBalise::match( XMLBalise * xsl){
 		 	map<string,string> mapAttributs = balise->getAttributes();
 		 	string matchingName = mapAttributs.find("match")->second;
 
-		 	if (name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
-		 		return balise;
-		 	}
+			//Si on est pas la racine
+			if(racine == false){
+				if (name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
+		 			return balise;
+		 		}
+			//Si on se trouve a la racine
+			}else{
+				if (matchingName.compare("/") == 0 || name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
+		 			return balise;
+		 		}
+			}
+		 	
 		 }
 	}
 	return 0;
