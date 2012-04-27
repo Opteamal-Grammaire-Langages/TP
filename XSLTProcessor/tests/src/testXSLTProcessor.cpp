@@ -84,6 +84,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 	elMatchTitre->addAttribute("match","titre");
 
 	XMLBalise * elTitreH2 = new XMLBalise("h2");
+	
 	XMLData * elTitreH2Data = new XMLData("Titre !");
 	elTitreH2->addElement(elTitreH2Data);
 
@@ -92,12 +93,15 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Match Auteur
 	XMLBalise * elMatchAuteur = new XMLBalise("template", "xsl");
-	elMatchAuteur->addAttribute("match","titre/auteur");
+	elMatchAuteur->addAttribute("match","auteur");
 
 	XMLBalise * elAuteurP = new XMLBalise("p");
-	XMLBalise * elAuteurApply = new XMLBalise("apply-templates", "xsl", true);
+	XMLBalise * elName = new XMLBalise("value-of", "xsl",true);
+	elName->addAttribute("select","nom");
+	elAuteurP->addElement(elName);
+	//XMLBalise * elAuteurApply = new XMLBalise("apply-templates", "xsl", true);
 
-	elAuteurP->addElement(elAuteurApply);
+	//elAuteurP->addElement(elAuteurApply);
 	elMatchAuteur->addElement(elAuteurP);
 
 
@@ -120,9 +124,9 @@ XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
 
 	XMLBalise * pBalise = new XMLBalise ("p");
 	XMLData * pBaliseData = new XMLData("Nino");
-	XMLData * pBalise2Data = new XMLData("Silverio");
+	//XMLData * pBalise2Data = new XMLData("Silverio");
 	pBalise->addElement(pBaliseData);
-	pBalise->addElement(pBalise2Data);
+	//pBalise->addElement(pBalise2Data);
 
 	XMLBalise * baliseBody = new XMLBalise("body");
 	baliseBody->addAttribute("id","baliseBody");
