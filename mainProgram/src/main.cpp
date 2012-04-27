@@ -40,9 +40,13 @@ int validate(string file, string dtd, bool debug){
   Document * docdef =new Document;
   int ret = modelizeDtd(dtd.c_str(),&docdef,debug);
   if (ret==-1) return -1;
-  XMLElement * document = modelizeXml(file.c_str(),NULL,debug);
+  XMLDocument * document = modelizeXml(file.c_str(),NULL,debug);
+  if (document->getChild() == NULL){
+    cout << "Invalid XML document" << endl;
+    return -1;
+  }
   Validator val(docdef);
-  XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
+  XMLBalise * balise = dynamic_cast<XMLBalise*> (document->getChild());
   if (balise==NULL){
     cout << "Invalid XML document" << endl;
     return -1;
