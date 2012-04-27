@@ -120,33 +120,77 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 
 	// Si auto closed
 	}else{
-		// Balise apply templates
-		if(elementXSL->getName().compare("apply-templates") == 0 && elementXSL->getNameSpace().compare("xsl") == 0){
+		// Balise xsl
+		if( elementXSL->getNameSpace().compare("xsl") == 0){
 
-			list<XMLElement *> elementsFils = xmlMatching->getElements();
-			for (list<XMLElement *>::iterator it_element = elementsFils.begin();it_element != elementsFils.end(); it_element++) {
+			//Apply templates
+			if(elementXSL->getName().compare("apply-templates") == 0){
+				list<XMLElement *> elementsFils = xmlMatching->getElements();
+				for (list<XMLElement *>::iterator it_element = elementsFils.begin();it_element != elementsFils.end(); it_element++) {
 
-				XMLElement * child = (*it_element);
+					XMLElement * child = (*it_element);
 
-				XMLBalise* baliseChild = dynamic_cast<XMLBalise*>(child);
+					XMLBalise* baliseChild = dynamic_cast<XMLBalise*>(child);
 
-				// Si on a une balise XML, on appelle generateXSLXML
-				if(baliseChild != 0){
-					list<XMLElement *> bal = generateXSLXML(baliseChild,xls);
-					returnBalises.insert(returnBalises.end(),bal.begin(),bal.end());
+					// Si on a une balise XML, on appelle generateXSLXML
+					if(baliseChild != 0){
+						list<XMLElement *> bal = generateXSLXML(baliseChild,xls);
+						returnBalises.insert(returnBalises.end(),bal.begin(),bal.end());
 
-				//Si on a une data
-				}else{
-					XMLData* dataChild = dynamic_cast<XMLData*>(child);
+					//Si on a une data
+					}else{
+						XMLData* dataChild = dynamic_cast<XMLData*>(child);
 
-					if(dataChild != 0){
-						XMLData * dat = new XMLData(dataChild->getData());
-						returnBalises.push_back(dat);
+						if(dataChild != 0){
+							XMLData * dat = new XMLData(dataChild->getData());
+							returnBalises.push_back(dat);
+						}
+					}
+
+				}
+			}
+			
+			//cout<<"Test Fo selectoooooooooooooooooooooooooooo"<<endl;
+			if(elementXSL->getName().compare("value-of") == 0 && elementXSL->getAttributes().find("select") != elementXSL->getAttributes().end() ){
+				string baliseToMatch = elementXSL->getAttributes().find("select")->second;
+				list<XMLElement *> elementsFils = xmlMatching->getElements();
+				//cout<<"ENTERING VALUE OF"<<endl;
+				
+				//Pour tous les fils du noeud xml matche
+				for (list<XMLElement *>::iterator it_element = elementsFils.begin();it_element != elementsFils.end(); it_element++) {
+					
+					//cout<<"fils du noeud xml matche"<<endl;
+					XMLElement * child = (*it_element);
+					XMLBalise* baliseChild = dynamic_cast<XMLBalise*>(child);
+					
+					// Si on a une balise XML, on prend les elements data
+					if(baliseChild != 0){	
+						//cout<<"on a une balise XML, on prend les elements data"<<endl;
+						// Si le nom de la balise correspond
+						if( baliseChild->getName().compare(baliseToMatch) == 0){
+							//cout<<"le nom correspond : "<<baliseChild->getName()<<endl;
+							list<XMLElement *> elementsFils2 = baliseChild->getElements();
+							
+							//On recupere tous les contenus des data fils
+							for (list<XMLElement *>::iterator it_element2 = elementsFils2.begin();it_element2 != elementsFils2.end(); it_element2++) {
+								
+								XMLElement * childChild = (*it_element2);
+								
+								XMLData* dataChildChild = dynamic_cast<XMLData*>(childChild);
+								
+								//Si on a trouve
+								if(dataChildChild != 0){
+									//cout<<"DATA:"<<endl;
+									XMLData * dataChildChildCpy = new XMLData(dataChildChild->getData());
+									returnBalises.push_back(dataChildChildCpy);
+								}
+							}
+						}
 					}
 				}
-
 			}
-			//Si on a une balise
+			
+		//Si on a une balise normale
 		}else{
 			XMLBalise * child = new XMLBalise(elementXSL->getName(),"",true);
 			child->setAttList(elementXSL->getAttributes());
