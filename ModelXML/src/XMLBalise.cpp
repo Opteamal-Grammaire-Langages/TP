@@ -31,6 +31,7 @@ XMLBalise::~XMLBalise() {
 
 void XMLBalise::addElement(XMLElement * elem){
 	elements.push_back(elem);
+	elem->setParent(this);
 }
 
 void XMLBalise::addElements(list<XMLElement *> elem){
@@ -38,6 +39,7 @@ void XMLBalise::addElements(list<XMLElement *> elem){
 	list<XMLElement *>::iterator it;
 	for(it = elem.begin(); it != elem.end() ; it++){
 		elements.push_back(*it);
+		(*it)->setParent(this);
 	}
 }
 
@@ -217,9 +219,30 @@ XMLBalise * XMLBalise::match( XMLBalise * xsl, bool racine){
 
 			//Si on est pas la racine
 			if(racine == false){
-				if (name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee
-		 			return balise;
-		 		}
+				XMLBalise * bal = balise->getParent();
+				
+
+				//Tant que les balise ont des peres
+				while(bal != 0 ){
+				
+					//Si la valeur de l'attribut match est celle recherchee on retourne
+					if (name.compare(matchingName) == 0 ){ 
+		 				return balise;
+		 				
+		 			//Sinon on ajoute le nom du pere au nom a matcher
+		 			}else{
+		 				matchingName = bal->getName() + "/" + matchingName;
+		 			}
+		 			bal = bal->getParent();
+		 			
+	 			}
+	 			
+ 				//Si la valeur de l'attribut match est celle recherchee
+				if (name.compare(matchingName) == 0 ){ 
+	 				return balise;
+	 			}
+				
+				
 			//Si on se trouve a la racine
 			}else{
 				if (matchingName.compare("/") == 0 || name.compare(matchingName) == 0 ){ //Si la valeur de l'attribut match est celle recherchee

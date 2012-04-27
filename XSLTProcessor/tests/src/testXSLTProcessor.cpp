@@ -92,7 +92,7 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 	// Match Auteur
 	XMLBalise * elMatchAuteur = new XMLBalise("template", "xsl");
-	elMatchAuteur->addAttribute("match","auteur");
+	elMatchAuteur->addAttribute("match","titre/auteur");
 
 	XMLBalise * elAuteurP = new XMLBalise("p");
 	XMLBalise * elAuteurApply = new XMLBalise("apply-templates", "xsl", true);
