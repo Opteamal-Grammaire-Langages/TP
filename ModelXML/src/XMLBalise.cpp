@@ -18,7 +18,7 @@ XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
 	this->name = name;
 	this->autoClosed = autoClosed;
 	this->ns = ns;
-	parent = 0;
+  parent = 0;
 }
 
 XMLBalise::~XMLBalise() {
@@ -73,11 +73,8 @@ string XMLBalise::toString(){
 	// Ouverture de la balise
 	string ret (OPEN_TAG);
 
-	if(this->ns.compare("")){
-		ret+= this->ns;
-  	ret += ":";
-	}
-  
+  ret+= this->ns;
+  if (!ns.empty()) ret += ":";
 	ret += this->name;
 
 
@@ -120,7 +117,7 @@ string XMLBalise::toString(int lvl){
   }
   ret += OPEN_TAG; 
   ret += this->ns;
-  ret += ":";
+  if (!ns.empty())) ret += ":";
 	ret += this->name;
 
 	// Ecriture des attributs de la balise

@@ -73,7 +73,6 @@ data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
 pcdata		[^<]+
 comment		{open}"!--"([^-]|"-"[^-])*"--"{close}
 string		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
-xmlversion   {ws}?"<?xml"{ws}"version="{string}{ws}"encoding="{string}"?>"{nl}?
 doctype     {ws}?"<!DOCTYPE"{ws}
 openspecial {ws}?"<?"
 closespecial "?>"{nl}?
@@ -91,7 +90,6 @@ closespecial "?>"{nl}?
 %%
 
 <INITIAL>{ws}		{ /* skip */}
-<INITIAL>{xmlversion} { /* skip */}
 <INITIAL>{doctype} { return DOCTYPE;}
 <INITIAL>"/"		{ return SLASH;}
 <INITIAL>"="		{ return EQ;}

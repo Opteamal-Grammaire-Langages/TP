@@ -49,8 +49,8 @@ comment
  ;
  
 specials_opt
- : specials_opt special {$1->push_back($2); $$=$1;}
- | {$$=new list<XMLElement *>;}
+ : {$$=new list<XMLElement *>; }
+ | specials_opt special {$1->push_back($2); $$=$1;}
  ;
  
 special
