@@ -80,15 +80,14 @@ string XMLDocument::toString(int lvl){
   }
 
   // Ecriture du contenu des speciaux
-  cout << "lol : "<< specials.size() << endl;
   for(list<XMLElement *>::iterator it_element = specials.begin();
       it_element != specials.end();
       it_element++) {
-    ret += (*it_element)->toString(lvl+1) + "\n";
+    ret += (*it_element)->toString(0) + "\n";
   }
 
   //ecriture enfant
-  ret+=child->toString();
+  ret+=child->toString(0);
 	return ret;
 }
 
