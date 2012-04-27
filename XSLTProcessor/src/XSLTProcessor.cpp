@@ -11,8 +11,8 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 		if (templatedMatching == 0) {
 
 			//On defini la balise a renvoyer
-			XMLBalise * balise = new XMLBalise(docXML->getName(), "", false);
-			generatedXML.push_back(balise);
+			//XMLBalise * balise = new XMLBalise(docXML->getName(), "", false);
+			//generatedXML.push_back(balise);
 
 			list<XMLElement *> elementsFils = docXML->getElements();
 
@@ -26,17 +26,19 @@ list<XMLElement *> XSLTProcessor::generateXSLXML(XMLBalise * docXML,
 				if (baliseChild != 0) {
 					list<XMLElement *> childs = generateXSLXML(baliseChild,
 							xls);
-					balise->addElements(childs);
+					generatedXML.insert(generatedXML.begin(),childs.begin(),childs.end());
+							//balise->addElements(childs);
 				} else {
 					XMLData * data = dynamic_cast<XMLData*>(docXML);
 					if (data != 0) {
 						//On copie la data
 						XMLData * newData = new XMLData(data->getData());
-						balise->addElement(newData);
+						//balise->addElement(newData);
+						generatedXML.push_back(newData);
 					} else {
 						cout << "ERROR UNEXPECTED: generateXSLXML" << endl;
 					}
-					balise->addElement(*it_element);
+					//balise->addElement(*it_element);
 				}
 			}
 			// Si un template match
@@ -243,3 +245,4 @@ list<XMLElement *> XSLTProcessor::lookOverXSLToBuildTemplate(XMLBalise * element
 
  }
  */
+
