@@ -14,7 +14,8 @@
 #define SLASH "/"
 
 
-XMLBalise::XMLBalise(string name, string ns, bool autoClosed){
+XMLBalise::XMLBalise(string name, string ns, bool autoClosed,bool special){
+  this->special=special;
 	this->name = name;
 	this->autoClosed = autoClosed;
 	this->ns = ns;
@@ -251,11 +252,4 @@ XMLBalise * XMLBalise::match( XMLBalise * xsl, bool racine){
 	}
 	return 0;
 }
-
-
-
-
-
-
-
 
