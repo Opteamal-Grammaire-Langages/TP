@@ -13,6 +13,25 @@ enum command {NONE,ANALYSE,MODELIZE,VALIDATE,PROCESS,HELP};
 int result = 0;
 
 int process(string infile, string xslfile){
+  XMLElement * document = modelizeXml(infile.c_str(),NULL,debug);
+  XMLBalise * balise = dynamic_cast<XMLBalise*> (document);
+  if (balise==NULL){
+    cout << "Invalid XML document" << endl;
+    return -1;
+  }
+  XMLElement * xsldocument = modelizeXml(xslfile.c_str(),NULL,debug);
+  XMLBalise * xslbalise = dynamic_cast<XMLBalise*> (document);
+  if (xslbalise==NULL){
+    cout << "Invalid XSL document" << endl;
+    return -1;
+  }
+  list<XMLElement*> listeHTML;
+  listeHTML = XSLTProcessor::generateXSLXML(balise,xslbalise);
+  liste<XMLElement*>::iteraror it;
+  cout << "HTML :" <<endl;
+  for (it=listeHTML.begin(), it!=listeHTML.end(); it++){
+    cout << (*it)->toString(0);
+  }
   return 0;
 }
 
