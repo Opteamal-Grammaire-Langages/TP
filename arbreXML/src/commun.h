@@ -9,6 +9,7 @@ using namespace std;
 #include "../../ModelXML/src/XMLElement.h"
 #include "../../ModelXML/src/XMLBalise.h"
 #include "../../ModelXML/src/XMLData.h"
+#include "../../arbreDTD/src/commun.h"
 typedef map<string,string> AttributList;
 typedef pair<string,string> Attribut;
 typedef list<XMLElement*> ElementList;

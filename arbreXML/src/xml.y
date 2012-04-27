@@ -1,7 +1,6 @@
 %{
 using namespace std;
 #include "commun.h"
-#include "../../arbreDTD/src/commun.h"
 
 int mxmlwrap(void);
 void mxmlerror(char *msg);
@@ -47,8 +46,7 @@ comment
  ;
  
 specials_opt
- : specials_opt
- | special
+ : specials_opt special
  | /*empty*/
  ;
  

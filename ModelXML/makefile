@@ -10,7 +10,7 @@ SUBDIR=./src
 BUILDDIR=./build
 LIBDIR=./lib
 TESTDIR=./tests
-OBJ:=XMLBalise.o XMLData.o XMLElement.o
+OBJ:=XMLBalise.o XMLData.o XMLElement.o XMLDocument.o
 OUT=./lib/libmodelXML.a
 OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
