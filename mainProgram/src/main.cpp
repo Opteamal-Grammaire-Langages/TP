@@ -5,11 +5,16 @@
 #include "../../analyseurSyntaxique/src/commun.h"
 #include "../../arbreDTD/src/commun.h"
 #include "../../AnalyseurSemantiqueXML/src/Validator.h"
+#include "../../XSLTProcessor/src/XSLTProcessor.h"
 
 
 using namespace std;
-enum command {NONE,ANALYSE,MODELIZE,VALIDATE,HELP};
+enum command {NONE,ANALYSE,MODELIZE,VALIDATE,PROCESS,HELP};
 int result = 0;
+
+int process(string infile, string xslfile){
+  return 0;
+}
 
 int validate(string file, string dtd, bool debug){
   Document * docdef =new Document;
@@ -104,6 +109,7 @@ void displayHelp()
   cout << "\ttpgl -A [-v] [-t type] FILENAME" << endl;
   cout << "\ttpgl -M -t type [-v] [-o output] FILENAME" << endl;
   cout << "\ttpgl -V [-v] -d DTD FILENAME" << endl;
+  cout << "\ttpgl -P -x XSL FILENAME" <<endl;
   cout << "Commands :" << endl;
   cout << "\t-h / --help : display this help." << endl;
   cout << "\t-A / --analyse : If no type is specified, parse FILENAME as an xml file and check its syntax.\n\
@@ -112,9 +118,11 @@ void displayHelp()
                          In this case, if the file is an xml file, don't check the corresponding DTD" << endl;
   cout << "\t-M / --model : Fill and display an memory structure with the input file, type specifies\n\
                           what kind of memory model must be filled" << endl;
-  cout << "\t-V / --validate : validate an xml file against the dtd provided\n" << endl;
+  cout << "\t-V / --validate : validate an xml file against the dtd provided" << endl;
+  cout << "\t-P / --process\n" << endl;
   cout << "Arguments :" << endl;
   cout << "\t-d / --dtd DTD : specify the dtd to be checked against in case of a validation" << endl;
+  cout << "\t-x / --xsl XSL : specify the xsl to be process against in case of a xsl process" << endl;
   cout << "\t-t / --type {xml,dtd,xsl} : specify the type of FILENAME" << endl;
   cout << "\t-v / --verbose" << endl;
 }
@@ -128,6 +136,7 @@ int parseLine(vector<string> args){
   string type;
   string output;
   string dtd;
+  string xsl;
   command todo=NONE;
   string file;
   //Set arguments :
@@ -149,6 +158,11 @@ int parseLine(vector<string> args){
         dtd=args[i+1];
         i++; //Don't check the next arg, it must be a file
       } else return -1;
+    } else if (args[i]=="-x" || args[i]=="--xsl") {
+      if (args[i+1][0]!='-'){
+        xsl=args[i+1];
+        i++; //Don't check the next arg, it must be a file
+      } else return -1;
     } else if (args[i]=="-A" || args[i]=="--analyze") {
       if (todo==NONE) {
         todo=ANALYSE;
@@ -165,6 +179,10 @@ int parseLine(vector<string> args){
     } else if (args[i]=="-M" || args[i]=="--model") {
       if (todo==NONE) {
         todo=MODELIZE;
+      } else return -2;
+    } else if (args[i]=="-P" || args[i]=="--process") {
+      if (todo==NONE) {
+        todo=PROCESS;
       } else return -2;
     } else if (i==args.size()-1 && args[i][0]!='-') {
       file=args[i];
@@ -184,6 +202,9 @@ int parseLine(vector<string> args){
       break;
     case VALIDATE :
       return validate(file,dtd,debug);
+      break;
+    case PROCESS :
+      return process(file,xsl);
       break;
     default :
       displayHelp();
