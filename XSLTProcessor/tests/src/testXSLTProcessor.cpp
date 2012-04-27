@@ -111,6 +111,8 @@ XMLBalise * testXSLTProcessor::creationArbreXSLConstruit() {
 
 
 XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
+
+
 	XMLBalise * h2Balise = new XMLBalise("h2");
 	XMLData * h2BaliseData = new XMLData("Titre !");
 	h2Balise->addElement(h2BaliseData);
@@ -121,9 +123,13 @@ XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
 	pBalise->addElement(pBaliseData);
 	pBalise->addElement(pBalise2Data);
 
+	XMLBalise * baliseBody = new XMLBalise("body");
+	baliseBody->addElement(h2Balise);
+	baliseBody->addElement(pBalise);
+
 	XMLBalise * baliseFinale = new XMLBalise("html");
-	baliseFinale->addElement(h2Balise);
-	baliseFinale->addElement(pBalise);
+	baliseFinale->addElement(baliseBody);
+
 
 	return baliseFinale;
 }
