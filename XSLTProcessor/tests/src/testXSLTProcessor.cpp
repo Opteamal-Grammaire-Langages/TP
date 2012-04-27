@@ -116,8 +116,10 @@ XMLBalise * testXSLTProcessor::creationHTMLFinalVerification() {
 	h2Balise->addElement(h2BaliseData);
 
 	XMLBalise * pBalise = new XMLBalise ("p");
-	XMLData * pBaliseData = new XMLData("Nino Silverio");
+	XMLData * pBaliseData = new XMLData("Nino");
+	XMLData * pBalise2Data = new XMLData("Silverio");
 	pBalise->addElement(pBaliseData);
+	pBalise->addElement(pBalise2Data);
 
 	XMLBalise * baliseFinale = new XMLBalise("html");
 	baliseFinale->addElement(h2Balise);
@@ -176,7 +178,7 @@ bool testXSLTProcessor::testXSLT2() {
 	cout << "===== HTML TRANSFORME =====" << endl;
 	list<XMLElement*>::iterator it;
 	for(it = listeTransfo.begin(); it != listeTransfo.end(); it++){
-		cout << (*it)->toString();
+		cout << (*it)->toString() << endl;
 	}
 
 
