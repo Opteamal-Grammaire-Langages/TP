@@ -10,7 +10,7 @@ OBJ= testXSLTProcessor.o testXSLTProcessorMain.o
 OBJPATH= $(foreach file, $(OBJ), build/$(file))
 BUILDDIR= build
 LIBPATHS = -L../lib -L../../ModelXML/lib -L../../ModelDTD/lib
-LIBS= -lmodelXML -lmodelDTD -lboost_regex
+LIBS= -lmodelXML -lmodelDTD -lboost_regex -lxsltprocessor
 
 all: $(EXE) test
 
