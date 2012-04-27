@@ -12,8 +12,8 @@ OBJPATH= $(foreach file, $(OBJ), build/$(file))
 LIBS=../arbreXML/libmodeliseurxml.a ../ModelXML/lib/libmodelXML.a \
 		 ../analyseurSyntaxique/libanalyseur.a ../arbreDTD/libmodeliseurdtd.a \
 		 ../ModelDTD/lib/libmodelDTD.a ../AnalyseurSemantiqueXML/lib/libvalidator.a \
-		 ../../boost/stage/lib/libboost_regex.a \
 		 ../XSLTProcessor/lib/libxsltprocessor.a \
+		 -lboost_regex
 
 all: $(EXE) 
 
