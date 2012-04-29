@@ -14,7 +14,7 @@ LOBJPATH= $(foreach file, $(LOBJ), $(SUBDIR)/$(file))
 LIBS=$(LIB) ../ModelXML/lib/libmodelXML.a ../ModelDTD/lib/libmodelDTD.a \
 	../arbreDTD/libmodeliseurdtd.a 
 
-.PHONY : test clean
+.PHONY : test clean validate
 all: $(EXE) test
 
 test: 
@@ -59,6 +59,9 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 	echo done;\
 	cd ..;\
 	)
+
+validate: test
+	
 
 clean:
 	@echo -n cleaning repository... 

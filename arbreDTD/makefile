@@ -13,7 +13,7 @@ OBJPATH= $(foreach file, $(OBJ), $(SUBDIR)/$(file))
 LOBJPATH= $(foreach file, $(LOBJ), $(SUBDIR)/$(file))
 LIBS=$(LIB) ../ModelDTD/lib/libmodelDTD.a
 
-.PHONY : test clean
+.PHONY : test clean validate
 all: $(EXE) test
 
 test: 
@@ -54,6 +54,9 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 	echo done;\
 	cd ..;\
 	)
+
+validate: test
+	
 
 clean:
 	@echo -n cleaning repository... 

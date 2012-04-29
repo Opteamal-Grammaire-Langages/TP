@@ -22,7 +22,7 @@ LIBS=$(LIB)
 #	bison --debug --verbose --defines=yy.tab.h xml.y
 #	g++ -g -DYYDEBUG=1 -o analyseXML  lex.yy.c  xml.tab.c 
 
-.PHONY : test clean
+.PHONY : test clean validate
 all: $(EXE) test
 
 test: 
@@ -62,6 +62,9 @@ $(SUBDIR)/bison.a: $(SUBDIR)/*.l $(SUBDIR)/*.y
 	echo done;\
 	cd ..;\
 	)
+
+validate: test
+	
 
 clean:
 	@echo -n cleaning repository... 
