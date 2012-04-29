@@ -18,3 +18,5 @@ autres exécutables du projet.
 programme principal
 
 Pour compiler tout le projet: lancer la commande make dans ce dossier
+Pour lancer tous les tests: make validate
+Pour nettoyer tous le dossier: make clean
