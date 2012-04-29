@@ -16,3 +16,5 @@ projet :
 autres exécutables du projet.
 - FichiersTests : Fichiers de test pouvant être utilisés avec le 
 programme principal
+
+Pour compiler tout le projet: lancer la commande make dans ce dossier
