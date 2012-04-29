@@ -14,9 +14,10 @@ OBJ:=XSLTProcessor.o
 OUT=./lib/libxsltprocessor.a
 OBJPATH= $(foreach file, $(OBJ), $(BUILDDIR)/$(file))
 
-$(OUT): $(BUILDDIR) $(LIBDIR) $(OBJPATH) 
+$(OUT): $(BUILDDIR) $(LIBDIR) $(OBJPATH) $(TESTDIR)
 	@echo -n archiving $(OUT)... 
 	@ar rcs $(OUT) $(OBJPATH)
+	@(cd $(TESTDIR) && $(MAKE))
 	@echo done.
 	
 $(BUILDDIR):
@@ -33,17 +34,13 @@ $(BUILDDIR)/%.o: $(SUBDIR)/%.cpp $(SUBDIR)/*.h
 clean:
 	@echo -n cleaning repository... 
 	@-rm -f $(BUILDDIR)/*.o $(OUT)
+	@(cd $(TESTDIR) && $(MAKE) clean)
 	@echo cleaned.
-	
-cleanTests:
-	@(cd $(TESTDIR) && $(MAKE) clean); done
+		
 	
 validate:
-	@(cd $(TESTDIR) && $(MAKE) $@); done
+	@(cd $(TESTDIR) && $(MAKE) $@)
 	
-test:
-	@(cd $(TESTDIR) && $(MAKE)); done
-	
-.PHONY:  clean cleanTests validate
+.PHONY:  clean validate
 
 
