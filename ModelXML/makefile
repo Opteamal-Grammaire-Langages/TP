@@ -38,7 +38,7 @@ clean:
 	@echo cleaned.
 	
 validate:
-	@(cd $(TESTDIR) && $(MAKE) $@); done
+	@(cd $(TESTDIR) && $(MAKE) $@) 
 	
 .PHONY:  clean cleanTests validate
 

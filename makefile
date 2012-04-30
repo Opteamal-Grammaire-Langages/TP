@@ -1,7 +1,7 @@
 DIR=analyseurSyntaxique
 
 FOLDERS := ModelXML ModelDTD AnalyseurSemantiqueXML analyseurSyntaxique \
- arbreXML arbreDTD XSLTProcessor mainProgram 
+ arbreDTD arbreXML XSLTProcessor mainProgram 
 
 first : $(DIR)
 	@for dir in $(FOLDERS);do (cd ./$$dir && $(MAKE)) ; echo ; done
